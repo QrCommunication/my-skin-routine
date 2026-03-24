@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'profile_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ProfileNotifier extends _$ProfileNotifier {
   static const _firstNameKey = 'profile_first_name';
   static const _lastNameKey = 'profile_last_name';
