@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/constants/enums.dart';
+import '../../../core/extensions/context_extensions.dart';
 import '../../../core/utils/photo_utils.dart';
 import '../../../domain/models/product.dart';
 import '../../providers/product_providers.dart';
@@ -273,8 +274,8 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
       maxLength: 100,
       validator: _validateName,
       decoration: InputDecoration(
-        labelText: 'Nom du produit',
-        hintText: 'Ex: Sérum Vitamine C',
+        labelText: context.l10n.productFormName,
+        hintText: context.l10n.productFormNameHint,
         border: const OutlineInputBorder(),
       ),
     );
@@ -286,8 +287,8 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
       maxLength: 100,
       validator: _validateBrand,
       decoration: InputDecoration(
-        labelText: 'Marque',
-        hintText: 'Ex: CeraVe',
+        labelText: context.l10n.productFormBrand,
+        hintText: context.l10n.productFormBrandHint,
         border: const OutlineInputBorder(),
       ),
     );
@@ -310,7 +311,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
           )
           .toList(),
       decoration: InputDecoration(
-        labelText: 'Type de produit',
+        labelText: context.l10n.productFormType,
         border: const OutlineInputBorder(),
       ),
     );
@@ -322,7 +323,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
       maxLength: 500,
       maxLines: 4,
       decoration: InputDecoration(
-        labelText: 'Notes (optionnel)',
+        labelText: context.l10n.productFormNotes,
         hintText: 'Ajouter des notes sur ce produit...',
         border: const OutlineInputBorder(),
         alignLabelWithHint: true,
@@ -343,7 +344,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
                   strokeWidth: 2,
                 ),
               )
-            : const Text('Enregistrer'),
+            : Text(context.l10n.commonSave),
       ),
     );
   }

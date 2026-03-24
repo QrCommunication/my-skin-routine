@@ -1,4 +1,3 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:my_skin_routine/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,23 +9,21 @@ class MySkinRoutineApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return DynamicColorBuilder(
-      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-        return MaterialApp.router(
-          title: 'My Skin Routine',
-          debugShowCheckedModeBanner: false,
-          themeMode: ThemeMode.system,
-          theme: AppTheme.lightTheme(dynamicScheme: lightDynamic),
-          darkTheme: AppTheme.darkTheme(dynamicScheme: darkDynamic),
-          locale: const Locale('fr'),
-          supportedLocales: const [
-            Locale('fr'),
-            Locale('en'),
-          ],
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          routerConfig: appRouter,
-        );
-      },
+    // Use our brand lavender palette by default — no dynamic color
+    // Dynamic color can be enabled later in settings
+    return MaterialApp.router(
+      title: 'My Skin Routine',
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      theme: AppTheme.lightTheme(),
+      darkTheme: AppTheme.darkTheme(),
+      locale: const Locale('fr'),
+      supportedLocales: const [
+        Locale('fr'),
+        Locale('en'),
+      ],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      routerConfig: appRouter,
     );
   }
 }

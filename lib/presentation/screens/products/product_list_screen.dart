@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/constants/enums.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/domain/models/product.dart';
 import 'package:my_skin_routine/presentation/providers/product_providers.dart';
 import 'package:my_skin_routine/presentation/theme/app_motion.dart';
@@ -65,7 +66,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
             children: [
               ListTile(
                 leading: const Icon(Icons.edit),
-                title: const Text('Modifier'),
+                title: Text(context.l10n.commonEdit),
                 onTap: () {
                   Navigator.pop(context);
                   context.push('/products/${product.id}/edit');
@@ -73,7 +74,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.delete, color: Colors.red),
-                title: const Text('Supprimer', style: TextStyle(color: Colors.red)),
+                title: Text(context.l10n.commonDelete, style: const TextStyle(color: Colors.red)),
                 onTap: () {
                   Navigator.pop(context);
                   _showDeleteConfirmation(product);
@@ -91,14 +92,14 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Supprimer le produit'),
+          title: Text(context.l10n.productDelete),
           content: Text(
             'Êtes-vous sûr de vouloir supprimer "${product.name}" ?',
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Annuler'),
+              child: Text(context.l10n.commonCancel),
             ),
             FilledButton.tonal(
               onPressed: () async {
@@ -115,7 +116,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                   );
                 }
               },
-              child: const Text('Supprimer'),
+              child: Text(context.l10n.commonDelete),
             ),
           ],
         );
@@ -137,7 +138,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
             children: [
               Icon(Icons.error_outline, size: 48, color: colorScheme.error),
               const SizedBox(height: 16),
-              Text('Une erreur s\'est produite'),
+              Text(context.l10n.commonError),
               const SizedBox(height: 8),
               FilledButton(
                 onPressed: () {
@@ -155,7 +156,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
           return CustomScrollView(
             slivers: [
               SliverAppBar.large(
-                title: const Text('Mes produits'),
+                title: Text(context.l10n.productsTitle),
               ),
               SliverToBoxAdapter(
                 child: Padding(
@@ -166,7 +167,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                   child: SearchBar(
                     controller: _searchController,
                     focusNode: _searchFocusNode,
-                    hintText: 'Rechercher un produit',
+                    hintText: context.l10n.productsSearch,
                     leading: const Padding(
                       padding: EdgeInsets.only(left: 8),
                       child: Icon(Icons.search),
@@ -228,9 +229,9 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                 SliverFillRemaining(
                   child: EmptyState(
                     icon: Icons.spa_outlined,
-                    title: 'Aucun produit',
-                    subtitle: 'Ajoutez vos premiers produits de soin',
-                    actionLabel: 'Ajouter un produit',
+                    title: context.l10n.productsEmpty,
+                    subtitle: context.l10n.productsEmptySubtitle,
+                    actionLabel: context.l10n.productNew,
                     onAction: () => context.push('/products/new'),
                   ),
                 )
@@ -268,7 +269,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/products/new'),
         icon: const Icon(Icons.add),
-        label: const Text('Nouveau produit'),
+        label: Text(context.l10n.productNew),
       ).animate().scale(delay: 500.ms, duration: AppMotion.durationLong, curve: AppMotion.expressiveCurve),
     );
   }

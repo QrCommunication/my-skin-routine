@@ -23,11 +23,11 @@ class ProductDetailScreen extends ConsumerWidget {
       body: productAsyncValue.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(
-          child: Text('Erreur : $error'),
+          child: Text('${context.l10n.commonError} : $error'),
         ),
         data: (product) {
           if (product == null) {
-            return const Center(child: Text('Produit non trouvé'));
+            return Center(child: Text(context.l10n.commonError));
           }
           return _buildProductDetail(context, ref, product);
         },
