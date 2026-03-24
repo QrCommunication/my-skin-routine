@@ -1,0 +1,138 @@
+{
+  "@@locale": "en",
+  "homeGreeting": "Hello 💜",
+  "homeToday": "Today's Routines",
+  "homeEmpty": "No active routines",
+  "homeEmptySubtitle": "Create your first routine to get started",
+  "homeCreateFirst": "Create My First Routine",
+  "productsTitle": "My Products",
+  "productsEmpty": "No products",
+  "productsEmptySubtitle": "Add your first skincare products",
+  "productsSearch": "Search a product",
+  "productNew": "New Product",
+  "productFormName": "Product Name",
+  "productFormNameHint": "E.g. Vitamin C Serum",
+  "productFormBrand": "Brand",
+  "productFormBrandHint": "E.g. CeraVe",
+  "productFormType": "Product Type",
+  "productFormNotes": "Notes (optional)",
+  "productFormPhoto": "Add a Photo",
+  "productDelete": "Delete Product",
+  "productDeleteWarning": "This product is used in {count} action(s). Actions will be kept but no longer linked to a product.",
+  "@productDeleteWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routinesTitle": "My Routines",
+  "routinesEmpty": "No routines",
+  "routinesEmptySubtitle": "Create your first skincare routine",
+  "routineNew": "New Routine",
+  "routineFormName": "Routine Name",
+  "routineFormDescription": "Description (optional)",
+  "routineFormBodyZone": "Body Zone",
+  "routineFormSkinGoal": "Skin Goal",
+  "routineFormReminder": "Reminder Time",
+  "routineFormActive": "Active Routine",
+  "routineDelete": "Delete Routine",
+  "routineDeleteWarning": "This routine and its {count} action(s) will be permanently deleted.",
+  "@routineDeleteWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "actionsTitle": "Actions",
+  "actionNew": "New Action",
+  "actionFormName": "Action Name",
+  "actionFormNameHint": "E.g. Apply serum",
+  "actionFormDescription": "Description (optional)",
+  "actionFormProduct": "Associated Product",
+  "actionFormProductNone": "None",
+  "actionFormRecurrence": "Recurrence",
+  "actionFormRecurrenceDaily": "Daily",
+  "actionFormRecurrenceEveryN": "Every {count} days",
+  "@actionFormRecurrenceEveryN": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "actionFormRecurrenceWeekly": "Weekly",
+  "actionFormInterval": "Interval (days)",
+  "actionFormStartDate": "Start Date",
+  "actionDelete": "Delete Action",
+  "progressTitle": "Progress",
+  "progressCalendar": "Calendar",
+  "progressStreaks": "Streaks",
+  "progressJournal": "Journal",
+  "streakCurrent": "Current Streak",
+  "streakBest": "Best Streak",
+  "streakDays": "{count} days",
+  "@streakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "journalNew": "New Entry",
+  "journalDate": "Date",
+  "journalPhoto": "Photo (optional)",
+  "journalFeeling": "How is your skin?",
+  "journalFeelingTerrible": "Terrible",
+  "journalFeelingNotGreat": "Not Great",
+  "journalFeelingNormal": "Normal",
+  "journalFeelingGood": "Good",
+  "journalFeelingRadiant": "Radiant",
+  "journalNotes": "Notes",
+  "journalNotesHint": "How is your skin today?",
+  "settingsTitle": "Settings",
+  "settingsLanguage": "Language",
+  "settingsTheme": "Theme",
+  "settingsThemeAuto": "Auto",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsDynamicColor": "Dynamic Colors",
+  "settingsDynamicColorSubtitle": "Use wallpaper colors",
+  "settingsExport": "Export My Data",
+  "settingsImport": "Import Data",
+  "settingsImportWarning": "This will replace all your current data. This action is irreversible.",
+  "settingsAbout": "About",
+  "settingsVersion": "Version",
+  "commonSave": "Save",
+  "commonCancel": "Cancel",
+  "commonDelete": "Delete",
+  "commonConfirm": "Confirm",
+  "commonEdit": "Edit",
+  "commonClose": "Close",
+  "commonCamera": "Camera",
+  "commonGallery": "Gallery",
+  "commonError": "An error occurred",
+  "commonSuccess": "Operation successful",
+  "exportSuccess": "Export successful ✓",
+  "importSuccess": "Import successful ✓",
+  "completedOf": "{completed}/{total} completed",
+  "@completedOf": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "todayDate": "{date}",
+  "@todayDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
+}

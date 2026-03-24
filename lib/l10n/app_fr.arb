@@ -1,0 +1,138 @@
+{
+  "@@locale": "fr",
+  "homeGreeting": "Bonjour 💜",
+  "homeToday": "Routines du jour",
+  "homeEmpty": "Aucune routine active",
+  "homeEmptySubtitle": "Créez votre première routine pour commencer",
+  "homeCreateFirst": "Créer ma première routine",
+  "productsTitle": "Mes produits",
+  "productsEmpty": "Aucun produit",
+  "productsEmptySubtitle": "Ajoutez vos premiers produits de soin",
+  "productsSearch": "Rechercher un produit",
+  "productNew": "Nouveau produit",
+  "productFormName": "Nom du produit",
+  "productFormNameHint": "Ex: Sérum Vitamine C",
+  "productFormBrand": "Marque",
+  "productFormBrandHint": "Ex: CeraVe",
+  "productFormType": "Type de produit",
+  "productFormNotes": "Notes (optionnel)",
+  "productFormPhoto": "Ajouter une photo",
+  "productDelete": "Supprimer le produit",
+  "productDeleteWarning": "Ce produit est utilisé dans {count} action(s). Les actions seront conservées mais ne seront plus liées à un produit.",
+  "@productDeleteWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "routinesTitle": "Mes routines",
+  "routinesEmpty": "Aucune routine",
+  "routinesEmptySubtitle": "Créez votre première routine de soin",
+  "routineNew": "Nouvelle routine",
+  "routineFormName": "Nom de la routine",
+  "routineFormDescription": "Description (optionnel)",
+  "routineFormBodyZone": "Zone du corps",
+  "routineFormSkinGoal": "Objectif",
+  "routineFormReminder": "Heure de rappel",
+  "routineFormActive": "Routine active",
+  "routineDelete": "Supprimer la routine",
+  "routineDeleteWarning": "Cette routine et ses {count} action(s) seront définitivement supprimées.",
+  "@routineDeleteWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "actionsTitle": "Actions",
+  "actionNew": "Nouvelle action",
+  "actionFormName": "Nom de l'action",
+  "actionFormNameHint": "Ex: Appliquer le sérum",
+  "actionFormDescription": "Description (optionnel)",
+  "actionFormProduct": "Produit associé",
+  "actionFormProductNone": "Aucun",
+  "actionFormRecurrence": "Récurrence",
+  "actionFormRecurrenceDaily": "Quotidien",
+  "actionFormRecurrenceEveryN": "Tous les {count} jours",
+  "@actionFormRecurrenceEveryN": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "actionFormRecurrenceWeekly": "Hebdomadaire",
+  "actionFormInterval": "Intervalle (jours)",
+  "actionFormStartDate": "Date de référence",
+  "actionDelete": "Supprimer l'action",
+  "progressTitle": "Suivi",
+  "progressCalendar": "Calendrier",
+  "progressStreaks": "Streaks",
+  "progressJournal": "Journal",
+  "streakCurrent": "Streak actuel",
+  "streakBest": "Meilleur streak",
+  "streakDays": "{count} jours",
+  "@streakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "journalNew": "Nouvelle entrée",
+  "journalDate": "Date",
+  "journalPhoto": "Photo (optionnel)",
+  "journalFeeling": "Comment va ta peau ?",
+  "journalFeelingTerrible": "Terrible",
+  "journalFeelingNotGreat": "Pas top",
+  "journalFeelingNormal": "Normale",
+  "journalFeelingGood": "Bien",
+  "journalFeelingRadiant": "Radieuse",
+  "journalNotes": "Notes",
+  "journalNotesHint": "Comment est votre peau aujourd'hui ?",
+  "settingsTitle": "Paramètres",
+  "settingsLanguage": "Langue",
+  "settingsTheme": "Thème",
+  "settingsThemeAuto": "Auto",
+  "settingsThemeLight": "Clair",
+  "settingsThemeDark": "Sombre",
+  "settingsDynamicColor": "Couleurs dynamiques",
+  "settingsDynamicColorSubtitle": "Utiliser les couleurs de votre fond d'écran",
+  "settingsExport": "Exporter mes données",
+  "settingsImport": "Importer des données",
+  "settingsImportWarning": "Ceci remplacera toutes vos données actuelles. Cette action est irréversible.",
+  "settingsAbout": "À propos",
+  "settingsVersion": "Version",
+  "commonSave": "Enregistrer",
+  "commonCancel": "Annuler",
+  "commonDelete": "Supprimer",
+  "commonConfirm": "Confirmer",
+  "commonEdit": "Modifier",
+  "commonClose": "Fermer",
+  "commonCamera": "Caméra",
+  "commonGallery": "Galerie",
+  "commonError": "Une erreur est survenue",
+  "commonSuccess": "Opération réussie",
+  "exportSuccess": "Export réussi ✓",
+  "importSuccess": "Import réussi ✓",
+  "completedOf": "{completed}/{total} complétées",
+  "@completedOf": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "todayDate": "{date}",
+  "@todayDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
+}

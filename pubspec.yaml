@@ -1,0 +1,113 @@
+name: my_skin_routine
+description: "Your skincare companion — track products, routines & skin health."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.3
+  flutter: '>=3.27.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+  # State Management
+  flutter_riverpod: any
+  riverpod_annotation: any
+
+  # Navigation
+  go_router: any
+
+  # Database
+  drift: any
+  sqlite3_flutter_libs: any
+  path_provider: any
+  path: any
+
+  # Serialization / Models
+  freezed_annotation: any
+  json_annotation: any
+
+  # Images
+  image_picker: any
+  image: any
+
+  # Notifications
+  flutter_local_notifications: any
+  timezone: any
+  flutter_timezone: any
+
+  # File I/O
+  archive: any
+  file_picker: any
+  share_plus: any
+
+  # Preferences
+  shared_preferences: any
+
+  # Permissions
+  permission_handler: any
+
+  # UI
+  dynamic_color: any
+  flutter_animate: any
+
+  # Utils
+  uuid: any
+  collection: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: any
+  build_runner: any
+  riverpod_generator: any
+  freezed: any
+  json_serializable: any
+  drift_dev: any
+  mockito: any
+  build_verify: any
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Outfit-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Outfit-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Outfit-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Outfit-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Outfit-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Outfit-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Outfit-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Outfit-Black.ttf
+          weight: 900
+    - family: DM Sans
+      fonts:
+        - asset: assets/fonts/DMSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/DMSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/DMSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/DMSans-Bold.ttf
+          weight: 700
