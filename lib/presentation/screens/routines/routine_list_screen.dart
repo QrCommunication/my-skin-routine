@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/constants/enums.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
 
 class RoutineListScreen extends ConsumerStatefulWidget {
@@ -24,7 +25,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar.large(
-            title: const Text('Mes routines'),
+            title: Text(context.l10n.routinesTitle),
             pinned: true,
           ),
           SliverToBoxAdapter(
@@ -84,14 +85,14 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Aucune routine',
+                          context.l10n.routinesEmpty,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 24),
                         FilledButton.icon(
                           onPressed: () => context.push('/routines/new'),
                           icon: const Icon(Icons.add),
-                          label: const Text('Créer une routine'),
+                          label: Text(context.l10n.routineNew),
                         ),
                       ],
                     ),
@@ -197,7 +198,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/routines/new'),
         icon: const Icon(Icons.add),
-        label: const Text('Nouvelle routine'),
+        label: Text(context.l10n.routineNew),
       ),
     );
   }
@@ -210,7 +211,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
         children: [
           ListTile(
             leading: const Icon(Icons.edit),
-            title: const Text('Modifier'),
+            title: Text(context.l10n.commonEdit),
             onTap: () {
               Navigator.pop(context);
               context.push('/routines/${routine.id}/edit');
@@ -218,7 +219,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.delete, color: Colors.red),
-            title: const Text('Supprimer', style: TextStyle(color: Colors.red)),
+            title: Text(context.l10n.commonDelete, style: const TextStyle(color: Colors.red)),
             onTap: () {
               Navigator.pop(context);
               _showDeleteConfirmation(context, ref, routine.id);
@@ -233,12 +234,12 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Supprimer la routine?'),
+        title: Text(context.l10n.routineDelete),
         content: const Text('Cette action est irréversible.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Annuler'),
+            child: Text(context.l10n.commonCancel),
           ),
           FilledButton(
             onPressed: () async {
@@ -246,7 +247,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
               await ref.read(routineRepositoryProvider).deleteRoutine(routineId);
               ref.invalidate(routineListProvider);
             },
-            child: const Text('Supprimer'),
+            child: Text(context.l10n.commonDelete),
           ),
         ],
       ),

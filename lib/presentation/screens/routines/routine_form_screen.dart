@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/constants/enums.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
 
 class RoutineFormScreen extends ConsumerStatefulWidget {
@@ -84,8 +85,8 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Nom de la routine',
+                decoration: InputDecoration(
+                  labelText: context.l10n.routineFormName,
                   hintText: 'ex: Routine du matin',
                   helperText: 'Maximum 100 caractères',
                 ),
@@ -103,8 +104,8 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
               const SizedBox(height: 24),
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(
-                  labelText: 'Description (optionnel)',
+                decoration: InputDecoration(
+                  labelText: context.l10n.routineFormDescription,
                   hintText: 'Décrivez votre routine...',
                   helperText: 'Maximum 500 caractères',
                   alignLabelWithHint: true,
@@ -120,7 +121,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
               ),
               const SizedBox(height: 24),
               Text(
-                'Zone du corps',
+                context.l10n.routineFormBodyZone,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 12),
@@ -142,7 +143,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
               ),
               const SizedBox(height: 24),
               Text(
-                'Objectif cutané',
+                context.l10n.routineFormSkinGoal,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 12),
@@ -166,7 +167,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
               const SizedBox(height: 24),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Rappel'),
+                title: Text(context.l10n.routineFormReminder),
                 subtitle: _selectedReminderTime != null
                     ? Text(_selectedReminderTime!.format(context))
                     : const Text('Non défini'),
@@ -178,7 +179,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
               const SizedBox(height: 24),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Active'),
+                title: Text(context.l10n.routineFormActive),
                 subtitle: const Text('Inclure dans les routines actives'),
                 value: _isActive,
                 onChanged: (value) {
@@ -203,7 +204,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
                             ),
                           ),
                         )
-                      : Text(isEditing ? 'Mettre à jour' : 'Créer'),
+                      : Text(isEditing ? 'Mettre à jour' : context.l10n.commonSave),
                 ),
               ),
               const SizedBox(height: 16),

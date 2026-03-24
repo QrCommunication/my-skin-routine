@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/presentation/providers/settings_providers.dart';
 import 'package:my_skin_routine/presentation/providers/export_import_providers.dart';
 
@@ -13,7 +14,7 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Paramètres'),
+        title: Text(context.l10n.settingsTitle),
       ),
       body: ListView(
         children: [
@@ -39,7 +40,7 @@ class SettingsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Langue', style: Theme.of(context).textTheme.labelLarge),
+              Text(context.l10n.settingsLanguage, style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 12),
               SegmentedButton<String>(
                 segments: const [
@@ -74,13 +75,13 @@ class SettingsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Thème', style: Theme.of(context).textTheme.labelLarge),
+              Text(context.l10n.settingsTheme, style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 12),
               SegmentedButton<ThemeMode>(
-                segments: const [
-                  ButtonSegment(label: Text('Auto'), value: ThemeMode.system),
-                  ButtonSegment(label: Text('Clair'), value: ThemeMode.light),
-                  ButtonSegment(label: Text('Sombre'), value: ThemeMode.dark),
+                segments: [
+                  ButtonSegment(label: Text(context.l10n.settingsThemeAuto), value: ThemeMode.system),
+                  ButtonSegment(label: Text(context.l10n.settingsThemeLight), value: ThemeMode.light),
+                  ButtonSegment(label: Text(context.l10n.settingsThemeDark), value: ThemeMode.dark),
                 ],
                 selected: {themeMode},
                 onSelectionChanged: (newSelection) {
@@ -106,9 +107,9 @@ class SettingsScreen extends ConsumerWidget {
     return dynamicAsync.when(
       data: (enabled) {
         return SwitchListTile(
-          title: const Text('Couleurs dynamiques'),
+          title: Text(context.l10n.settingsDynamicColor),
           subtitle:
-              const Text('Utiliser les couleurs de votre fond d\'écran'),
+              Text(context.l10n.settingsDynamicColorSubtitle),
           value: enabled,
           onChanged: (value) {
             ref
@@ -129,16 +130,16 @@ class SettingsScreen extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
           child:
-              Text('Données', style: Theme.of(context).textTheme.labelLarge),
+              Text(context.l10n.settingsTitle, style: Theme.of(context).textTheme.labelLarge),
         ),
         ListTile(
           leading: const Icon(Icons.upload_rounded),
-          title: const Text('Exporter mes données'),
+          title: Text(context.l10n.settingsExport),
           onTap: () => _handleExport(context, ref),
         ),
         ListTile(
           leading: const Icon(Icons.download_rounded),
-          title: const Text('Importer des données'),
+          title: Text(context.l10n.settingsImport),
           onTap: () => _handleImportDialog(context, ref),
         ),
       ],
@@ -152,11 +153,11 @@ class SettingsScreen extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
           child:
-              Text('À propos', style: Theme.of(context).textTheme.labelLarge),
+              Text(context.l10n.settingsAbout, style: Theme.of(context).textTheme.labelLarge),
         ),
-        const ListTile(
-          title: Text('Version'),
-          subtitle: Text('1.0.0'),
+        ListTile(
+          title: Text(context.l10n.settingsVersion),
+          subtitle: const Text('1.0.0'),
         ),
         ListTile(
           title: const Text('Licences open source'),
@@ -179,7 +180,7 @@ class SettingsScreen extends ConsumerWidget {
           text: 'My Skin Routine backup');
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Export réussi ✓')),
+          SnackBar(content: Text(context.l10n.exportSuccess)),
         );
       }
     } catch (e) {
@@ -196,14 +197,12 @@ class SettingsScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Importer des données'),
-        content: const Text(
-          'Ceci remplacera toutes vos données actuelles. Cette action est irréversible.',
-        ),
+        title: Text(context.l10n.settingsImport),
+        content: Text(context.l10n.settingsImportWarning),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Annuler'),
+            child: Text(context.l10n.commonCancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
@@ -211,7 +210,7 @@ class SettingsScreen extends ConsumerWidget {
               backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            child: const Text('Confirmer'),
+            child: Text(context.l10n.commonConfirm),
           ),
         ],
       ),
@@ -231,7 +230,7 @@ class SettingsScreen extends ConsumerWidget {
           await repository.importData(filePath);
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Import réussi ✓')),
+              SnackBar(content: Text(context.l10n.importSuccess)),
             );
           }
         }

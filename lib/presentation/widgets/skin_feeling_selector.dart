@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 
 class SkinFeelingSelector extends StatelessWidget {
   final int? selectedFeeling;
@@ -14,11 +15,11 @@ class SkinFeelingSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final feelings = [
-      (value: 1, emoji: '😣', label: 'Terrible'),
-      (value: 2, emoji: '😕', label: 'Pas top'),
-      (value: 3, emoji: '😐', label: 'Normale'),
-      (value: 4, emoji: '😊', label: 'Bien'),
-      (value: 5, emoji: '🤩', label: 'Radieuse'),
+      (value: 1, emoji: '😣', label: context.l10n.journalFeelingTerrible),
+      (value: 2, emoji: '😕', label: context.l10n.journalFeelingNotGreat),
+      (value: 3, emoji: '😐', label: context.l10n.journalFeelingNormal),
+      (value: 4, emoji: '😊', label: context.l10n.journalFeelingGood),
+      (value: 5, emoji: '🤩', label: context.l10n.journalFeelingRadiant),
     ];
 
     return Center(

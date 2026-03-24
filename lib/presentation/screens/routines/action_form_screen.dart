@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/enums.dart';
+import '../../../core/extensions/context_extensions.dart';
 import '../../../domain/models/product.dart';
 import '../../../domain/models/routine_action.dart';
 import '../../providers/routine_providers.dart';
@@ -78,14 +79,14 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
     return date.toIso8601String().substring(0, 10);
   }
 
-  String _getRecurrenceLabel() {
+  String _getRecurrenceLabel(BuildContext context) {
     if (_recurrenceType == RecurrenceType.daily) {
-      return 'Quotidien';
+      return context.l10n.actionFormRecurrenceDaily;
     }
     if (_recurrenceInterval == 7) {
-      return 'Hebdomadaire';
+      return context.l10n.actionFormRecurrenceWeekly;
     }
-    return 'Tous les $_recurrenceInterval jours';
+    return context.l10n.actionFormRecurrenceEveryN(_recurrenceInterval);
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -180,8 +181,8 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
             TextFormField(
               controller: _nameController,
               decoration: InputDecoration(
-                labelText: 'Nom *',
-                hintText: 'Ex: Appliquer le sérum',
+                labelText: context.l10n.actionFormName,
+                hintText: context.l10n.actionFormNameHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -198,7 +199,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
             TextFormField(
               controller: _descriptionController,
               decoration: InputDecoration(
-                labelText: 'Description',
+                labelText: context.l10n.actionFormDescription,
                 hintText: 'Ajoutez des détails optionnels',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -213,15 +214,15 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
                 return DropdownButtonFormField<int?>(
                   value: _selectedProductId,
                   decoration: InputDecoration(
-                    labelText: 'Produit',
+                    labelText: context.l10n.actionFormProduct,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                   items: [
-                    const DropdownMenuItem<int?>(
+                    DropdownMenuItem<int?>(
                       value: null,
-                      child: Text('Aucun'),
+                      child: Text(context.l10n.actionFormProductNone),
                     ),
                     ...products.map(
                       (product) => DropdownMenuItem<int?>(
@@ -242,19 +243,19 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Type de récurrence',
+              context.l10n.actionFormRecurrence,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 8),
             SegmentedButton<RecurrenceType>(
-              segments: const [
+              segments: [
                 ButtonSegment<RecurrenceType>(
                   value: RecurrenceType.daily,
-                  label: Text('Quotidien'),
+                  label: Text(context.l10n.actionFormRecurrenceDaily),
                 ),
                 ButtonSegment<RecurrenceType>(
                   value: RecurrenceType.everyNDays,
-                  label: Text('Tous les N jours'),
+                  label: Text(context.l10n.actionFormRecurrenceWeekly),
                 ),
               ],
               selected: <RecurrenceType>{_recurrenceType},
@@ -272,7 +273,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
             if (_recurrenceType == RecurrenceType.everyNDays) ...[
               const SizedBox(height: 16),
               Text(
-                _getRecurrenceLabel(),
+                _getRecurrenceLabel(context),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -292,7 +293,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
               const SizedBox(height: 16),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Date de référence'),
+                title: Text(context.l10n.actionFormStartDate),
                 subtitle: Text(_formatDate(_recurrenceStartDate)),
                 trailing: const Icon(Icons.calendar_today),
                 onTap: () => _selectDate(context),
@@ -307,7 +308,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('Enregistrer'),
+                  : Text(context.l10n.commonSave),
             ),
           ],
         ),

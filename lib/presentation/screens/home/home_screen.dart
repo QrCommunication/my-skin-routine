@@ -28,7 +28,7 @@ class HomeScreen extends ConsumerWidget {
         slivers: [
           // Large AppBar with greeting and controls
           SliverAppBar.large(
-            title: const Text('Bonjour 💜'),
+            title: Text(context.l10n.homeGreeting),
             actions: [
               // Streak badge
               ref.watch(streakForRoutineProvider(0)).when(
@@ -71,9 +71,9 @@ class HomeScreen extends ConsumerWidget {
                 return SliverFillRemaining(
                   child: EmptyState(
                     icon: Icons.spa,
-                    title: 'Aucune routine active',
-                    subtitle: 'Créez votre première routine pour commencer',
-                    actionLabel: 'Créer ma première routine',
+                    title: context.l10n.homeEmpty,
+                    subtitle: context.l10n.homeEmptySubtitle,
+                    actionLabel: context.l10n.homeCreateFirst,
                     onAction: () => context.push('/routines/new'),
                   ),
                 );
@@ -107,7 +107,7 @@ class HomeScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/progress/journal/new'),
         icon: const Icon(Icons.edit_note_rounded),
-        label: const Text('Journal'),
+        label: Text(context.l10n.progressTitle),
       ).animate().scale(delay: 500.ms, duration: AppMotion.durationLong, curve: AppMotion.expressiveCurve),
     );
   }
@@ -240,7 +240,7 @@ class _RoutineCard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '$completedCount/${todayActions.length} complétées',
+                    context.l10n.completedOf(completedCount, todayActions.length),
                     style: context.textTheme.bodySmall?.copyWith(
                       color: context.colorScheme.onSurfaceVariant,
                     ),
@@ -249,7 +249,7 @@ class _RoutineCard extends ConsumerWidget {
                   // Actions list
                   if (todayActions.isEmpty)
                     Text(
-                      'Aucune action prévu aujourd\'hui',
+                      context.l10n.homeToday,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: context.colorScheme.onSurfaceVariant,
                       ),
@@ -273,6 +273,7 @@ class _RoutineCard extends ConsumerWidget {
                                 completed,
                               );
                             },
+                            index: actionIndex,
                           );
                         },
                       ),
@@ -339,11 +340,13 @@ class _ActionItem extends StatefulWidget {
   final RoutineAction action;
   final bool isCompleted;
   final Function(bool) onToggle;
+  final int index;
 
   const _ActionItem({
     required this.action,
     required this.isCompleted,
     required this.onToggle,
+    required this.index,
   });
 
   @override

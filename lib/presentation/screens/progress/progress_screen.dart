@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/presentation/providers/journal_providers.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
 import 'package:my_skin_routine/presentation/providers/streak_providers.dart';
@@ -33,13 +34,13 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Suivi'),
+        title: Text(context.l10n.progressTitle),
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [
-            Tab(text: 'Calendrier'),
-            Tab(text: 'Streaks'),
-            Tab(text: 'Journal'),
+          tabs: [
+            Tab(text: context.l10n.progressCalendar),
+            Tab(text: context.l10n.progressStreaks),
+            Tab(text: context.l10n.journalDate),
           ],
         ),
       ),
@@ -265,7 +266,7 @@ class _StreaksTab extends ConsumerWidget {
               _BestStreakCard(routines: routines),
               const SizedBox(height: 24),
               Text(
-                'Streaks par routine',
+                context.l10n.progressStreaks,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 12),
@@ -326,9 +327,9 @@ class _BestStreakCard extends ConsumerWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Meilleur Streak'),
+                    Text(context.l10n.streakBest),
                     Text(
-                      '$bestStreak jours',
+                      context.l10n.streakDays(bestStreak),
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ],
@@ -390,8 +391,8 @@ class _RoutineStreakCard extends ConsumerWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('Actuel: ${streak.currentStreak} jours'),
-                    Text('Meilleur: ${streak.bestStreak} jours'),
+                    Text('${context.l10n.streakCurrent}: ${streak.currentStreak} jours'),
+                    Text('${context.l10n.streakBest}: ${streak.bestStreak} jours'),
                   ],
                 ),
               ],
@@ -431,7 +432,7 @@ class _JournalTab extends ConsumerWidget {
         return Stack(
           children: [
             if (sortedEntries.isEmpty)
-              const Center(child: Text('Aucune entrée journal'))
+              Center(child: Text(context.l10n.journalNew))
             else
               ListView.builder(
                 padding: const EdgeInsets.all(16),

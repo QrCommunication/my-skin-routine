@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
 
 class RoutineDetailScreen extends ConsumerWidget {
@@ -136,7 +137,7 @@ class RoutineDetailScreen extends ConsumerWidget {
                         padding: const EdgeInsets.all(16),
                         child: Center(
                           child: Text(
-                            'Aucune action',
+                            context.l10n.actionsTitle,
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Theme.of(context).colorScheme.outline,
                             ),
@@ -282,7 +283,7 @@ class RoutineDetailScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/routines/$id/actions/new'),
         icon: const Icon(Icons.add),
-        label: const Text('Nouvelle action'),
+        label: Text(context.l10n.actionNew),
       ),
     );
   }
@@ -291,15 +292,15 @@ class RoutineDetailScreen extends ConsumerWidget {
     return showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Supprimer l\'action?'),
+        title: Text(context.l10n.actionDelete),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Annuler'),
+            child: Text(context.l10n.commonCancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Supprimer'),
+            child: Text(context.l10n.commonDelete),
           ),
         ],
       ),
@@ -310,12 +311,12 @@ class RoutineDetailScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Supprimer la routine?'),
+        title: Text(context.l10n.routineDelete),
         content: const Text('Cette action est irréversible.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Annuler'),
+            child: Text(context.l10n.commonCancel),
           ),
           FilledButton(
             onPressed: () async {
@@ -326,7 +327,7 @@ class RoutineDetailScreen extends ConsumerWidget {
                 context.pop();
               }
             },
-            child: const Text('Supprimer'),
+            child: Text(context.l10n.commonDelete),
           ),
         ],
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/presentation/providers/journal_providers.dart';
 import 'package:my_skin_routine/presentation/widgets/photo_picker_sheet.dart';
 import 'package:my_skin_routine/presentation/widgets/skin_feeling_selector.dart';
@@ -177,7 +178,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Date',
+              context.l10n.journalDate,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 8),
@@ -188,7 +189,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
             ),
             const SizedBox(height: 24),
             Text(
-              'Photo (optionnelle)',
+              context.l10n.journalPhoto,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 8),
@@ -228,7 +229,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
             ],
             const SizedBox(height: 24),
             Text(
-              'Ressenti peau',
+              context.l10n.journalFeeling,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 12),
@@ -242,7 +243,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
             ),
             const SizedBox(height: 24),
             Text(
-              'Notes',
+              context.l10n.journalNotes,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 8),
@@ -252,7 +253,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
               maxLength: 1000,
               minLines: 4,
               decoration: InputDecoration(
-                hintText: 'Décrivez votre peau, vos observations...',
+                hintText: context.l10n.journalNotesHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -275,7 +276,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
                           strokeWidth: 2,
                         ),
                       )
-                    : const Text('Enregistrer'),
+                    : Text(context.l10n.commonSave),
               ),
             ),
           ],

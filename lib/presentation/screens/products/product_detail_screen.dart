@@ -213,7 +213,7 @@ class ProductDetailScreen extends ConsumerWidget {
       showDialog(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          title: const Text('Supprimer le produit ?'),
+          title: Text(context.l10n.productDelete),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +241,7 @@ class ProductDetailScreen extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () => dialogContext.pop(),
-              child: const Text('Annuler'),
+              child: Text(context.l10n.commonCancel),
             ),
             FilledButton.tonal(
               onPressed: () async {
@@ -252,7 +252,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 backgroundColor: Colors.red.withOpacity(0.1),
                 foregroundColor: Colors.red,
               ),
-              child: const Text('Supprimer'),
+              child: Text(context.l10n.commonDelete),
             ),
           ],
         ),
