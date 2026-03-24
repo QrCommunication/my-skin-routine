@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:my_skin_routine/presentation/providers/settings_providers.dart';
@@ -18,29 +17,23 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: [
-          _LanguageSection(ref),
-          _ThemeSection(ref),
-          if (Platform.isAndroid) _DynamicColorSection(ref),
-          _DataSection(ref),
-          _AboutSection(),
+          _buildLanguageSection(context, ref),
+          _buildThemeSection(context, ref),
+          if (Platform.isAndroid) _buildDynamicColorSection(context, ref),
+          const Divider(indent: 16, endIndent: 16),
+          _buildDataSection(context, ref),
+          const Divider(indent: 16, endIndent: 16),
+          _buildAboutSection(context),
         ],
       ),
     );
   }
-}
 
-class _LanguageSection extends ConsumerWidget {
-  final WidgetRef ref;
-
-  const _LanguageSection(this.ref);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget _buildLanguageSection(BuildContext context, WidgetRef ref) {
     final localeAsync = ref.watch(localeProvider);
-
     return localeAsync.when(
       data: (locale) {
-        final selectedValue = locale?.languageCode ?? 'system';
+        final selected = locale?.languageCode ?? 'fr';
         return Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -53,16 +46,11 @@ class _LanguageSection extends ConsumerWidget {
                   ButtonSegment(label: Text('Français'), value: 'fr'),
                   ButtonSegment(label: Text('English'), value: 'en'),
                 ],
-                selected: {selectedValue},
-                onSelectionChanged: (Set<String> newSelection) {
-                  final value = newSelection.first;
-                  if (value == 'system') {
-                    ref.read(localeProvider.notifier).setLocale(null);
-                  } else {
-                    ref
-                        .read(localeProvider.notifier)
-                        .setLocale(Locale(value));
-                  }
+                selected: {selected},
+                onSelectionChanged: (newSelection) {
+                  ref.read(localeProvider.notifier).setLocale(
+                        Locale(newSelection.first),
+                      );
                 },
               ),
             ],
@@ -71,22 +59,14 @@ class _LanguageSection extends ConsumerWidget {
       },
       loading: () => const Padding(
         padding: EdgeInsets.all(16),
-        child: CircularProgressIndicator(),
+        child: Center(child: CircularProgressIndicator()),
       ),
       error: (_, __) => const SizedBox.shrink(),
     );
   }
-}
 
-class _ThemeSection extends ConsumerWidget {
-  final WidgetRef ref;
-
-  const _ThemeSection(this.ref);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget _buildThemeSection(BuildContext context, WidgetRef ref) {
     final themeAsync = ref.watch(themeModeProvider);
-
     return themeAsync.when(
       data: (themeMode) {
         return Padding(
@@ -103,7 +83,7 @@ class _ThemeSection extends ConsumerWidget {
                   ButtonSegment(label: Text('Sombre'), value: ThemeMode.dark),
                 ],
                 selected: {themeMode},
-                onSelectionChanged: (Set<ThemeMode> newSelection) {
+                onSelectionChanged: (newSelection) {
                   ref
                       .read(themeModeProvider.notifier)
                       .setThemeMode(newSelection.first);
@@ -115,89 +95,78 @@ class _ThemeSection extends ConsumerWidget {
       },
       loading: () => const Padding(
         padding: EdgeInsets.all(16),
-        child: CircularProgressIndicator(),
+        child: Center(child: CircularProgressIndicator()),
       ),
       error: (_, __) => const SizedBox.shrink(),
     );
   }
-}
 
-class _DynamicColorSection extends ConsumerWidget {
-  final WidgetRef ref;
-
-  const _DynamicColorSection(this.ref);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final dynamicColorAsync =
-        ref.watch(dynamicColorEnabledProvider);
-
-    return dynamicColorAsync.when(
+  Widget _buildDynamicColorSection(BuildContext context, WidgetRef ref) {
+    final dynamicAsync = ref.watch(dynamicColorEnabledProvider);
+    return dynamicAsync.when(
       data: (enabled) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: SwitchListTile(
-            title: const Text('Couleur dynamique'),
-            subtitle: const Text('Utiliser les couleurs du système'),
-            value: enabled,
-            onChanged: (value) {
-              ref
-                  .read(dynamicColorEnabledProvider.notifier)
-                  .setDynamicColorEnabled(value);
-            },
-          ),
+        return SwitchListTile(
+          title: const Text('Couleurs dynamiques'),
+          subtitle:
+              const Text('Utiliser les couleurs de votre fond d\'écran'),
+          value: enabled,
+          onChanged: (value) {
+            ref
+                .read(dynamicColorEnabledProvider.notifier)
+                .setDynamicColorEnabled(value);
+          },
         );
       },
       loading: () => const SizedBox.shrink(),
       error: (_, __) => const SizedBox.shrink(),
     );
   }
-}
 
-class _DataSection extends ConsumerWidget {
-  final WidgetRef ref;
-
-  const _DataSection(this.ref);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget _buildDataSection(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-          child: Text('Données', style: Theme.of(context).textTheme.labelLarge),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          child:
+              Text('Données', style: Theme.of(context).textTheme.labelLarge),
         ),
         ListTile(
           leading: const Icon(Icons.upload_rounded),
           title: const Text('Exporter mes données'),
           onTap: () => _handleExport(context, ref),
-        )
-            .animate()
-            .fadeIn(
-              delay: 100.ms,
-              duration: 300.ms,
-            )
-            .slideX(
-              begin: 0.05,
-              delay: 100.ms,
-              duration: 300.ms,
-            ),
+        ),
         ListTile(
           leading: const Icon(Icons.download_rounded),
           title: const Text('Importer des données'),
           onTap: () => _handleImportDialog(context, ref),
-        )
-            .animate()
-            .fadeIn(
-              delay: 150.ms,
-              duration: 300.ms,
-            )
-            .slideX(
-              begin: 0.05,
-              delay: 150.ms,
-              duration: 300.ms,
-            ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAboutSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          child:
+              Text('À propos', style: Theme.of(context).textTheme.labelLarge),
+        ),
+        const ListTile(
+          title: Text('Version'),
+          subtitle: Text('1.0.0'),
+        ),
+        ListTile(
+          title: const Text('Licences open source'),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () => showLicensePage(
+            context: context,
+            applicationName: 'My Skin Routine',
+            applicationVersion: '1.0.0',
+          ),
+        ),
       ],
     );
   }
@@ -206,10 +175,8 @@ class _DataSection extends ConsumerWidget {
     try {
       final repository = ref.read(exportImportRepositoryProvider);
       final zipPath = await repository.exportData();
-
-      final files = [XFile(zipPath)];
-      await Share.shareXFiles(files, text: 'Mes données de routine');
-
+      await Share.shareXFiles([XFile(zipPath)],
+          text: 'My Skin Routine backup');
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Export réussi ✓')),
@@ -224,46 +191,44 @@ class _DataSection extends ConsumerWidget {
     }
   }
 
-  Future<void> _handleImportDialog(BuildContext context, WidgetRef ref) async {
-    showDialog(
+  Future<void> _handleImportDialog(
+      BuildContext context, WidgetRef ref) async {
+    final confirmed = await showDialog<bool>(
       context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text('Importer des données'),
-          content: const Text(
-            'Ceci remplacera toutes vos données actuelles. Cette action est irréversible.',
+      builder: (ctx) => AlertDialog(
+        title: const Text('Importer des données'),
+        content: const Text(
+          'Ceci remplacera toutes vos données actuelles. Cette action est irréversible.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Annuler'),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              child: const Text('Annuler'),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(dialogContext);
-                _handleImport(context, ref);
-              },
-              child: const Text('Confirmer'),
-            ),
-          ],
-        );
-      },
+            child: const Text('Confirmer'),
+          ),
+        ],
+      ),
     );
-  }
 
-  Future<void> _handleImport(BuildContext context, WidgetRef ref) async {
+    if (confirmed != true) return;
+
     try {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['zip'],
       );
-
       if (result != null && result.files.isNotEmpty) {
         final filePath = result.files.first.path;
         if (filePath != null) {
           final repository = ref.read(exportImportRepositoryProvider);
           await repository.importData(filePath);
-
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Import réussi ✓')),
@@ -278,29 +243,5 @@ class _DataSection extends ConsumerWidget {
         );
       }
     }
-  }
-}
-
-class _AboutSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-          child:
-              Text('À propos', style: Theme.of(context).textTheme.labelLarge),
-        ),
-        ListTile(
-          title: const Text('Version'),
-          subtitle: const Text('1.0.0'),
-        ),
-        ListTile(
-          title: const Text('Licences open source'),
-          onTap: () => showLicensePage(context: context),
-        ),
-      ],
-    );
   }
 }
