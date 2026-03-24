@@ -39,10 +39,26 @@ Future<void> seedDatabaseIfNeeded(AppDatabase db) async {
 
     debugPrint('Seed: Products inserted. Copying images...');
 
-    // Copy images in background — non-blocking
-    _copySeedImagesInBackground(db);
+    // Copy images — awaited to ensure they get copied
+    await _copySeedImagesInBackground(db);
   } catch (e) {
     debugPrint('Seed error: $e');
+  }
+}
+
+/// Checks if seed images need to be copied (even if products already exist).
+/// Call this every launch to catch cases where image copy was interrupted.
+Future<void> ensureSeedImagesExist(AppDatabase db) async {
+  try {
+    // Check if any products are missing photos
+    final products = await db.productDao.getAllProducts();
+    final missingPhotos = products.where((p) => p.photoPath == null).length;
+    if (missingPhotos == 0 || products.isEmpty) return;
+
+    debugPrint('Seed images: $missingPhotos products missing photos, copying...');
+    await _copySeedImagesInBackground(db);
+  } catch (e) {
+    debugPrint('Seed images check error: $e');
   }
 }
 

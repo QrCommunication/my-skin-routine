@@ -89,6 +89,34 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
     return context.l10n.actionFormRecurrenceEveryN(_recurrenceInterval);
   }
 
+  void _showProductSearchDialog(BuildContext context, List<Product> products) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.7,
+          minChildSize: 0.4,
+          maxChildSize: 0.9,
+          expand: false,
+          builder: (ctx, scrollController) {
+            return _ProductSearchSheet(
+              products: products,
+              selectedId: _selectedProductId,
+              onSelected: (id) {
+                setState(() => _selectedProductId = id);
+                Navigator.pop(ctx);
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final picked = await showDatePicker(
       context: context,
@@ -211,34 +239,38 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
             const SizedBox(height: 16),
             ref.watch(productListProvider).when(
               data: (products) {
-                return DropdownButtonFormField<int?>(
-                  value: _selectedProductId,
-                  decoration: InputDecoration(
-                    labelText: context.l10n.actionFormProduct,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                final selected = _selectedProductId != null
+                    ? products.where((p) => p.id == _selectedProductId).firstOrNull
+                    : null;
+                return InkWell(
+                  onTap: () => _showProductSearchDialog(context, products),
+                  borderRadius: BorderRadius.circular(8),
+                  child: InputDecorator(
+                    decoration: InputDecoration(
+                      labelText: context.l10n.actionFormProduct,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      suffixIcon: _selectedProductId != null
+                          ? IconButton(
+                              icon: const Icon(Icons.clear, size: 18),
+                              onPressed: () => setState(() => _selectedProductId = null),
+                            )
+                          : const Icon(Icons.search),
+                    ),
+                    child: Text(
+                      selected != null
+                          ? '${selected.brand} — ${selected.name}'
+                          : context.l10n.actionFormProductNone,
+                      overflow: TextOverflow.ellipsis,
+                      style: selected != null
+                          ? null
+                          : TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
                   ),
-                  items: [
-                    DropdownMenuItem<int?>(
-                      value: null,
-                      child: Text(context.l10n.actionFormProductNone),
-                    ),
-                    ...products.map(
-                      (product) => DropdownMenuItem<int?>(
-                        value: product.id,
-                        child: Text(product.name),
-                      ),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedProductId = value;
-                    });
-                  },
                 );
               },
-              loading: () => const CircularProgressIndicator(),
+              loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stack) => Text('Erreur: $error'),
             ),
             const SizedBox(height: 16),
@@ -255,7 +287,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
                 ),
                 ButtonSegment<RecurrenceType>(
                   value: RecurrenceType.everyNDays,
-                  label: Text(context.l10n.actionFormRecurrenceWeekly),
+                  label: Text(context.l10n.actionFormInterval),
                 ),
               ],
               selected: <RecurrenceType>{_recurrenceType},
@@ -313,6 +345,130 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ProductSearchSheet extends StatefulWidget {
+  final List<Product> products;
+  final int? selectedId;
+  final ValueChanged<int?> onSelected;
+
+  const _ProductSearchSheet({
+    required this.products,
+    required this.selectedId,
+    required this.onSelected,
+  });
+
+  @override
+  State<_ProductSearchSheet> createState() => _ProductSearchSheetState();
+}
+
+class _ProductSearchSheetState extends State<_ProductSearchSheet> {
+  final _searchController = TextEditingController();
+  List<Product> _filtered = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filtered = widget.products;
+  }
+
+  void _filter(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        _filtered = widget.products;
+      } else {
+        final q = query.toLowerCase();
+        _filtered = widget.products
+            .where((p) =>
+                p.name.toLowerCase().contains(q) ||
+                p.brand.toLowerCase().contains(q))
+            .toList();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Column(
+      children: [
+        const SizedBox(height: 8),
+        Container(
+          width: 40,
+          height: 4,
+          decoration: BoxDecoration(
+            color: colorScheme.outlineVariant,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: TextField(
+            controller: _searchController,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: 'Rechercher un produit...',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              filled: true,
+              fillColor: colorScheme.surfaceContainerHighest,
+            ),
+            onChanged: _filter,
+          ),
+        ),
+        // "Aucun" option
+        ListTile(
+          leading: Icon(Icons.block, color: colorScheme.outline),
+          title: const Text('Aucun produit'),
+          selected: widget.selectedId == null,
+          onTap: () => widget.onSelected(null),
+        ),
+        const Divider(height: 1),
+        Expanded(
+          child: ListView.builder(
+            itemCount: _filtered.length,
+            itemBuilder: (context, index) {
+              final product = _filtered[index];
+              final isSelected = product.id == widget.selectedId;
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: colorScheme.primaryContainer,
+                  child: Text(
+                    product.brand[0].toUpperCase(),
+                    style: TextStyle(color: colorScheme.onPrimaryContainer),
+                  ),
+                ),
+                title: Text(
+                  product.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(
+                  '${product.brand} • ${product.type.labelFr}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: colorScheme.onSurfaceVariant),
+                ),
+                selected: isSelected,
+                trailing: isSelected
+                    ? Icon(Icons.check_circle, color: colorScheme.primary)
+                    : null,
+                onTap: () => widget.onSelected(product.id),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

@@ -44,10 +44,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   Future<void> _seedDatabase() async {
     try {
-      // Use the SAME db instance as Riverpod to avoid SQLite locks
       final db = ref.read(appDatabaseProvider);
       await seedDatabaseIfNeeded(db);
-      // Don't close — Riverpod manages the lifecycle
+      // Also ensure images are copied (catches interrupted previous runs)
+      await ensureSeedImagesExist(db);
     } catch (e) {
       debugPrint('Seed failed: $e');
     }

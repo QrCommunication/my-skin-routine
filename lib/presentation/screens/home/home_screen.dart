@@ -79,11 +79,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               // Streak badge
               ref.watch(streakForRoutineProvider(0)).when(
                 data: (streak) {
+                  final days = streak?.currentStreak ?? 0;
+                  if (days <= 0) return const SizedBox.shrink();
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Center(
                       child: Badge(
-                        label: Text(streak.toString()),
+                        label: Text('$days'),
                         child: Icon(Icons.local_fire_department,
                             color: context.colorScheme.error),
                       ),
