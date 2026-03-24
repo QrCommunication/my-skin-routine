@@ -156,13 +156,6 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
             slivers: [
               SliverAppBar.large(
                 title: const Text('Mes produits'),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.settings),
-                    onPressed: () => context.push('/settings'),
-                  ),
-                  const SizedBox(width: 8),
-                ],
               ),
               SliverToBoxAdapter(
                 child: Padding(

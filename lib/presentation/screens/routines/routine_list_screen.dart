@@ -26,12 +26,6 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
           SliverAppBar.large(
             title: const Text('Mes routines'),
             pinned: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.settings_outlined),
-                onPressed: () {},
-              ),
-            ],
           ),
           SliverToBoxAdapter(
             child: Padding(
