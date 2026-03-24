@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/utils/seed_utils.dart';
-import 'package:my_skin_routine/data/database/app_database.dart';
+import 'package:my_skin_routine/presentation/providers/database_provider.dart';
 import 'package:my_skin_routine/presentation/providers/profile_provider.dart';
 import 'package:my_skin_routine/presentation/theme/app_colors.dart';
 
@@ -44,9 +44,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   Future<void> _seedDatabase() async {
     try {
-      final db = AppDatabase();
+      // Use the SAME db instance as Riverpod to avoid SQLite locks
+      final db = ref.read(appDatabaseProvider);
       await seedDatabaseIfNeeded(db);
-      await db.close();
+      // Don't close — Riverpod manages the lifecycle
     } catch (e) {
       debugPrint('Seed failed: $e');
     }

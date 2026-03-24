@@ -63,46 +63,40 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     if (_isFinishing) return;
     setState(() => _isFinishing = true);
 
-    // Save profile
-    await ref.read(profileProvider.notifier).setProfile(
-      firstName: _firstName,
-      lastName: _lastName,
-    );
+    try {
+      // Save profile
+      await ref.read(profileProvider.notifier).setProfile(
+        firstName: _firstName,
+        lastName: _lastName,
+      );
 
-    // Create product if provided
-    if (_productName != null && _productName!.isNotEmpty) {
-      final productRepository = ref.read(productRepositoryProvider);
-      try {
-        await productRepository.createProduct(
-          name: _productName!,
-          brand: _productBrand ?? '',
-          type: (_productType ?? ProductType.cleanser).name,
-          photoPath: null,
-          notes: '',
-        );
-      } catch (e) {
-        // Silently fail if product creation fails
+      // Create product if provided
+      if (_productName != null && _productName!.isNotEmpty) {
+        try {
+          await ref.read(productRepositoryProvider).createProduct(
+            name: _productName!,
+            brand: _productBrand ?? '',
+            type: (_productType ?? ProductType.cleanser).name,
+          );
+        } catch (_) {}
       }
-    }
 
-    // Create routine if provided
-    if (_routineName != null && _routineName!.isNotEmpty) {
-      final routineRepository = ref.read(routineRepositoryProvider);
-      try {
-        await routineRepository.createRoutine(
-          name: _routineName!,
-          description: '',
-          bodyZone: (_routineBodyZone ?? BodyZone.fullFace).name,
-          skinGoal: (_routineSkinGoal ?? SkinGoal.hydration).name,
-          isActive: true,
-        );
-      } catch (e) {
-        // Silently fail if routine creation fails
+      // Create routine if provided
+      if (_routineName != null && _routineName!.isNotEmpty) {
+        try {
+          await ref.read(routineRepositoryProvider).createRoutine(
+            name: _routineName!,
+            bodyZone: (_routineBodyZone ?? BodyZone.fullFace).name,
+            skinGoal: (_routineSkinGoal ?? SkinGoal.hydration).name,
+          );
+        } catch (_) {}
       }
-    }
 
-    // Mark onboarding as complete
-    await ref.read(profileProvider.notifier).completeOnboarding();
+      // Mark onboarding as complete
+      await ref.read(profileProvider.notifier).completeOnboarding();
+    } catch (e) {
+      debugPrint('Onboarding finish error: $e');
+    }
 
     if (mounted) {
       context.go('/home');
