@@ -27,7 +27,7 @@ class AppTheme {
       brightness: Brightness.light,
       colorScheme: colorScheme,
       textTheme: AppTypography.textTheme,
-      scaffoldBackgroundColor: AppColors.lavandeBackground,
+      scaffoldBackgroundColor: colorScheme.surface,
       appBarTheme: AppBarTheme(
         elevation: 0,
         backgroundColor: colorScheme.surface,

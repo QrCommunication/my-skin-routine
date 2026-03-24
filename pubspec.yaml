@@ -23,7 +23,6 @@ dependencies:
 
   # Database
   drift: any
-  sqlite3_flutter_libs: any
   path_provider: any
   path: any
 
@@ -58,6 +57,7 @@ dependencies:
   # Utils
   uuid: any
   collection: any
+  sqlite3_flutter_libs: 0.5.28
 
 dev_dependencies:
   flutter_test:

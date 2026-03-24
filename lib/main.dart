@@ -5,7 +5,14 @@ import 'package:my_skin_routine/core/utils/notification_utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService().initialize();
+
+  // Initialize notifications — non-blocking, app works without them
+  try {
+    await NotificationService().initialize();
+  } catch (e) {
+    debugPrint('Notification init failed: $e');
+  }
+
   runApp(
     const ProviderScope(
       child: MySkinRoutineApp(),
