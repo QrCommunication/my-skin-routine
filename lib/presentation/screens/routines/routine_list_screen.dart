@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/constants/enums.dart';
 import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
+import 'package:my_skin_routine/presentation/widgets/guided_tooltip.dart';
 
 class RoutineListScreen extends ConsumerStatefulWidget {
   const RoutineListScreen({super.key});
@@ -15,9 +16,37 @@ class RoutineListScreen extends ConsumerStatefulWidget {
 
 class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
   SkinGoal? _selectedGoal;
+  bool _tutorialShown = false;
 
   @override
   Widget build(BuildContext context) {
+    if (!_tutorialShown) {
+      _tutorialShown = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        GuidedTutorial.showIfFirstTime(
+          context: context,
+          tutorialKey: 'routines',
+          steps: [
+            TutorialStep(
+              icon: Icons.favorite_rounded,
+              title: 'Vos routines',
+              description: 'Créez des routines pour organiser vos soins. Routine du matin, du soir, hebdomadaire...',
+            ),
+            TutorialStep(
+              icon: Icons.playlist_add,
+              title: 'Ajoutez des actions',
+              description: 'Chaque routine contient des actions : appliquer un sérum, nettoyer, etc. Liez-les à vos produits.',
+            ),
+            TutorialStep(
+              icon: Icons.drag_handle,
+              title: 'Réordonnez',
+              description: 'Maintenez et glissez pour réorganiser l\'ordre de vos actions.',
+            ),
+          ],
+        );
+      });
+    }
+
     final routineListAsync = ref.watch(routineListProvider);
     final selectedGoal = _selectedGoal;
 

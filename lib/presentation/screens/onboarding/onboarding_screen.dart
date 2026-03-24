@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_skin_routine/core/constants/enums.dart';
 import 'package:my_skin_routine/core/extensions/context_extensions.dart';
-import 'package:my_skin_routine/presentation/providers/product_providers.dart';
 import 'package:my_skin_routine/presentation/providers/profile_provider.dart';
-import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -21,12 +18,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   String _firstName = '';
   String _lastName = '';
-  String? _productName;
-  String? _productBrand;
-  ProductType? _productType;
-  String? _routineName;
-  BodyZone? _routineBodyZone;
-  SkinGoal? _routineSkinGoal;
   bool _isFinishing = false;
 
   @override
@@ -42,7 +33,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   void _nextPage() {
-    if (_currentPage < 4) {
+    if (_currentPage < 2) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
@@ -64,35 +55,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     setState(() => _isFinishing = true);
 
     try {
-      // Save profile
       await ref.read(profileProvider.notifier).setProfile(
         firstName: _firstName,
         lastName: _lastName,
       );
-
-      // Create product if provided
-      if (_productName != null && _productName!.isNotEmpty) {
-        try {
-          await ref.read(productRepositoryProvider).createProduct(
-            name: _productName!,
-            brand: _productBrand ?? '',
-            type: (_productType ?? ProductType.cleanser).name,
-          );
-        } catch (_) {}
-      }
-
-      // Create routine if provided
-      if (_routineName != null && _routineName!.isNotEmpty) {
-        try {
-          await ref.read(routineRepositoryProvider).createRoutine(
-            name: _routineName!,
-            bodyZone: (_routineBodyZone ?? BodyZone.fullFace).name,
-            skinGoal: (_routineSkinGoal ?? SkinGoal.hydration).name,
-          );
-        } catch (_) {}
-      }
-
-      // Mark onboarding as complete
       await ref.read(profileProvider.notifier).completeOnboarding();
     } catch (e) {
       debugPrint('Onboarding finish error: $e');
@@ -123,20 +89,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 onLastNameChanged: (value) => _lastName = value,
                 onNext: _nextPage,
               ),
-              _ProductPage(
-                onProductNameChanged: (value) => _productName = value,
-                onProductBrandChanged: (value) => _productBrand = value,
-                onProductTypeChanged: (value) => _productType = value,
-                onNext: _nextPage,
-                onSkip: _nextPage,
-              ),
-              _RoutinePage(
-                onRoutineNameChanged: (value) => _routineName = value,
-                onBodyZoneChanged: (value) => _routineBodyZone = value,
-                onSkinGoalChanged: (value) => _routineSkinGoal = value,
-                onNext: _nextPage,
-                onSkip: _nextPage,
-              ),
               _DonePage(
                 firstName: _firstName,
                 onFinish: _finishOnboarding,
@@ -155,7 +107,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
-                    5,
+                    3,
                     (index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: CircleAvatar(
@@ -203,7 +155,7 @@ class _WelcomePage extends StatelessWidget {
             children: [
               Icon(
                 Icons.spa,
-                size: 80,
+                size: 120,
                 color: context.colorScheme.primary,
               )
                 .animate()
@@ -211,23 +163,24 @@ class _WelcomePage extends StatelessWidget {
                 .scale(begin: const Offset(0.8, 0.8), duration: 600.ms, curve: Curves.easeOutBack),
               const SizedBox(height: 32),
               Text(
-                context.l10n.onboardingWelcomeTitle,
-                style: context.textTheme.headlineLarge,
+                'My Skin Routine',
+                style: context.textTheme.headlineLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
               ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
               const SizedBox(height: 16),
               Text(
-                context.l10n.onboardingWelcomeSubtitle,
+                'Votre compagnon skincare',
                 style: context.textTheme.titleMedium?.copyWith(
                   color: context.colorScheme.onSurfaceVariant,
                 ),
                 textAlign: TextAlign.center,
               ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
               const SizedBox(height: 48),
-              FilledButton.icon(
+              FilledButton(
                 onPressed: onNext,
-                icon: const Icon(Icons.arrow_forward),
-                label: Text(context.l10n.onboardingStart),
+                child: const Text('Commencer'),
               ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
             ],
           ),
@@ -342,276 +295,6 @@ class _ProfilePageState extends State<_ProfilePage> {
   }
 }
 
-class _ProductPage extends StatefulWidget {
-  final Function(String) onProductNameChanged;
-  final Function(String) onProductBrandChanged;
-  final Function(ProductType) onProductTypeChanged;
-  final VoidCallback onNext;
-  final VoidCallback onSkip;
-
-  const _ProductPage({
-    required this.onProductNameChanged,
-    required this.onProductBrandChanged,
-    required this.onProductTypeChanged,
-    required this.onNext,
-    required this.onSkip,
-  });
-
-  @override
-  State<_ProductPage> createState() => _ProductPageState();
-}
-
-class _ProductPageState extends State<_ProductPage> {
-  late TextEditingController _nameController;
-  late TextEditingController _brandController;
-  ProductType _selectedType = ProductType.cleanser;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController();
-    _brandController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _brandController.dispose();
-    super.dispose();
-  }
-
-  void _handleNext() {
-    if (_nameController.text.isNotEmpty) {
-      widget.onProductNameChanged(_nameController.text);
-      widget.onProductBrandChanged(_brandController.text);
-      widget.onProductTypeChanged(_selectedType);
-    }
-    widget.onNext();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                context.l10n.onboardingProductTitle,
-                style: context.textTheme.headlineLarge,
-                textAlign: TextAlign.center,
-              ).animate().fadeIn(duration: 600.ms),
-              const SizedBox(height: 8),
-              Text(
-                context.l10n.onboardingProductSubtitle,
-                style: context.textTheme.titleMedium?.copyWith(
-                  color: context.colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ).animate().fadeIn(delay: 100.ms, duration: 600.ms),
-              const SizedBox(height: 32),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: context.l10n.productFormName,
-                  border: const OutlineInputBorder(),
-                ),
-              ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _brandController,
-                decoration: InputDecoration(
-                  labelText: context.l10n.productFormBrand,
-                  border: const OutlineInputBorder(),
-                ),
-              ).animate().fadeIn(delay: 300.ms, duration: 600.ms),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<ProductType>(
-                value: _selectedType,
-                decoration: InputDecoration(
-                  labelText: context.l10n.productFormType,
-                  border: const OutlineInputBorder(),
-                ),
-                items: ProductType.values
-                    .map((type) => DropdownMenuItem(
-                      value: type,
-                      child: Text(type.labelFr),
-                    ))
-                    .toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() => _selectedType = value);
-                  }
-                },
-              ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
-              const SizedBox(height: 48),
-              Row(
-                children: [
-                  Expanded(
-                    child: FilledButton.tonal(
-                      onPressed: widget.onSkip,
-                      child: Text(context.l10n.onboardingSkip),
-                    ).animate().fadeIn(delay: 500.ms, duration: 600.ms),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: FilledButton.icon(
-                      onPressed: _handleNext,
-                      icon: const Icon(Icons.arrow_forward),
-                      label: Text(context.l10n.onboardingContinue),
-                    ).animate().fadeIn(delay: 500.ms, duration: 600.ms),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _RoutinePage extends StatefulWidget {
-  final Function(String) onRoutineNameChanged;
-  final Function(BodyZone) onBodyZoneChanged;
-  final Function(SkinGoal) onSkinGoalChanged;
-  final VoidCallback onNext;
-  final VoidCallback onSkip;
-
-  const _RoutinePage({
-    required this.onRoutineNameChanged,
-    required this.onBodyZoneChanged,
-    required this.onSkinGoalChanged,
-    required this.onNext,
-    required this.onSkip,
-  });
-
-  @override
-  State<_RoutinePage> createState() => _RoutinePageState();
-}
-
-class _RoutinePageState extends State<_RoutinePage> {
-  late TextEditingController _nameController;
-  BodyZone _selectedBodyZone = BodyZone.fullFace;
-  SkinGoal _selectedSkinGoal = SkinGoal.hydration;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
-
-  void _handleNext() {
-    if (_nameController.text.isNotEmpty) {
-      widget.onRoutineNameChanged(_nameController.text);
-      widget.onBodyZoneChanged(_selectedBodyZone);
-      widget.onSkinGoalChanged(_selectedSkinGoal);
-    }
-    widget.onNext();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                context.l10n.onboardingRoutineTitle,
-                style: context.textTheme.headlineLarge,
-                textAlign: TextAlign.center,
-              ).animate().fadeIn(duration: 600.ms),
-              const SizedBox(height: 8),
-              Text(
-                context.l10n.onboardingRoutineSubtitle,
-                style: context.textTheme.titleMedium?.copyWith(
-                  color: context.colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ).animate().fadeIn(delay: 100.ms, duration: 600.ms),
-              const SizedBox(height: 32),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: context.l10n.routineFormName,
-                  border: const OutlineInputBorder(),
-                ),
-              ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<BodyZone>(
-                value: _selectedBodyZone,
-                decoration: InputDecoration(
-                  labelText: context.l10n.routineFormBodyZone,
-                  border: const OutlineInputBorder(),
-                ),
-                items: BodyZone.values
-                    .map((zone) => DropdownMenuItem(
-                      value: zone,
-                      child: Text(zone.labelFr),
-                    ))
-                    .toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() => _selectedBodyZone = value);
-                  }
-                },
-              ).animate().fadeIn(delay: 300.ms, duration: 600.ms),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<SkinGoal>(
-                value: _selectedSkinGoal,
-                decoration: InputDecoration(
-                  labelText: context.l10n.routineFormSkinGoal,
-                  border: const OutlineInputBorder(),
-                ),
-                items: SkinGoal.values
-                    .map((goal) => DropdownMenuItem(
-                      value: goal,
-                      child: Text('${goal.emoji} ${goal.labelFr}'),
-                    ))
-                    .toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() => _selectedSkinGoal = value);
-                  }
-                },
-              ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
-              const SizedBox(height: 48),
-              Row(
-                children: [
-                  Expanded(
-                    child: FilledButton.tonal(
-                      onPressed: widget.onSkip,
-                      child: Text(context.l10n.onboardingSkip),
-                    ).animate().fadeIn(delay: 500.ms, duration: 600.ms),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: FilledButton.icon(
-                      onPressed: _handleNext,
-                      icon: const Icon(Icons.arrow_forward),
-                      label: Text(context.l10n.onboardingContinue),
-                    ).animate().fadeIn(delay: 500.ms, duration: 600.ms),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _DonePage extends StatelessWidget {
   final String firstName;
@@ -643,29 +326,28 @@ class _DonePage extends StatelessWidget {
                 .scale(begin: const Offset(0.5, 0.5), duration: 600.ms, curve: Curves.easeOutBack),
               const SizedBox(height: 32),
               Text(
-                context.l10n.onboardingDoneTitle,
+                'Tout est prêt ! 🎉',
                 style: context.textTheme.headlineLarge,
                 textAlign: TextAlign.center,
               ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
               const SizedBox(height: 16),
               Text(
-                context.l10n.onboardingDoneWelcome(firstName),
+                'Bienvenue $firstName !',
                 style: context.textTheme.titleMedium?.copyWith(
                   color: context.colorScheme.primary,
                 ),
                 textAlign: TextAlign.center,
               ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
               const SizedBox(height: 48),
-              FilledButton.icon(
+              FilledButton(
                 onPressed: isLoading ? null : onFinish,
-                icon: isLoading
+                child: isLoading
                     ? const SizedBox(
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                       )
-                    : const Icon(Icons.arrow_forward),
-                label: Text(isLoading ? 'Préparation...' : context.l10n.onboardingDoneButton),
+                    : const Text('Découvrir l\'app'),
               ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
             ],
           ),

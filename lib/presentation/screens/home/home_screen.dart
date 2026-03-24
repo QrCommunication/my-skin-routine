@@ -15,12 +15,47 @@ import '../../providers/routine_providers.dart';
 import '../../providers/streak_providers.dart';
 import '../../theme/app_motion.dart';
 import '../../widgets/empty_state.dart';
+import '../../widgets/guided_tooltip.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  bool _tutorialShown = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_tutorialShown) {
+      _tutorialShown = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        GuidedTutorial.showIfFirstTime(
+          context: context,
+          tutorialKey: 'home',
+          steps: [
+            TutorialStep(
+              icon: Icons.home_rounded,
+              title: 'Votre tableau de bord',
+              description: 'Retrouvez ici vos routines du jour avec les actions à compléter.',
+            ),
+            TutorialStep(
+              icon: Icons.check_circle_outline,
+              title: 'Cochez vos actions',
+              description: 'Appuyez sur chaque action pour la marquer comme faite. La barre de progression se remplit !',
+            ),
+            TutorialStep(
+              icon: Icons.local_fire_department,
+              title: 'Construisez votre streak',
+              description: 'Complétez toutes vos actions chaque jour pour maintenir votre série de jours consécutifs.',
+            ),
+          ],
+        );
+      });
+    }
+
     final activeRoutinesAsync = ref.watch(activeRoutinesProvider);
     final profileAsync = ref.watch(profileProvider);
     final today = DateTime.now().toDateString();

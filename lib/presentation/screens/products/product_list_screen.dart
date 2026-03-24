@@ -9,6 +9,7 @@ import 'package:my_skin_routine/presentation/providers/product_providers.dart';
 import 'package:my_skin_routine/presentation/theme/app_motion.dart';
 import 'package:my_skin_routine/presentation/widgets/empty_state.dart';
 import 'package:my_skin_routine/presentation/widgets/product_card.dart';
+import 'package:my_skin_routine/presentation/widgets/guided_tooltip.dart';
 
 class ProductListScreen extends ConsumerStatefulWidget {
   const ProductListScreen({super.key});
@@ -22,6 +23,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
   late FocusNode _searchFocusNode;
   String _searchQuery = '';
   ProductType? _selectedFilter;
+  bool _tutorialShown = false;
 
   @override
   void initState() {
@@ -126,6 +128,33 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_tutorialShown) {
+      _tutorialShown = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        GuidedTutorial.showIfFirstTime(
+          context: context,
+          tutorialKey: 'products',
+          steps: [
+            TutorialStep(
+              icon: Icons.inventory_2_rounded,
+              title: 'Vos produits',
+              description: 'Tous vos produits de soin sont ici. Plus de 130 produits populaires sont déjà ajoutés !',
+            ),
+            TutorialStep(
+              icon: Icons.search,
+              title: 'Recherchez et filtrez',
+              description: 'Utilisez la barre de recherche ou les filtres par type pour retrouver un produit.',
+            ),
+            TutorialStep(
+              icon: Icons.add_circle_outline,
+              title: 'Ajoutez les vôtres',
+              description: 'Appuyez sur le bouton + pour ajouter un nouveau produit avec photo.',
+            ),
+          ],
+        );
+      });
+    }
+
     final productsAsyncValue = ref.watch(productListProvider);
     final colorScheme = Theme.of(context).colorScheme;
 
