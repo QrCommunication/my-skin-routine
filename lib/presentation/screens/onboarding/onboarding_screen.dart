@@ -27,6 +27,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   String? _routineName;
   BodyZone? _routineBodyZone;
   SkinGoal? _routineSkinGoal;
+  bool _isFinishing = false;
 
   @override
   void initState() {
@@ -59,6 +60,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _finishOnboarding() async {
+    if (_isFinishing) return;
+    setState(() => _isFinishing = true);
+
     // Save profile
     await ref.read(profileProvider.notifier).setProfile(
       firstName: _firstName,
@@ -142,6 +146,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               _DonePage(
                 firstName: _firstName,
                 onFinish: _finishOnboarding,
+                isLoading: _isFinishing,
               ),
             ],
           ),
@@ -617,10 +622,12 @@ class _RoutinePageState extends State<_RoutinePage> {
 class _DonePage extends StatelessWidget {
   final String firstName;
   final VoidCallback onFinish;
+  final bool isLoading;
 
   const _DonePage({
     required this.firstName,
     required this.onFinish,
+    this.isLoading = false,
   });
 
   @override
@@ -656,9 +663,15 @@ class _DonePage extends StatelessWidget {
               ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
               const SizedBox(height: 48),
               FilledButton.icon(
-                onPressed: onFinish,
-                icon: const Icon(Icons.arrow_forward),
-                label: Text(context.l10n.onboardingDoneButton),
+                onPressed: isLoading ? null : onFinish,
+                icon: isLoading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                      )
+                    : const Icon(Icons.arrow_forward),
+                label: Text(isLoading ? 'Préparation...' : context.l10n.onboardingDoneButton),
               ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
             ],
           ),

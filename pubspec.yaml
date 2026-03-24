@@ -79,6 +79,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/products/seed/
 
   fonts:
     - family: Outfit
