@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,6 +12,8 @@ import '../../../domain/models/routine.dart';
 import '../../../domain/models/routine_action.dart';
 import '../../providers/routine_providers.dart';
 import '../../providers/streak_providers.dart';
+import '../../theme/app_motion.dart';
+import '../../widgets/empty_state.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -66,7 +69,13 @@ class HomeScreen extends ConsumerWidget {
             data: (routines) {
               if (routines.isEmpty) {
                 return SliverFillRemaining(
-                  child: _EmptyState(context),
+                  child: EmptyState(
+                    icon: Icons.spa,
+                    title: 'Aucune routine active',
+                    subtitle: 'Créez votre première routine pour commencer',
+                    actionLabel: 'Créer ma première routine',
+                    onAction: () => context.push('/routines/new'),
+                  ),
                 );
               }
               return SliverList(
@@ -77,6 +86,7 @@ class HomeScreen extends ConsumerWidget {
                       routine: routine,
                       today: today,
                       ref: ref,
+                      index: index,
                     );
                   },
                   childCount: routines.length,
@@ -98,7 +108,7 @@ class HomeScreen extends ConsumerWidget {
         onPressed: () => context.push('/progress/journal/new'),
         icon: const Icon(Icons.edit_note_rounded),
         label: const Text('Journal'),
-      ),
+      ).animate().scale(delay: 500.ms, duration: AppMotion.durationLong, curve: AppMotion.expressiveCurve),
     );
   }
 
@@ -134,11 +144,13 @@ class _RoutineCard extends ConsumerWidget {
   final Routine routine;
   final String today;
   final WidgetRef ref;
+  final int index;
 
   const _RoutineCard({
     required this.routine,
     required this.today,
     required this.ref,
+    required this.index,
   });
 
   @override
@@ -185,7 +197,10 @@ class _RoutineCard extends ConsumerWidget {
                       ),
                       if (allCompleted)
                         Icon(Icons.check_circle,
-                            color: context.colorScheme.primary),
+                            color: context.colorScheme.primary)
+                            .animate()
+                            .fadeIn(duration: AppMotion.durationMedium)
+                            .scale(begin: const Offset(0.5, 0.5), curve: AppMotion.expressiveCurve),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -208,11 +223,20 @@ class _RoutineCard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 12),
                   // Progress bar
-                  LinearProgressIndicator(
-                    value: todayActions.isEmpty
-                        ? 0
-                        : completedCount / todayActions.length,
-                    minHeight: 8,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: LinearProgressIndicator(
+                      value: todayActions.isEmpty
+                          ? 0
+                          : completedCount / todayActions.length,
+                      minHeight: 8,
+                    ).animate()
+                      .scaleX(
+                        begin: 0,
+                        duration: AppMotion.durationMedium,
+                        delay: (index * 50).ms,
+                        curve: AppMotion.standardCurve,
+                      ),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -234,8 +258,8 @@ class _RoutineCard extends ConsumerWidget {
                     Column(
                       children: List.generate(
                         todayActions.length,
-                        (index) {
-                          final action = todayActions[index];
+                        (actionIndex) {
+                          final action = todayActions[actionIndex];
                           final isCompleted = completions
                               .any((c) => c.actionId == action.id);
                           return _ActionItem(
@@ -257,7 +281,9 @@ class _RoutineCard extends ConsumerWidget {
               ),
             ),
           ),
-        );
+        ).animate()
+          .fadeIn(duration: AppMotion.durationMedium, delay: (index * 100).ms)
+          .slideX(begin: 0.1, duration: AppMotion.durationMedium, delay: (index * 100).ms, curve: AppMotion.standardCurve);
       },
       loading: () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -364,11 +390,29 @@ class _ActionItemState extends State<_ActionItem>
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         children: [
-          Checkbox(
-            value: widget.isCompleted,
-            onChanged: (value) {
-              widget.onToggle(value ?? false);
+          GestureDetector(
+            onTap: () {
+              widget.onToggle(!widget.isCompleted);
+              _animationController.forward();
             },
+            child: Checkbox(
+              value: widget.isCompleted,
+              onChanged: (value) {
+                widget.onToggle(value ?? false);
+              },
+            ).animate(target: widget.isCompleted ? 1 : 0)
+              .scale(
+                end: const Offset(1.2, 1.2),
+                duration: AppMotion.durationShort,
+                curve: AppMotion.expressiveCurve,
+              )
+              .then()
+              .scale(
+                begin: const Offset(1.2, 1.2),
+                end: const Offset(1, 1),
+                duration: AppMotion.durationShort,
+                curve: AppMotion.expressiveCurve,
+              ),
           ),
           Expanded(
             child: Text(
@@ -401,43 +445,3 @@ class _ActionItemState extends State<_ActionItem>
   }
 }
 
-class _EmptyState extends StatelessWidget {
-  final BuildContext context;
-
-  const _EmptyState(this.context);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.spa,
-            size: 64,
-            color: context.colorScheme.onSurfaceVariant,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Aucune routine active',
-            style: context.textTheme.titleLarge,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Créez votre première routine pour commencer',
-            style: context.textTheme.bodyMedium?.copyWith(
-              color: context.colorScheme.onSurfaceVariant,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          FilledButton.icon(
-            onPressed: () => context.push('/routines/new'),
-            icon: const Icon(Icons.add),
-            label: const Text('Créer ma première routine'),
-          ),
-        ],
-      ),
-    );
-  }
-}

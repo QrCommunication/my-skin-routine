@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
@@ -70,14 +71,34 @@ class RoutineDetailScreen extends ConsumerWidget {
                             side: BorderSide(
                               color: Theme.of(context).colorScheme.outline,
                             ),
-                          ),
+                          )
+                              .animate()
+                              .fadeIn(
+                                delay: 100.ms,
+                                duration: 300.ms,
+                              )
+                              .slideX(
+                                begin: -0.05,
+                                delay: 100.ms,
+                                duration: 300.ms,
+                              ),
                           Chip(
                             avatar: Text(routine.skinGoal.emoji),
                             label: Text(routine.skinGoal.localizedLabel(Localizations.localeOf(context).languageCode)),
                             side: BorderSide(
                               color: Theme.of(context).colorScheme.outline,
                             ),
-                          ),
+                          )
+                              .animate()
+                              .fadeIn(
+                                delay: 150.ms,
+                                duration: 300.ms,
+                              )
+                              .slideX(
+                                begin: -0.05,
+                                delay: 150.ms,
+                                duration: 300.ms,
+                              ),
                           if (routine.reminderTime != null)
                             Chip(
                               avatar: const Icon(Icons.schedule, size: 18),
@@ -85,7 +106,17 @@ class RoutineDetailScreen extends ConsumerWidget {
                               side: BorderSide(
                                 color: Theme.of(context).colorScheme.outline,
                               ),
-                            ),
+                            )
+                                .animate()
+                                .fadeIn(
+                                  delay: 200.ms,
+                                  duration: 300.ms,
+                                )
+                                .slideX(
+                                  begin: -0.05,
+                                  delay: 200.ms,
+                                  duration: 300.ms,
+                                ),
                         ],
                       ),
                       const SizedBox(height: 24),
@@ -204,7 +235,17 @@ class RoutineDetailScreen extends ConsumerWidget {
                               ),
                             ),
                           ),
-                        );
+                        )
+                            .animate()
+                            .fadeIn(
+                              delay: (index * 80).ms,
+                              duration: 300.ms,
+                            )
+                            .slideY(
+                              begin: 0.05,
+                              delay: (index * 80).ms,
+                              duration: 300.ms,
+                            );
                       },
                       childCount: actions.length,
                     ),

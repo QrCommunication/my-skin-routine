@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/constants/enums.dart';
 import 'package:my_skin_routine/domain/models/product.dart';
 import 'package:my_skin_routine/presentation/providers/product_providers.dart';
+import 'package:my_skin_routine/presentation/theme/app_motion.dart';
+import 'package:my_skin_routine/presentation/widgets/empty_state.dart';
 import 'package:my_skin_routine/presentation/widgets/product_card.dart';
 
 class ProductListScreen extends ConsumerStatefulWidget {
@@ -230,35 +233,12 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
               const SliverToBoxAdapter(child: SizedBox(height: 12)),
               if (filteredProducts.isEmpty)
                 SliverFillRemaining(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.spa_outlined,
-                          size: 64,
-                          color: colorScheme.outline,
-                        ),
-                        const SizedBox(height: 24),
-                        Text(
-                          'Aucun produit',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Ajoutez vos premiers produits de soin',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: colorScheme.outline,
-                              ),
-                        ),
-                        const SizedBox(height: 32),
-                        FilledButton.icon(
-                          icon: const Icon(Icons.add),
-                          label: const Text('Ajouter un produit'),
-                          onPressed: () => context.push('/products/new'),
-                        ),
-                      ],
-                    ),
+                  child: EmptyState(
+                    icon: Icons.spa_outlined,
+                    title: 'Aucun produit',
+                    subtitle: 'Ajoutez vos premiers produits de soin',
+                    actionLabel: 'Ajouter un produit',
+                    onAction: () => context.push('/products/new'),
                   ),
                 )
               else
@@ -279,7 +259,9 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                           product: product,
                           onTap: () => context.push('/products/${product.id}'),
                           onLongPress: () => _showProductOptions(product),
-                        );
+                        ).animate()
+                          .fadeIn(delay: (index * 50).ms, duration: AppMotion.durationMedium)
+                          .slideY(begin: 0.1, delay: (index * 50).ms, duration: AppMotion.durationMedium, curve: AppMotion.standardCurve);
                       },
                       childCount: filteredProducts.length,
                     ),
@@ -294,7 +276,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
         onPressed: () => context.push('/products/new'),
         icon: const Icon(Icons.add),
         label: const Text('Nouveau produit'),
-      ),
+      ).animate().scale(delay: 500.ms, duration: AppMotion.durationLong, curve: AppMotion.expressiveCurve),
     );
   }
 }

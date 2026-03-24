@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/presentation/providers/journal_providers.dart';
@@ -199,7 +200,12 @@ class _CalendarGrid extends ConsumerWidget {
                   ),
                 ),
               ),
-            );
+            )
+                .animate()
+                .fadeIn(
+                  delay: (index * 30).ms,
+                  duration: 200.ms,
+                );
           },
         );
       },
@@ -330,7 +336,18 @@ class _BestStreakCard extends ConsumerWidget {
               ],
             ),
           ),
-        );
+        )
+            .animate()
+            .scale(
+              delay: 0.ms,
+              duration: 300.ms,
+              begin: const Offset(0.95, 0.95),
+              end: const Offset(1.0, 1.0),
+            )
+            .fadeIn(
+              delay: 0.ms,
+              duration: 300.ms,
+            );
       },
     );
   }
@@ -380,7 +397,18 @@ class _RoutineStreakCard extends ConsumerWidget {
               ],
             ),
           ),
-        );
+        )
+            .animate()
+            .scale(
+              delay: (100 + streak.currentStreak * 50).ms,
+              duration: 300.ms,
+              begin: const Offset(0.9, 0.9),
+              end: const Offset(1.0, 1.0),
+            )
+            .fadeIn(
+              delay: (100 + streak.currentStreak * 50).ms,
+              duration: 300.ms,
+            );
       },
     );
   }
@@ -415,7 +443,17 @@ class _JournalTab extends ConsumerWidget {
                     onTap: () {
                       context.push('/progress/journal/${entry.id}');
                     },
-                  );
+                  )
+                      .animate()
+                      .slideY(
+                        begin: 0.1,
+                        delay: (index * 80).ms,
+                        duration: 300.ms,
+                      )
+                      .fadeIn(
+                        delay: (index * 80).ms,
+                        duration: 300.ms,
+                      );
                 },
               ),
             Positioned(

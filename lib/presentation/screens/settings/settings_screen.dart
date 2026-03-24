@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:my_skin_routine/presentation/providers/settings_providers.dart';
@@ -171,12 +172,32 @@ class _DataSection extends ConsumerWidget {
           leading: const Icon(Icons.upload_rounded),
           title: const Text('Exporter mes données'),
           onTap: () => _handleExport(context, ref),
-        ),
+        )
+            .animate()
+            .fadeIn(
+              delay: 100.ms,
+              duration: 300.ms,
+            )
+            .slideX(
+              begin: 0.05,
+              delay: 100.ms,
+              duration: 300.ms,
+            ),
         ListTile(
           leading: const Icon(Icons.download_rounded),
           title: const Text('Importer des données'),
           onTap: () => _handleImportDialog(context, ref),
-        ),
+        )
+            .animate()
+            .fadeIn(
+              delay: 150.ms,
+              duration: 300.ms,
+            )
+            .slideX(
+              begin: 0.05,
+              delay: 150.ms,
+              duration: 300.ms,
+            ),
       ],
     );
   }

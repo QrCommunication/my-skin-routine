@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class SkinFeelingSelector extends StatelessWidget {
   final int? selectedFeeling;
@@ -31,13 +32,28 @@ class SkinFeelingSelector extends StatelessWidget {
                   isSelected: selectedFeeling == feeling.value,
                   onPressed: () => onChanged(feeling.value),
                 ))
+            .toList()
+            .asMap()
+            .entries
+            .map(
+              (entry) => entry.value
+                  .animate()
+                  .scale(
+                    delay: (entry.key * 80).ms,
+                    duration: 300.ms,
+                  )
+                  .fadeIn(
+                    delay: (entry.key * 80).ms,
+                    duration: 300.ms,
+                  ),
+            )
             .toList(),
       ),
     );
   }
 }
 
-class _FeelingButton extends StatelessWidget {
+class _FeelingButton extends StatefulWidget {
   final String emoji;
   final String label;
   final int value;
@@ -53,29 +69,56 @@ class _FeelingButton extends StatelessWidget {
   });
 
   @override
+  State<_FeelingButton> createState() => _FeelingButtonState();
+}
+
+class _FeelingButtonState extends State<_FeelingButton> {
+  late double _scaleValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _scaleValue = widget.isSelected ? 1.1 : 1.0;
+  }
+
+  @override
+  void didUpdateWidget(_FeelingButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      _scaleValue = widget.isSelected ? 1.1 : 1.0;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         InkWell(
-          onTap: onPressed,
+          onTap: () {
+            widget.onPressed();
+          },
           customBorder: const CircleBorder(),
-          child: Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Colors.transparent,
-            ),
-            child: Center(
-              child: Text(emoji, style: const TextStyle(fontSize: 28)),
+          child: AnimatedScale(
+            scale: _scaleValue,
+            duration: const Duration(milliseconds: 200),
+            child: Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: widget.isSelected
+                    ? Theme.of(context).colorScheme.primaryContainer
+                    : Colors.transparent,
+              ),
+              child: Center(
+                child: Text(widget.emoji, style: const TextStyle(fontSize: 28)),
+              ),
             ),
           ),
         ),
         const SizedBox(height: 6),
         Text(
-          label,
+          widget.label,
           style: Theme.of(context).textTheme.labelSmall,
           textAlign: TextAlign.center,
         ),

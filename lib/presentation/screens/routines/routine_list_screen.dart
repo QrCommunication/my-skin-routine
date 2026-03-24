@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/constants/enums.dart';
@@ -170,7 +171,17 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
                           ),
                         ),
                       ),
-                    );
+                    )
+                        .animate()
+                        .fadeIn(
+                          delay: (index * 80).ms,
+                          duration: 300.ms,
+                        )
+                        .slideX(
+                          begin: 0.05,
+                          delay: (index * 80).ms,
+                          duration: 300.ms,
+                        );
                   },
                   childCount: filtered.length,
                 ),
