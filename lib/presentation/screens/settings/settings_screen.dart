@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:my_skin_routine/core/extensions/context_extensions.dart';
+import 'package:my_skin_routine/presentation/providers/profile_provider.dart';
 import 'package:my_skin_routine/presentation/providers/settings_providers.dart';
 import 'package:my_skin_routine/presentation/providers/export_import_providers.dart';
 
@@ -18,6 +19,8 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: [
+          _buildProfileSection(context, ref),
+          const Divider(indent: 16, endIndent: 16),
           _buildLanguageSection(context, ref),
           _buildThemeSection(context, ref),
           if (Platform.isAndroid) _buildDynamicColorSection(context, ref),
@@ -25,6 +28,85 @@ class SettingsScreen extends ConsumerWidget {
           _buildDataSection(context, ref),
           const Divider(indent: 16, endIndent: 16),
           _buildAboutSection(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfileSection(BuildContext context, WidgetRef ref) {
+    final profileAsync = ref.watch(profileProvider);
+    return profileAsync.when(
+      data: (profile) {
+        final initials = '${profile.firstName.isNotEmpty ? profile.firstName[0] : 'U'}${profile.lastName.isNotEmpty ? profile.lastName[0] : ''}';
+        return Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(context.l10n.profileTitle, style: Theme.of(context).textTheme.labelLarge),
+              const SizedBox(height: 12),
+              ListTile(
+                leading: CircleAvatar(
+                  child: Text(initials.toUpperCase()),
+                ),
+                title: Text('${profile.firstName} ${profile.lastName}'.trim()),
+                subtitle: Text(context.l10n.profileEditTitle),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _showEditProfileDialog(context, ref, profile),
+              ),
+            ],
+          ),
+        );
+      },
+      loading: () => const Padding(
+        padding: EdgeInsets.all(16),
+        child: Center(child: CircularProgressIndicator()),
+      ),
+      error: (_, __) => const SizedBox.shrink(),
+    );
+  }
+
+  Future<void> _showEditProfileDialog(BuildContext context, WidgetRef ref, ({String firstName, String lastName, bool onboardingComplete}) profile) async {
+    final firstNameController = TextEditingController(text: profile.firstName);
+    final lastNameController = TextEditingController(text: profile.lastName);
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(context.l10n.profileEditTitle),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              controller: firstNameController,
+              decoration: InputDecoration(
+                labelText: context.l10n.onboardingProfileFirstName,
+              ),
+            ),
+            const SizedBox(height: 12),
+            TextFormField(
+              controller: lastNameController,
+              decoration: InputDecoration(
+                labelText: context.l10n.onboardingProfileLastName,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(context.l10n.commonCancel),
+          ),
+          FilledButton(
+            onPressed: () {
+              ref.read(profileProvider.notifier).setProfile(
+                firstName: firstNameController.text,
+                lastName: lastNameController.text,
+              );
+              Navigator.pop(ctx);
+            },
+            child: Text(context.l10n.commonSave),
+          ),
         ],
       ),
     );

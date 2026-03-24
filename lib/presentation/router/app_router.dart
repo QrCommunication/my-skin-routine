@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/presentation/screens/home/home_screen.dart';
+import 'package:my_skin_routine/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:my_skin_routine/presentation/screens/splash/splash_screen.dart';
 import 'package:my_skin_routine/presentation/screens/products/product_list_screen.dart';
 import 'package:my_skin_routine/presentation/screens/products/product_detail_screen.dart';
 import 'package:my_skin_routine/presentation/screens/products/product_form_screen.dart';
@@ -14,8 +16,20 @@ import 'package:my_skin_routine/presentation/screens/settings/settings_screen.da
 import 'package:my_skin_routine/presentation/widgets/msr_scaffold.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/splash',
   routes: [
+    GoRoute(
+      path: '/splash',
+      name: 'splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: '/onboarding',
+      name: 'onboarding',
+      builder: (BuildContext context, GoRouterState state) {
+        return const OnboardingScreen();
+      },
+    ),
     StatefulShellRoute.indexedStack(
       builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
         return MSRScaffold(navigationShell: navigationShell);

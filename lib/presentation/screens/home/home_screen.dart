@@ -10,6 +10,7 @@ import '../../../core/utils/recurrence_utils.dart';
 import '../../../domain/models/action_completion.dart';
 import '../../../domain/models/routine.dart';
 import '../../../domain/models/routine_action.dart';
+import '../../providers/profile_provider.dart';
 import '../../providers/routine_providers.dart';
 import '../../providers/streak_providers.dart';
 import '../../theme/app_motion.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeRoutinesAsync = ref.watch(activeRoutinesProvider);
+    final profileAsync = ref.watch(profileProvider);
     final today = DateTime.now().toDateString();
 
     return Scaffold(
@@ -28,7 +30,16 @@ class HomeScreen extends ConsumerWidget {
         slivers: [
           // Large AppBar with greeting and controls
           SliverAppBar.large(
-            title: Text(context.l10n.homeGreeting),
+            title: profileAsync.when(
+              data: (profile) {
+                if (profile?.firstName.isNotEmpty ?? false) {
+                  return Text(context.l10n.greetingPersonalized(profile!.firstName));
+                }
+                return Text(context.l10n.greetingDefault);
+              },
+              loading: () => Text(context.l10n.greetingDefault),
+              error: (_, __) => Text(context.l10n.greetingDefault),
+            ),
             actions: [
               // Streak badge
               ref.watch(streakForRoutineProvider(0)).when(

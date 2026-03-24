@@ -98,6 +98,120 @@ abstract class AppLocalizations {
     Locale('fr'),
   ];
 
+  /// No description provided for @onboardingWelcomeTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'My Skin Routine'**
+  String get onboardingWelcomeTitle;
+
+  /// No description provided for @onboardingWelcomeSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre compagnon skincare'**
+  String get onboardingWelcomeSubtitle;
+
+  /// No description provided for @onboardingStart.
+  ///
+  /// In fr, this message translates to:
+  /// **'Commencer'**
+  String get onboardingStart;
+
+  /// No description provided for @onboardingProfileTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Comment vous appelez-vous ?'**
+  String get onboardingProfileTitle;
+
+  /// No description provided for @onboardingProfileFirstName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Prénom'**
+  String get onboardingProfileFirstName;
+
+  /// No description provided for @onboardingProfileLastName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom'**
+  String get onboardingProfileLastName;
+
+  /// No description provided for @onboardingContinue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Continuer'**
+  String get onboardingContinue;
+
+  /// No description provided for @onboardingProductTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajoutez votre premier produit'**
+  String get onboardingProductTitle;
+
+  /// No description provided for @onboardingProductSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous pourrez en ajouter d\'autres plus tard'**
+  String get onboardingProductSubtitle;
+
+  /// No description provided for @onboardingRoutineTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Créez votre première routine'**
+  String get onboardingRoutineTitle;
+
+  /// No description provided for @onboardingRoutineSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Organisez vos soins quotidiens'**
+  String get onboardingRoutineSubtitle;
+
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Passer'**
+  String get onboardingSkip;
+
+  /// No description provided for @onboardingDoneTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tout est prêt ! 🎉'**
+  String get onboardingDoneTitle;
+
+  /// No description provided for @onboardingDoneWelcome.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bienvenue {firstName} !'**
+  String onboardingDoneWelcome(String firstName);
+
+  /// No description provided for @onboardingDoneButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Découvrir l\'app'**
+  String get onboardingDoneButton;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Profil'**
+  String get profileTitle;
+
+  /// No description provided for @profileEditTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier le profil'**
+  String get profileEditTitle;
+
+  /// No description provided for @greetingPersonalized.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bonjour {firstName} 💜'**
+  String greetingPersonalized(String firstName);
+
+  /// No description provided for @greetingDefault.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bonjour 💜'**
+  String get greetingDefault;
+
   /// No description provided for @homeGreeting.
   ///
   /// In fr, this message translates to:

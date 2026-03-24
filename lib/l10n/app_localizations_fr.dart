@@ -9,6 +9,68 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
+  String get onboardingWelcomeTitle => 'My Skin Routine';
+
+  @override
+  String get onboardingWelcomeSubtitle => 'Votre compagnon skincare';
+
+  @override
+  String get onboardingStart => 'Commencer';
+
+  @override
+  String get onboardingProfileTitle => 'Comment vous appelez-vous ?';
+
+  @override
+  String get onboardingProfileFirstName => 'Prénom';
+
+  @override
+  String get onboardingProfileLastName => 'Nom';
+
+  @override
+  String get onboardingContinue => 'Continuer';
+
+  @override
+  String get onboardingProductTitle => 'Ajoutez votre premier produit';
+
+  @override
+  String get onboardingProductSubtitle =>
+      'Vous pourrez en ajouter d\'autres plus tard';
+
+  @override
+  String get onboardingRoutineTitle => 'Créez votre première routine';
+
+  @override
+  String get onboardingRoutineSubtitle => 'Organisez vos soins quotidiens';
+
+  @override
+  String get onboardingSkip => 'Passer';
+
+  @override
+  String get onboardingDoneTitle => 'Tout est prêt ! 🎉';
+
+  @override
+  String onboardingDoneWelcome(String firstName) {
+    return 'Bienvenue $firstName !';
+  }
+
+  @override
+  String get onboardingDoneButton => 'Découvrir l\'app';
+
+  @override
+  String get profileTitle => 'Profil';
+
+  @override
+  String get profileEditTitle => 'Modifier le profil';
+
+  @override
+  String greetingPersonalized(String firstName) {
+    return 'Bonjour $firstName 💜';
+  }
+
+  @override
+  String get greetingDefault => 'Bonjour 💜';
+
+  @override
   String get homeGreeting => 'Bonjour 💜';
 
   @override

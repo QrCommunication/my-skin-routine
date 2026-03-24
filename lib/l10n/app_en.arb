@@ -1,5 +1,38 @@
 {
   "@@locale": "en",
+  "onboardingWelcomeTitle": "My Skin Routine",
+  "onboardingWelcomeSubtitle": "Your skincare companion",
+  "onboardingStart": "Get Started",
+  "onboardingProfileTitle": "What's your name?",
+  "onboardingProfileFirstName": "First Name",
+  "onboardingProfileLastName": "Last Name",
+  "onboardingContinue": "Continue",
+  "onboardingProductTitle": "Add your first product",
+  "onboardingProductSubtitle": "You can add more later",
+  "onboardingRoutineTitle": "Create your first routine",
+  "onboardingRoutineSubtitle": "Organize your daily skincare",
+  "onboardingSkip": "Skip",
+  "onboardingDoneTitle": "All set! 🎉",
+  "onboardingDoneWelcome": "Welcome {firstName}!",
+  "@onboardingDoneWelcome": {
+    "placeholders": {
+      "firstName": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingDoneButton": "Explore the App",
+  "profileTitle": "Profile",
+  "profileEditTitle": "Edit Profile",
+  "greetingPersonalized": "Hello {firstName} 💜",
+  "@greetingPersonalized": {
+    "placeholders": {
+      "firstName": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingDefault": "Hello 💜",
   "homeGreeting": "Hello 💜",
   "homeToday": "Today's Routines",
   "homeEmpty": "No active routines",
