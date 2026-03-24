@@ -274,12 +274,9 @@ class ProductDetailScreen extends ConsumerWidget {
         }
       }
 
-      await ref.read(productListProvider.notifier).deleteProduct(product.id);
+      await ref.read(productRepositoryProvider).deleteProduct(product.id);
 
       if (!context.mounted) return;
-
-      ref.invalidate(productByIdProvider(product.id));
-      ref.invalidate(productListProvider);
 
       context.pop();
 

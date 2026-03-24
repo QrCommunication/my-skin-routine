@@ -104,7 +104,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
               onPressed: () async {
                 Navigator.pop(context);
                 await ref
-                    .read(productListProvider.notifier)
+                    .read(productRepositoryProvider)
                     .deleteProduct(product.id);
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -141,7 +141,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
               const SizedBox(height: 8),
               FilledButton(
                 onPressed: () {
-                  ref.invalidate(productListProvider);
+                  ref.invalidate(productListProvider); // force refresh on error retry
                 },
                 child: const Text('Réessayer'),
               ),

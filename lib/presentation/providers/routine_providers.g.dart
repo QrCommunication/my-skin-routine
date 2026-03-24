@@ -56,11 +56,22 @@ final class RoutineRepositoryProvider
 
 String _$routineRepositoryHash() => r'e85be18954e85463a2724c43457b3dfe0c1c566c';
 
-@ProviderFor(RoutineList)
+/// Reactive stream — auto-updates when DB changes
+
+@ProviderFor(routineList)
 final routineListProvider = RoutineListProvider._();
 
+/// Reactive stream — auto-updates when DB changes
+
 final class RoutineListProvider
-    extends $AsyncNotifierProvider<RoutineList, List<Routine>> {
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Routine>>,
+          List<Routine>,
+          Stream<List<Routine>>
+        >
+    with $FutureModifier<List<Routine>>, $StreamProvider<List<Routine>> {
+  /// Reactive stream — auto-updates when DB changes
   RoutineListProvider._()
     : super(
         from: null,
@@ -77,28 +88,17 @@ final class RoutineListProvider
 
   @$internal
   @override
-  RoutineList create() => RoutineList();
-}
+  $StreamProviderElement<List<Routine>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
 
-String _$routineListHash() => r'f1d3a13474c64dc7a2b5d9ff31d6cf4db7e5d78b';
-
-abstract class _$RoutineList extends $AsyncNotifier<List<Routine>> {
-  FutureOr<List<Routine>> build();
-  @$mustCallSuper
   @override
-  void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<List<Routine>>, List<Routine>>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<Routine>>, List<Routine>>,
-              AsyncValue<List<Routine>>,
-              Object?,
-              Object?
-            >;
-    element.handleCreate(ref, build);
+  Stream<List<Routine>> create(Ref ref) {
+    return routineList(ref);
   }
 }
+
+String _$routineListHash() => r'6171ec53e104cce80c978313166034eb86f7f853';
 
 @ProviderFor(activeRoutines)
 final activeRoutinesProvider = ActiveRoutinesProvider._();

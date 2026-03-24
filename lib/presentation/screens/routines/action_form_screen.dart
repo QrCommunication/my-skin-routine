@@ -144,6 +144,9 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
         await routineRepository.updateAction(action);
       }
 
+      ref.invalidate(routineByIdProvider(widget.routineId));
+      ref.invalidate(routineActionsProvider(widget.routineId));
+
       if (mounted) {
         context.pop();
       }

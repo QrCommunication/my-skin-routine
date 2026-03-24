@@ -56,11 +56,22 @@ final class ProductRepositoryProvider
 
 String _$productRepositoryHash() => r'37b49c3ed0d05713a2f593189bbb69425804f50c';
 
-@ProviderFor(ProductList)
+/// Reactive stream — auto-updates when DB changes
+
+@ProviderFor(productList)
 final productListProvider = ProductListProvider._();
 
+/// Reactive stream — auto-updates when DB changes
+
 final class ProductListProvider
-    extends $AsyncNotifierProvider<ProductList, List<Product>> {
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Product>>,
+          List<Product>,
+          Stream<List<Product>>
+        >
+    with $FutureModifier<List<Product>>, $StreamProvider<List<Product>> {
+  /// Reactive stream — auto-updates when DB changes
   ProductListProvider._()
     : super(
         from: null,
@@ -77,28 +88,17 @@ final class ProductListProvider
 
   @$internal
   @override
-  ProductList create() => ProductList();
-}
+  $StreamProviderElement<List<Product>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
 
-String _$productListHash() => r'8c2ccd7889cd7c8509e662ab1335f1c1ca2ba377';
-
-abstract class _$ProductList extends $AsyncNotifier<List<Product>> {
-  FutureOr<List<Product>> build();
-  @$mustCallSuper
   @override
-  void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<List<Product>>, List<Product>>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<Product>>, List<Product>>,
-              AsyncValue<List<Product>>,
-              Object?,
-              Object?
-            >;
-    element.handleCreate(ref, build);
+  Stream<List<Product>> create(Ref ref) {
+    return productList(ref);
   }
 }
+
+String _$productListHash() => r'7197cf71541855176de6ad1c999ad5af905160a6';
 
 @ProviderFor(productSearch)
 final productSearchProvider = ProductSearchFamily._();

@@ -14,23 +14,11 @@ RoutineRepository routineRepository(Ref ref) {
   return RoutineRepositoryImpl(database);
 }
 
+/// Reactive stream — auto-updates when DB changes
 @riverpod
-class RoutineList extends _$RoutineList {
-  @override
-  Future<List<Routine>> build() async {
-    final repository = ref.watch(routineRepositoryProvider);
-    return repository.getAllRoutines();
-  }
-
-  Future<void> deleteRoutine(int id) async {
-    final repository = ref.watch(routineRepositoryProvider);
-    await repository.deleteRoutine(id);
-    ref.invalidateSelf();
-  }
-
-  Future<void> refresh() async {
-    ref.invalidateSelf();
-  }
+Stream<List<Routine>> routineList(Ref ref) {
+  final repository = ref.watch(routineRepositoryProvider);
+  return repository.watchAllRoutines();
 }
 
 @riverpod

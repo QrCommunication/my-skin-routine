@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  static const Color seedColor = Color(0xFF9B6DD4);
+  // Extracted from logo gradient: #5E3496 → #432074
+  static const Color seedColor = Color(0xFF5E3496);
 
-  static const Color lavandePrimary = Color(0xFF7B4FB8);
+  static const Color lavandePrimary = Color(0xFF5E3496);
   static const Color lavandePrimaryContainer = Color(0xFFEDDCFF);
 
   static const Color lavandeSecondary = Color(0xFF9B6DD4);

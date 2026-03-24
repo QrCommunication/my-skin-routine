@@ -12,23 +12,11 @@ ProductRepository productRepository(Ref ref) {
   return ProductRepositoryImpl(database);
 }
 
+/// Reactive stream — auto-updates when DB changes
 @riverpod
-class ProductList extends _$ProductList {
-  @override
-  Future<List<Product>> build() async {
-    final repository = ref.watch(productRepositoryProvider);
-    return repository.getAllProducts();
-  }
-
-  Future<void> deleteProduct(int id) async {
-    final repository = ref.watch(productRepositoryProvider);
-    await repository.deleteProduct(id);
-    ref.invalidateSelf();
-  }
-
-  Future<void> refresh() async {
-    ref.invalidateSelf();
-  }
+Stream<List<Product>> productList(Ref ref) {
+  final repository = ref.watch(productRepositoryProvider);
+  return repository.watchAllProducts();
 }
 
 @riverpod
