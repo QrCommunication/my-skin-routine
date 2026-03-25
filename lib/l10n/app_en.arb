@@ -22,6 +22,8 @@
     }
   },
   "onboardingDoneButton": "Explore the App",
+  "onboardingFirstNameRequired": "First name is required",
+  "onboardingLastNameRequired": "Last name is required",
   "profileTitle": "Profile",
   "profileEditTitle": "Edit Profile",
   "greetingPersonalized": "Hello {firstName} 💜",
@@ -43,14 +45,24 @@
   "productsEmptySubtitle": "Add your first skincare products",
   "productsSearch": "Search a product",
   "productNew": "New Product",
+  "productEdit": "Edit Product",
   "productFormName": "Product Name",
   "productFormNameHint": "E.g. Vitamin C Serum",
   "productFormBrand": "Brand",
   "productFormBrandHint": "E.g. CeraVe",
   "productFormType": "Product Type",
   "productFormNotes": "Notes (optional)",
+  "productFormNotesHint": "Add notes about this product...",
   "productFormPhoto": "Add a Photo",
   "productDelete": "Delete Product",
+  "productDeleteConfirm": "Are you sure you want to delete \"{name}\"?",
+  "@productDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "productDeleteWarning": "This product is used in {count} action(s). Actions will be kept but no longer linked to a product.",
   "@productDeleteWarning": {
     "placeholders": {
@@ -59,16 +71,74 @@
       }
     }
   },
+  "productDeleteUsageWarning": "Warning: This product is used in {count} action(s). This will affect routines.",
+  "@productDeleteUsageWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "productDeleted": "Product \"{name}\" deleted",
+  "@productDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "productNameDeleted": "{name} has been deleted",
+  "@productNameDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "productUpdatedSuccess": "Product updated successfully",
+  "productCreatedSuccess": "Product created successfully",
+  "productNameRequired": "Product name is required",
+  "productNameMaxLength": "Name must not exceed 100 characters",
+  "productBrandRequired": "Brand is required",
+  "productBrandMaxLength": "Brand must not exceed 100 characters",
+  "productNotUsed": "Not used in any routine",
+  "productUsedInCount": "Used in {count} action(s)",
+  "@productUsedInCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "productDeleteError": "Error deleting: {error}",
+  "@productDeleteError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "routinesTitle": "My Routines",
   "routinesEmpty": "No routines",
   "routinesEmptySubtitle": "Create your first skincare routine",
   "routineNew": "New Routine",
+  "routineEdit": "Edit Routine",
   "routineFormName": "Routine Name",
+  "routineFormNameHint": "e.g. Morning Routine",
+  "routineFormNameHelperText": "Maximum 100 characters",
+  "routineFormNameRequired": "Name is required",
+  "routineFormNameMaxLength": "Maximum 100 characters",
   "routineFormDescription": "Description (optional)",
+  "routineFormDescriptionHint": "Describe your routine...",
+  "routineFormDescriptionHelperText": "Maximum 500 characters",
+  "routineFormDescriptionMaxLength": "Maximum 500 characters",
   "routineFormBodyZone": "Body Zone",
   "routineFormSkinGoal": "Skin Goal",
   "routineFormReminder": "Reminder Time",
+  "routineFormReminderNotSet": "Not set",
   "routineFormActive": "Active Routine",
+  "routineFormActiveSubtitle": "Include in active routines",
+  "routineFormUpdate": "Update",
   "routineDelete": "Delete Routine",
   "routineDeleteWarning": "This routine and its {count} action(s) will be permanently deleted.",
   "@routineDeleteWarning": {
@@ -78,13 +148,28 @@
       }
     }
   },
+  "routineNotFound": "Routine not found",
+  "routineNotFoundMessage": "This routine does not exist",
+  "routineActionsCount": "Actions ({count})",
+  "@routineActionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "actionsTitle": "Actions",
   "actionNew": "New Action",
+  "actionEdit": "Edit Action",
   "actionFormName": "Action Name",
   "actionFormNameHint": "E.g. Apply serum",
+  "actionFormNameRequired": "Name is required",
   "actionFormDescription": "Description (optional)",
+  "actionFormDescriptionHint": "Add optional details",
   "actionFormProduct": "Associated Product",
   "actionFormProductNone": "None",
+  "actionFormProductNoneLabel": "No product",
+  "actionFormProductSearch": "Search a product...",
   "actionFormRecurrence": "Recurrence",
   "actionFormRecurrenceDaily": "Daily",
   "actionFormRecurrenceEveryN": "Every {count} days",
@@ -98,11 +183,54 @@
   "actionFormRecurrenceWeekly": "Weekly",
   "actionFormInterval": "Interval (days)",
   "actionFormStartDate": "Start Date",
+  "actionFormValidationNameRequired": "Please enter a name for the action",
+  "actionFormSaveAndNew": "{save} + New action",
+  "@actionFormSaveAndNew": {
+    "placeholders": {
+      "save": {
+        "type": "String"
+      }
+    }
+  },
   "actionDelete": "Delete Action",
+  "actionIrreversible": "This action is irreversible.",
   "progressTitle": "Progress",
   "progressCalendar": "Calendar",
   "progressStreaks": "Streaks",
   "progressJournal": "Journal",
+  "progressDayDetails": "Details for {date}",
+  "@progressDayDetails": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "progressNotes": "Notes: {notes}",
+  "@progressNotes": {
+    "placeholders": {
+      "notes": {
+        "type": "String"
+      }
+    }
+  },
+  "progressPhoto": "Photo: {path}",
+  "@progressPhoto": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "progressFeeling": "Feeling: {feeling}/5",
+  "@progressFeeling": {
+    "placeholders": {
+      "feeling": {
+        "type": "int"
+      }
+    }
+  },
+  "progressNoEntry": "No journal entry for this day.",
   "streakCurrent": "Current Streak",
   "streakBest": "Best Streak",
   "streakDays": "{count} days",
@@ -113,9 +241,24 @@
       }
     }
   },
+  "streakCurrentDays": "{label}: {count} days",
+  "@streakCurrentDays": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "journalTitle": "Journal",
   "journalNew": "New Entry",
+  "journalEditTitle": "Edit Journal Entry",
+  "journalNewTitle": "New Journal Entry",
   "journalDate": "Date",
   "journalPhoto": "Photo (optional)",
+  "journalAddPhoto": "Add a photo",
   "journalFeeling": "How is your skin?",
   "journalFeelingTerrible": "Terrible",
   "journalFeelingNotGreat": "Not Great",
@@ -124,8 +267,12 @@
   "journalFeelingRadiant": "Radiant",
   "journalNotes": "Notes",
   "journalNotesHint": "How is your skin today?",
+  "journalValidationNotesRequired": "Please enter some notes",
+  "journalValidationFeelingRequired": "Please select how your skin feels",
   "settingsTitle": "Settings",
   "settingsLanguage": "Language",
+  "settingsLanguageFrench": "Français",
+  "settingsLanguageEnglish": "English",
   "settingsTheme": "Theme",
   "settingsThemeAuto": "Auto",
   "settingsThemeLight": "Light",
@@ -137,6 +284,7 @@
   "settingsImportWarning": "This will replace all your current data. This action is irreversible.",
   "settingsAbout": "About",
   "settingsVersion": "Version",
+  "settingsOpenSourceLicenses": "Open source licenses",
   "commonSave": "Save",
   "commonCancel": "Cancel",
   "commonDelete": "Delete",
@@ -146,7 +294,21 @@
   "commonCamera": "Camera",
   "commonGallery": "Gallery",
   "commonError": "An error occurred",
+  "commonErrorWithDetails": "Error: {error}",
+  "@commonErrorWithDetails": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "commonSuccess": "Operation successful",
+  "commonRetry": "Retry",
+  "commonAll": "All",
+  "commonNext": "Next",
+  "commonGotIt": "Got it!",
+  "commonEditTooltip": "Edit",
+  "commonDeleteTooltip": "Delete",
   "exportSuccess": "Export successful ✓",
   "importSuccess": "Import successful ✓",
   "completedOf": "{completed}/{total} completed",
@@ -167,5 +329,23 @@
         "type": "String"
       }
     }
-  }
+  },
+  "navHome": "Home",
+  "navProducts": "Products",
+  "navRoutines": "Routines",
+  "navProgress": "Progress",
+  "tutorialHomeSkinJournalTitle": "Skin Journal",
+  "tutorialHomeSkinJournalDescription": "Record your skin condition every day.",
+  "tutorialProductsSearchTitle": "Search and filter",
+  "tutorialProductsSearchDescription": "Use the search bar or type filters to find a product.",
+  "tutorialProductsFilterTitle": "Category filters",
+  "tutorialProductsFilterDescription": "Select a category to show only matching products.",
+  "tutorialProductsAddTitle": "Add your own",
+  "tutorialProductsAddDescription": "Tap the + button to add a new product with photo.",
+  "tutorialRoutinesFilterTitle": "Filter your routines",
+  "tutorialRoutinesFilterDescription": "Select a skin goal to show only matching routines.",
+  "tutorialRoutinesListTitle": "Your routines",
+  "tutorialRoutinesListDescription": "Each routine contains actions: apply serum, cleanse, etc. Enable or disable a routine with the switch.",
+  "tutorialRoutinesCreateTitle": "Create a new routine",
+  "tutorialRoutinesCreateDescription": "Tap the + button to create a new custom routine."
 }

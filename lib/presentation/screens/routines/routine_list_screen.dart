@@ -32,20 +32,20 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
           steps: [
             SpotlightStep(
               targetKey: _filterChipsKey,
-              title: 'Filtrez vos routines',
-              description: 'Sélectionnez un objectif cutané pour afficher uniquement les routines correspondantes.',
+              title: context.l10n.tutorialRoutinesFilterTitle,
+              description: context.l10n.tutorialRoutinesFilterDescription,
               icon: Icons.filter_list,
             ),
             SpotlightStep(
               targetKey: _firstRoutineKey,
-              title: 'Vos routines',
-              description: 'Chaque routine contient des actions : appliquer un sérum, nettoyer, etc. Activez ou désactivez une routine avec le switch.',
+              title: context.l10n.tutorialRoutinesListTitle,
+              description: context.l10n.tutorialRoutinesListDescription,
               icon: Icons.favorite_rounded,
             ),
             SpotlightStep(
               targetKey: _fabKey,
-              title: 'Créer une nouvelle routine',
-              description: 'Appuyez sur le bouton + pour créer une nouvelle routine personnalisée.',
+              title: context.l10n.tutorialRoutinesCreateTitle,
+              description: context.l10n.tutorialRoutinesCreateDescription,
               icon: Icons.add_circle_outline,
             ),
           ],
@@ -72,7 +72,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
                   key: _filterChipsKey,
                   children: [
                     FilterChip(
-                      label: const Text('Tous'),
+                      label: Text(context.l10n.commonAll),
                       selected: selectedGoal == null,
                       onSelected: (selected) {
                         setState(() {
@@ -136,12 +136,25 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
                 );
               }
 
-              return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
+              return SliverReorderableList(
+                onReorder: (oldIndex, newIndex) {
+                  if (newIndex > oldIndex) newIndex--;
+                  final reordered = List<dynamic>.from(filtered);
+                  final item = reordered.removeAt(oldIndex);
+                  reordered.insert(newIndex, item);
+                  final updates = <({int id, int sortOrder})>[];
+                  for (var i = 0; i < reordered.length; i++) {
+                    updates.add((id: reordered[i].id as int, sortOrder: i));
+                  }
+                  ref.read(routineRepositoryProvider).reorderRoutines(updates);
+                },
+                itemCount: filtered.length,
+                itemBuilder: (context, index) {
                     final routine = filtered[index];
-                    return Padding(
-                      key: index == 0 ? _firstRoutineKey : null,
+                    return ReorderableDragStartListener(
+                      key: ValueKey(routine.id),
+                      index: index,
+                      child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Card(
                         child: InkWell(
@@ -213,10 +226,9 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
                           begin: 0.05,
                           delay: (index * 80).ms,
                           duration: 300.ms,
-                        );
-                  },
-                  childCount: filtered.length,
-                ),
+                    ),
+                  );
+                },
               );
             },
             loading: () => SliverFillRemaining(
@@ -226,7 +238,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
             ),
             error: (error, stack) => SliverFillRemaining(
               child: Center(
-                child: Text('Erreur: $error'),
+                child: Text(context.l10n.commonErrorWithDetails(error.toString())),
               ),
             ),
           ),
@@ -273,7 +285,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(context.l10n.routineDelete),
-        content: const Text('Cette action est irréversible.'),
+        content: Text(context.l10n.actionIrreversible),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -292,4 +304,3 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
     );
   }
 }
-

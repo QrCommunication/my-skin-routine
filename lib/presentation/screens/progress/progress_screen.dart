@@ -134,7 +134,7 @@ class _CalendarGrid extends ConsumerWidget {
 
     return journalEntriesAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Erreur: $error')),
+      error: (error, stack) => Center(child: Text(context.l10n.commonErrorWithDetails(error.toString()))),
       data: (entries) {
         final entriesByDate = {
           for (final entry in entries) entry.date: entry,
@@ -228,17 +228,17 @@ class _CalendarGrid extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Détails du $dateStr',
+                context.l10n.progressDayDetails(dateStr),
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
               if (entry != null) ...[
-                Text('Notes: ${entry.notes}'),
+                Text(context.l10n.progressNotes(entry.notes)),
                 if (entry.photoPath != null)
-                  Text('Photo: ${entry.photoPath}'),
-                Text('Feeling: ${entry.skinFeeling}/5'),
+                  Text(context.l10n.progressPhoto(entry.photoPath)),
+                Text(context.l10n.progressFeeling(entry.skinFeeling)),
               ] else ...[
-                const Text('Aucune entrée journal pour ce jour.'),
+                Text(context.l10n.progressNoEntry),
               ],
             ],
           ),
@@ -257,7 +257,7 @@ class _StreaksTab extends ConsumerWidget {
 
     return routinesAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Erreur: $error')),
+      error: (error, stack) => Center(child: Text(context.l10n.commonErrorWithDetails(error.toString()))),
       data: (routines) {
         return ListView(
           padding: const EdgeInsets.all(16),
@@ -370,7 +370,7 @@ class _RoutineStreakCard extends ConsumerWidget {
       ),
       error: (error, stack) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Text('Erreur: $error'),
+        child: Text(context.l10n.commonErrorWithDetails(error.toString())),
       ),
       data: (streak) {
         if (streak == null) {
@@ -391,8 +391,8 @@ class _RoutineStreakCard extends ConsumerWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('${context.l10n.streakCurrent}: ${streak.currentStreak} jours'),
-                    Text('${context.l10n.streakBest}: ${streak.bestStreak} jours'),
+                    Text(context.l10n.streakCurrentDays(context.l10n.streakCurrent, streak.currentStreak)),
+                    Text(context.l10n.streakCurrentDays(context.l10n.streakBest, streak.bestStreak)),
                   ],
                 ),
               ],
@@ -424,7 +424,7 @@ class _JournalTab extends ConsumerWidget {
 
     return entriesAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Erreur: $error')),
+      error: (error, stack) => Center(child: Text(context.l10n.commonErrorWithDetails(error.toString()))),
       data: (entries) {
         final sortedEntries = List.from(entries)
           ..sort((a, b) => b.date.compareTo(a.date));

@@ -211,7 +211,6 @@ class ProductSeedData {
     (name: 'Ictyane Crème Hydratante', brand: 'Ducray', type: 'moisturizer'),
     (name: 'Bariéderm Cica-Crème', brand: 'Uriage', type: 'moisturizer'),
     (name: 'Cicavit+ Crème Apaisante', brand: 'SVR', type: 'moisturizer'),
-    (name: 'Hydra-Chrono+ Crème Riche', brand: 'Lierac', type: 'moisturizer'),
 
     // === FRENCH PHARMACY — Serums ===
     (name: 'Sérénage Sérum Revitalisant', brand: 'Uriage', type: 'serum'),
@@ -296,7 +295,6 @@ class ProductSeedData {
     // === NATURAL/ORGANIC — Oils ===
     (name: 'Huile d\'Argan Bio', brand: 'Melvita', type: 'oil'),
     (name: 'Rosehip BioRegenerate Oil', brand: 'Pai Skincare', type: 'oil'),
-    (name: 'Nourishing Body Oil Lavender', brand: 'Weleda', type: 'oil'),
 
     // === MEN'S SKINCARE ===
     (name: 'Original Face Wash', brand: 'Bulldog', type: 'cleanser'),
@@ -322,16 +320,10 @@ class ProductSeedData {
     // === UNDER-REPRESENTED TYPES — Spot Treatments ===
     (name: 'AHA BHA PHA 30 Days Miracle Patch', brand: 'Some By Mi', type: 'spotTreatment'),
     (name: 'AC Collection Blemish Spot Clearing Serum', brand: 'COSRX', type: 'spotTreatment'),
-    (name: 'Bye Bye Blemish Vita Tox Spot', brand: 'Some By Mi', type: 'spotTreatment'),
 
     // === UNDER-REPRESENTED TYPES — Masks ===
     (name: 'Dermask Water Jet Vital Hydra Solution', brand: 'Dr. Jart+', type: 'mask'),
     (name: 'Overnight Sleeping Mask Cica', brand: 'Laneige', type: 'mask'),
-    (name: 'Calming Moisture Barrier Pack', brand: 'Etude House', type: 'mask'),
 
-    // === UNDER-REPRESENTED TYPES — Other ===
-    (name: 'Ceramide Capsules Daily Youth Restoring Serum', brand: 'Elizabeth Arden', type: 'other'),
-    (name: 'Sensitive Age Defence Eye Cream', brand: 'Bulldog', type: 'other'),
-    (name: 'Eau de Parfum Fleur de Figuier', brand: 'Roger & Gallet', type: 'other'),
   ];
 }

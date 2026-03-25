@@ -163,7 +163,7 @@ class _WelcomePage extends StatelessWidget {
                 .scale(begin: const Offset(0.8, 0.8), duration: 600.ms, curve: Curves.easeOutBack),
               const SizedBox(height: 32),
               Text(
-                'My Skin Routine',
+                context.l10n.onboardingWelcomeTitle,
                 style: context.textTheme.headlineLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -171,7 +171,7 @@ class _WelcomePage extends StatelessWidget {
               ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
               const SizedBox(height: 16),
               Text(
-                'Votre compagnon skincare',
+                context.l10n.onboardingWelcomeSubtitle,
                 style: context.textTheme.titleMedium?.copyWith(
                   color: context.colorScheme.onSurfaceVariant,
                 ),
@@ -180,7 +180,7 @@ class _WelcomePage extends StatelessWidget {
               const SizedBox(height: 48),
               FilledButton(
                 onPressed: onNext,
-                child: const Text('Commencer'),
+                child: Text(context.l10n.onboardingStart),
               ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
             ],
           ),
@@ -261,7 +261,7 @@ class _ProfilePageState extends State<_ProfilePage> {
                   ),
                   validator: (value) {
                     if (value?.isEmpty ?? true) {
-                      return 'Le prénom est requis';
+                      return context.l10n.onboardingFirstNameRequired;
                     }
                     return null;
                   },
@@ -275,7 +275,7 @@ class _ProfilePageState extends State<_ProfilePage> {
                   ),
                   validator: (value) {
                     if (value?.isEmpty ?? true) {
-                      return 'Le nom est requis';
+                      return context.l10n.onboardingLastNameRequired;
                     }
                     return null;
                   },
@@ -326,13 +326,13 @@ class _DonePage extends StatelessWidget {
                 .scale(begin: const Offset(0.5, 0.5), duration: 600.ms, curve: Curves.easeOutBack),
               const SizedBox(height: 32),
               Text(
-                'Tout est prêt ! 🎉',
+                context.l10n.onboardingDoneTitle,
                 style: context.textTheme.headlineLarge,
                 textAlign: TextAlign.center,
               ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
               const SizedBox(height: 16),
               Text(
-                'Bienvenue $firstName !',
+                context.l10n.onboardingDoneWelcome(firstName),
                 style: context.textTheme.titleMedium?.copyWith(
                   color: context.colorScheme.primary,
                 ),
@@ -347,7 +347,7 @@ class _DonePage extends StatelessWidget {
                         height: 20,
                         child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                       )
-                    : const Text('Découvrir l\'app'),
+                    : Text(context.l10n.onboardingDoneButton),
               ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
             ],
           ),

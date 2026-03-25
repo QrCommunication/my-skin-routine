@@ -125,9 +125,9 @@ class SettingsScreen extends ConsumerWidget {
               Text(context.l10n.settingsLanguage, style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 12),
               SegmentedButton<String>(
-                segments: const [
-                  ButtonSegment(label: Text('Français'), value: 'fr'),
-                  ButtonSegment(label: Text('English'), value: 'en'),
+                segments: [
+                  ButtonSegment(label: Text(context.l10n.settingsLanguageFrench), value: 'fr'),
+                  ButtonSegment(label: Text(context.l10n.settingsLanguageEnglish), value: 'en'),
                 ],
                 selected: {selected},
                 onSelectionChanged: (newSelection) {
@@ -242,7 +242,7 @@ class SettingsScreen extends ConsumerWidget {
           subtitle: const Text('1.0.0'),
         ),
         ListTile(
-          title: const Text('Licences open source'),
+          title: Text(context.l10n.settingsOpenSourceLicenses),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => showLicensePage(
             context: context,
@@ -268,7 +268,7 @@ class SettingsScreen extends ConsumerWidget {
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur: $e')),
+          SnackBar(content: Text(context.l10n.commonErrorWithDetails(e.toString()))),
         );
       }
     }
@@ -320,7 +320,7 @@ class SettingsScreen extends ConsumerWidget {
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur: $e')),
+          SnackBar(content: Text(context.l10n.commonErrorWithDetails(e.toString()))),
         );
       }
     }

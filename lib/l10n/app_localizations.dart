@@ -188,6 +188,18 @@ abstract class AppLocalizations {
   /// **'Découvrir l\'app'**
   String get onboardingDoneButton;
 
+  /// No description provided for @onboardingFirstNameRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le prénom est requis'**
+  String get onboardingFirstNameRequired;
+
+  /// No description provided for @onboardingLastNameRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le nom est requis'**
+  String get onboardingLastNameRequired;
+
   /// No description provided for @profileTitle.
   ///
   /// In fr, this message translates to:
@@ -272,6 +284,12 @@ abstract class AppLocalizations {
   /// **'Nouveau produit'**
   String get productNew;
 
+  /// No description provided for @productEdit.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier le produit'**
+  String get productEdit;
+
   /// No description provided for @productFormName.
   ///
   /// In fr, this message translates to:
@@ -308,6 +326,12 @@ abstract class AppLocalizations {
   /// **'Notes (optionnel)'**
   String get productFormNotes;
 
+  /// No description provided for @productFormNotesHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter des notes sur ce produit...'**
+  String get productFormNotesHint;
+
   /// No description provided for @productFormPhoto.
   ///
   /// In fr, this message translates to:
@@ -320,11 +344,89 @@ abstract class AppLocalizations {
   /// **'Supprimer le produit'**
   String get productDelete;
 
+  /// No description provided for @productDeleteConfirm.
+  ///
+  /// In fr, this message translates to:
+  /// **'Êtes-vous sûr de vouloir supprimer \"{name}\" ?'**
+  String productDeleteConfirm(String name);
+
   /// No description provided for @productDeleteWarning.
   ///
   /// In fr, this message translates to:
   /// **'Ce produit est utilisé dans {count} action(s). Les actions seront conservées mais ne seront plus liées à un produit.'**
   String productDeleteWarning(int count);
+
+  /// No description provided for @productDeleteUsageWarning.
+  ///
+  /// In fr, this message translates to:
+  /// **'Attention : Ce produit est utilisé dans {count} action(s). Cela affectera les routines.'**
+  String productDeleteUsageWarning(int count);
+
+  /// No description provided for @productDeleted.
+  ///
+  /// In fr, this message translates to:
+  /// **'Produit \"{name}\" supprimé'**
+  String productDeleted(String name);
+
+  /// No description provided for @productNameDeleted.
+  ///
+  /// In fr, this message translates to:
+  /// **'{name} a été supprimé'**
+  String productNameDeleted(String name);
+
+  /// No description provided for @productUpdatedSuccess.
+  ///
+  /// In fr, this message translates to:
+  /// **'Produit modifié avec succès'**
+  String get productUpdatedSuccess;
+
+  /// No description provided for @productCreatedSuccess.
+  ///
+  /// In fr, this message translates to:
+  /// **'Produit créé avec succès'**
+  String get productCreatedSuccess;
+
+  /// No description provided for @productNameRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le nom du produit est requis'**
+  String get productNameRequired;
+
+  /// No description provided for @productNameMaxLength.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le nom ne doit pas dépasser 100 caractères'**
+  String get productNameMaxLength;
+
+  /// No description provided for @productBrandRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'La marque est requise'**
+  String get productBrandRequired;
+
+  /// No description provided for @productBrandMaxLength.
+  ///
+  /// In fr, this message translates to:
+  /// **'La marque ne doit pas dépasser 100 caractères'**
+  String get productBrandMaxLength;
+
+  /// No description provided for @productNotUsed.
+  ///
+  /// In fr, this message translates to:
+  /// **'Non utilisé dans aucune routine'**
+  String get productNotUsed;
+
+  /// No description provided for @productUsedInCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'Utilisé dans {count} action(s)'**
+  String productUsedInCount(int count);
+
+  /// No description provided for @productDeleteError.
+  ///
+  /// In fr, this message translates to:
+  /// **'Erreur lors de la suppression : {error}'**
+  String productDeleteError(String error);
 
   /// No description provided for @routinesTitle.
   ///
@@ -350,17 +452,65 @@ abstract class AppLocalizations {
   /// **'Nouvelle routine'**
   String get routineNew;
 
+  /// No description provided for @routineEdit.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éditer Routine'**
+  String get routineEdit;
+
   /// No description provided for @routineFormName.
   ///
   /// In fr, this message translates to:
   /// **'Nom de la routine'**
   String get routineFormName;
 
+  /// No description provided for @routineFormNameHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'ex: Routine du matin'**
+  String get routineFormNameHint;
+
+  /// No description provided for @routineFormNameHelperText.
+  ///
+  /// In fr, this message translates to:
+  /// **'Maximum 100 caractères'**
+  String get routineFormNameHelperText;
+
+  /// No description provided for @routineFormNameRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le nom est requis'**
+  String get routineFormNameRequired;
+
+  /// No description provided for @routineFormNameMaxLength.
+  ///
+  /// In fr, this message translates to:
+  /// **'Maximum 100 caractères'**
+  String get routineFormNameMaxLength;
+
   /// No description provided for @routineFormDescription.
   ///
   /// In fr, this message translates to:
   /// **'Description (optionnel)'**
   String get routineFormDescription;
+
+  /// No description provided for @routineFormDescriptionHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Décrivez votre routine...'**
+  String get routineFormDescriptionHint;
+
+  /// No description provided for @routineFormDescriptionHelperText.
+  ///
+  /// In fr, this message translates to:
+  /// **'Maximum 500 caractères'**
+  String get routineFormDescriptionHelperText;
+
+  /// No description provided for @routineFormDescriptionMaxLength.
+  ///
+  /// In fr, this message translates to:
+  /// **'Maximum 500 caractères'**
+  String get routineFormDescriptionMaxLength;
 
   /// No description provided for @routineFormBodyZone.
   ///
@@ -380,11 +530,29 @@ abstract class AppLocalizations {
   /// **'Heure de rappel'**
   String get routineFormReminder;
 
+  /// No description provided for @routineFormReminderNotSet.
+  ///
+  /// In fr, this message translates to:
+  /// **'Non défini'**
+  String get routineFormReminderNotSet;
+
   /// No description provided for @routineFormActive.
   ///
   /// In fr, this message translates to:
   /// **'Routine active'**
   String get routineFormActive;
+
+  /// No description provided for @routineFormActiveSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Inclure dans les routines actives'**
+  String get routineFormActiveSubtitle;
+
+  /// No description provided for @routineFormUpdate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mettre à jour'**
+  String get routineFormUpdate;
 
   /// No description provided for @routineDelete.
   ///
@@ -398,6 +566,24 @@ abstract class AppLocalizations {
   /// **'Cette routine et ses {count} action(s) seront définitivement supprimées.'**
   String routineDeleteWarning(int count);
 
+  /// No description provided for @routineNotFound.
+  ///
+  /// In fr, this message translates to:
+  /// **'Routine non trouvée'**
+  String get routineNotFound;
+
+  /// No description provided for @routineNotFoundMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'La routine n\'existe pas'**
+  String get routineNotFoundMessage;
+
+  /// No description provided for @routineActionsCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'Actions ({count})'**
+  String routineActionsCount(int count);
+
   /// No description provided for @actionsTitle.
   ///
   /// In fr, this message translates to:
@@ -409,6 +595,12 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Nouvelle action'**
   String get actionNew;
+
+  /// No description provided for @actionEdit.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éditer Action'**
+  String get actionEdit;
 
   /// No description provided for @actionFormName.
   ///
@@ -422,11 +614,23 @@ abstract class AppLocalizations {
   /// **'Ex: Appliquer le sérum'**
   String get actionFormNameHint;
 
+  /// No description provided for @actionFormNameRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le nom est requis'**
+  String get actionFormNameRequired;
+
   /// No description provided for @actionFormDescription.
   ///
   /// In fr, this message translates to:
   /// **'Description (optionnel)'**
   String get actionFormDescription;
+
+  /// No description provided for @actionFormDescriptionHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajoutez des détails optionnels'**
+  String get actionFormDescriptionHint;
 
   /// No description provided for @actionFormProduct.
   ///
@@ -439,6 +643,18 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Aucun'**
   String get actionFormProductNone;
+
+  /// No description provided for @actionFormProductNoneLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun produit'**
+  String get actionFormProductNoneLabel;
+
+  /// No description provided for @actionFormProductSearch.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher un produit...'**
+  String get actionFormProductSearch;
 
   /// No description provided for @actionFormRecurrence.
   ///
@@ -476,11 +692,29 @@ abstract class AppLocalizations {
   /// **'Date de référence'**
   String get actionFormStartDate;
 
+  /// No description provided for @actionFormValidationNameRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Veuillez entrer un nom pour l\'action'**
+  String get actionFormValidationNameRequired;
+
+  /// No description provided for @actionFormSaveAndNew.
+  ///
+  /// In fr, this message translates to:
+  /// **'{save} + Nouvelle action'**
+  String actionFormSaveAndNew(String save);
+
   /// No description provided for @actionDelete.
   ///
   /// In fr, this message translates to:
   /// **'Supprimer l\'action'**
   String get actionDelete;
+
+  /// No description provided for @actionIrreversible.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette action est irréversible.'**
+  String get actionIrreversible;
 
   /// No description provided for @progressTitle.
   ///
@@ -506,6 +740,36 @@ abstract class AppLocalizations {
   /// **'Journal'**
   String get progressJournal;
 
+  /// No description provided for @progressDayDetails.
+  ///
+  /// In fr, this message translates to:
+  /// **'Détails du {date}'**
+  String progressDayDetails(String date);
+
+  /// No description provided for @progressNotes.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notes: {notes}'**
+  String progressNotes(String notes);
+
+  /// No description provided for @progressPhoto.
+  ///
+  /// In fr, this message translates to:
+  /// **'Photo: {path}'**
+  String progressPhoto(String path);
+
+  /// No description provided for @progressFeeling.
+  ///
+  /// In fr, this message translates to:
+  /// **'Feeling: {feeling}/5'**
+  String progressFeeling(int feeling);
+
+  /// No description provided for @progressNoEntry.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune entrée journal pour ce jour.'**
+  String get progressNoEntry;
+
   /// No description provided for @streakCurrent.
   ///
   /// In fr, this message translates to:
@@ -524,11 +788,35 @@ abstract class AppLocalizations {
   /// **'{count} jours'**
   String streakDays(int count);
 
+  /// No description provided for @streakCurrentDays.
+  ///
+  /// In fr, this message translates to:
+  /// **'{label}: {count} jours'**
+  String streakCurrentDays(String label, int count);
+
+  /// No description provided for @journalTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Journal'**
+  String get journalTitle;
+
   /// No description provided for @journalNew.
   ///
   /// In fr, this message translates to:
   /// **'Nouvelle entrée'**
   String get journalNew;
+
+  /// No description provided for @journalEditTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éditer Entrée Journal'**
+  String get journalEditTitle;
+
+  /// No description provided for @journalNewTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle Entrée Journal'**
+  String get journalNewTitle;
 
   /// No description provided for @journalDate.
   ///
@@ -541,6 +829,12 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Photo (optionnel)'**
   String get journalPhoto;
+
+  /// No description provided for @journalAddPhoto.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter une photo'**
+  String get journalAddPhoto;
 
   /// No description provided for @journalFeeling.
   ///
@@ -590,6 +884,18 @@ abstract class AppLocalizations {
   /// **'Comment est votre peau aujourd\'hui ?'**
   String get journalNotesHint;
 
+  /// No description provided for @journalValidationNotesRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Veuillez entrer des notes'**
+  String get journalValidationNotesRequired;
+
+  /// No description provided for @journalValidationFeelingRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Veuillez sélectionner votre ressenti'**
+  String get journalValidationFeelingRequired;
+
   /// No description provided for @settingsTitle.
   ///
   /// In fr, this message translates to:
@@ -601,6 +907,18 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Langue'**
   String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageFrench.
+  ///
+  /// In fr, this message translates to:
+  /// **'Français'**
+  String get settingsLanguageFrench;
+
+  /// No description provided for @settingsLanguageEnglish.
+  ///
+  /// In fr, this message translates to:
+  /// **'English'**
+  String get settingsLanguageEnglish;
 
   /// No description provided for @settingsTheme.
   ///
@@ -668,6 +986,12 @@ abstract class AppLocalizations {
   /// **'Version'**
   String get settingsVersion;
 
+  /// No description provided for @settingsOpenSourceLicenses.
+  ///
+  /// In fr, this message translates to:
+  /// **'Licences open source'**
+  String get settingsOpenSourceLicenses;
+
   /// No description provided for @commonSave.
   ///
   /// In fr, this message translates to:
@@ -722,11 +1046,53 @@ abstract class AppLocalizations {
   /// **'Une erreur est survenue'**
   String get commonError;
 
+  /// No description provided for @commonErrorWithDetails.
+  ///
+  /// In fr, this message translates to:
+  /// **'Erreur: {error}'**
+  String commonErrorWithDetails(String error);
+
   /// No description provided for @commonSuccess.
   ///
   /// In fr, this message translates to:
   /// **'Opération réussie'**
   String get commonSuccess;
+
+  /// No description provided for @commonRetry.
+  ///
+  /// In fr, this message translates to:
+  /// **'Réessayer'**
+  String get commonRetry;
+
+  /// No description provided for @commonAll.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous'**
+  String get commonAll;
+
+  /// No description provided for @commonNext.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suivant'**
+  String get commonNext;
+
+  /// No description provided for @commonGotIt.
+  ///
+  /// In fr, this message translates to:
+  /// **'Compris !'**
+  String get commonGotIt;
+
+  /// No description provided for @commonEditTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éditer'**
+  String get commonEditTooltip;
+
+  /// No description provided for @commonDeleteTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer'**
+  String get commonDeleteTooltip;
 
   /// No description provided for @exportSuccess.
   ///
@@ -751,6 +1117,114 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{date}'**
   String todayDate(String date);
+
+  /// No description provided for @navHome.
+  ///
+  /// In fr, this message translates to:
+  /// **'Accueil'**
+  String get navHome;
+
+  /// No description provided for @navProducts.
+  ///
+  /// In fr, this message translates to:
+  /// **'Produits'**
+  String get navProducts;
+
+  /// No description provided for @navRoutines.
+  ///
+  /// In fr, this message translates to:
+  /// **'Routines'**
+  String get navRoutines;
+
+  /// No description provided for @navProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suivi'**
+  String get navProgress;
+
+  /// No description provided for @tutorialHomeSkinJournalTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Journal de peau'**
+  String get tutorialHomeSkinJournalTitle;
+
+  /// No description provided for @tutorialHomeSkinJournalDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notez l\'état de votre peau chaque jour.'**
+  String get tutorialHomeSkinJournalDescription;
+
+  /// No description provided for @tutorialProductsSearchTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Recherchez et filtrez'**
+  String get tutorialProductsSearchTitle;
+
+  /// No description provided for @tutorialProductsSearchDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Utilisez la barre de recherche ou les filtres par type pour retrouver un produit.'**
+  String get tutorialProductsSearchDescription;
+
+  /// No description provided for @tutorialProductsFilterTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Filtres par catégorie'**
+  String get tutorialProductsFilterTitle;
+
+  /// No description provided for @tutorialProductsFilterDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sélectionnez une catégorie pour afficher uniquement les produits correspondants.'**
+  String get tutorialProductsFilterDescription;
+
+  /// No description provided for @tutorialProductsAddTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajoutez les vôtres'**
+  String get tutorialProductsAddTitle;
+
+  /// No description provided for @tutorialProductsAddDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Appuyez sur le bouton + pour ajouter un nouveau produit avec photo.'**
+  String get tutorialProductsAddDescription;
+
+  /// No description provided for @tutorialRoutinesFilterTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Filtrez vos routines'**
+  String get tutorialRoutinesFilterTitle;
+
+  /// No description provided for @tutorialRoutinesFilterDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sélectionnez un objectif cutané pour afficher uniquement les routines correspondantes.'**
+  String get tutorialRoutinesFilterDescription;
+
+  /// No description provided for @tutorialRoutinesListTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vos routines'**
+  String get tutorialRoutinesListTitle;
+
+  /// No description provided for @tutorialRoutinesListDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Chaque routine contient des actions : appliquer un sérum, nettoyer, etc. Activez ou désactivez une routine avec le switch.'**
+  String get tutorialRoutinesListDescription;
+
+  /// No description provided for @tutorialRoutinesCreateTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Créer une nouvelle routine'**
+  String get tutorialRoutinesCreateTitle;
+
+  /// No description provided for @tutorialRoutinesCreateDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Appuyez sur le bouton + pour créer une nouvelle routine personnalisée.'**
+  String get tutorialRoutinesCreateDescription;
 }
 
 class _AppLocalizationsDelegate

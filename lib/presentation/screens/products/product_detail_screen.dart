@@ -23,7 +23,7 @@ class ProductDetailScreen extends ConsumerWidget {
       body: productAsyncValue.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(
-          child: Text('${context.l10n.commonError} : $error'),
+          child: Text(context.l10n.commonErrorWithDetails(error.toString())),
         ),
         data: (product) {
           if (product == null) {
@@ -48,12 +48,12 @@ class ProductDetailScreen extends ConsumerWidget {
             IconButton(
               icon: const Icon(Icons.edit_rounded),
               onPressed: () => context.push('/products/${product.id}/edit'),
-              tooltip: 'Éditer',
+              tooltip: context.l10n.commonEditTooltip,
             ),
             IconButton(
               icon: const Icon(Icons.delete_outline_rounded),
               onPressed: () => _showDeleteConfirmation(context, ref, product),
-              tooltip: 'Supprimer',
+              tooltip: context.l10n.commonDeleteTooltip,
             ),
           ],
         ),
@@ -129,6 +129,7 @@ class ProductDetailScreen extends ConsumerWidget {
 
   Widget _buildInfoSection(BuildContext context, Product product) {
     final colorScheme = Theme.of(context).colorScheme;
+    final locale = Localizations.localeOf(context).languageCode;
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -148,12 +149,12 @@ class ProductDetailScreen extends ConsumerWidget {
             ),
           const SizedBox(height: 16),
           Chip(
-            label: Text(product.type.labelFr),
+            label: Text(product.type.localizedLabel(locale)),
           ),
           if (product.notes != null && product.notes!.isNotEmpty) ...[
             const SizedBox(height: 24),
             Text(
-              'Notes',
+              context.l10n.journalNotes,
               style: Theme.of(context).textTheme.labelLarge,
             ),
             const SizedBox(height: 8),
@@ -189,8 +190,8 @@ class ProductDetailScreen extends ConsumerWidget {
 
           final count = snapshot.data ?? 0;
           final usageText = count == 0
-              ? 'Non utilisé dans aucune routine'
-              : 'Utilisé dans $count action${count > 1 ? 's' : ''}';
+              ? context.l10n.productNotUsed
+              : context.l10n.productUsedInCount(count);
           return Text(
             usageText,
             style: Theme.of(context).textTheme.bodyMedium,
@@ -219,7 +220,7 @@ class ProductDetailScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Êtes-vous sûr de vouloir supprimer "${product.name}" ?',
+                context.l10n.productDeleteConfirm(product.name),
               ),
               if (isUsed) ...[
                 const SizedBox(height: 16),
@@ -231,7 +232,7 @@ class ProductDetailScreen extends ConsumerWidget {
                     border: Border.all(color: Colors.orange),
                   ),
                   child: Text(
-                    'Attention : Ce produit est utilisé dans $usageCount action${usageCount > 1 ? 's' : ''}. Cela affectera les routines.',
+                    context.l10n.productDeleteUsageWarning(usageCount),
                     style: const TextStyle(color: Colors.orangeAccent),
                   ),
                 ),
@@ -282,14 +283,14 @@ class ProductDetailScreen extends ConsumerWidget {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Produit "${product.name}" supprimé'),
+          content: Text(context.l10n.productDeleted(product.name)),
           duration: const Duration(seconds: 2),
         ),
       );
     } catch (e) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur lors de la suppression : $e')),
+        SnackBar(content: Text(context.l10n.productDeleteError(e.toString()))),
       );
     }
   }

@@ -9,6 +9,7 @@ class Routines extends Table {
   TextColumn get skinGoal => text()();
   TextColumn get reminderTime => text().nullable()();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+  IntColumn get sortOrder => integer().withDefault(const Constant(0))();
   IntColumn get createdAt => integer()();
   IntColumn get updatedAt => integer()();
 }

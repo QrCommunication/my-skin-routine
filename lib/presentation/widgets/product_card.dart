@@ -80,7 +80,7 @@ class ProductCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      product.type.labelFr,
+                      product.type.localizedLabel(Localizations.localeOf(context).languageCode),
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                             color: colorScheme.onPrimaryContainer,
                           ),

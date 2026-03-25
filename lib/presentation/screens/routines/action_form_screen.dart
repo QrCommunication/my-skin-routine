@@ -144,7 +144,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
   Future<void> _handleSave({bool stayAndCreate = false}) async {
     if (_nameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Veuillez entrer un nom pour l\'action')),
+        SnackBar(content: Text(context.l10n.actionFormValidationNameRequired)),
       );
       return;
     }
@@ -185,6 +185,8 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
 
       ref.invalidate(routineByIdProvider(widget.routineId));
       ref.invalidate(routineActionsProvider(widget.routineId));
+      ref.invalidate(routineListProvider);
+      ref.invalidate(activeRoutinesProvider);
 
       if (mounted) {
         if (stayAndCreate) {
@@ -196,7 +198,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur: ${e.toString()}')),
+          SnackBar(content: Text(context.l10n.commonErrorWithDetails(e.toString()))),
         );
       }
     } finally {
@@ -209,7 +211,8 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
   @override
   Widget build(BuildContext context) {
     final isEditing = widget.actionId != null;
-    final title = isEditing ? 'Éditer Action' : 'Nouvelle Action';
+    final title = isEditing ? context.l10n.actionEdit : context.l10n.actionNew;
+    final locale = Localizations.localeOf(context).languageCode;
 
     return Scaffold(
       appBar: AppBar(
@@ -232,7 +235,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
               maxLength: 200,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return 'Le nom est requis';
+                  return context.l10n.actionFormNameRequired;
                 }
                 return null;
               },
@@ -242,7 +245,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
               controller: _descriptionController,
               decoration: InputDecoration(
                 labelText: context.l10n.actionFormDescription,
-                hintText: 'Ajoutez des détails optionnels',
+                hintText: context.l10n.actionFormDescriptionHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -285,7 +288,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stack) => Text('Erreur: $error'),
+              error: (error, stack) => Text(context.l10n.commonErrorWithDetails(error.toString())),
             ),
             const SizedBox(height: 16),
             Text(
@@ -360,7 +363,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
             if (widget.actionId == null)
               OutlinedButton(
                 onPressed: _isLoading ? null : () => _handleSave(stayAndCreate: true),
-                child: Text('${context.l10n.commonSave} + Nouvelle action'),
+                child: Text(context.l10n.actionFormSaveAndNew(context.l10n.commonSave)),
               ),
           ],
         ),
@@ -418,6 +421,7 @@ class _ProductSearchSheetState extends State<_ProductSearchSheet> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final locale = Localizations.localeOf(context).languageCode;
     return Column(
       children: [
         const SizedBox(height: 8),
@@ -435,7 +439,7 @@ class _ProductSearchSheetState extends State<_ProductSearchSheet> {
             controller: _searchController,
             autofocus: true,
             decoration: InputDecoration(
-              hintText: 'Rechercher un produit...',
+              hintText: context.l10n.actionFormProductSearch,
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -449,7 +453,7 @@ class _ProductSearchSheetState extends State<_ProductSearchSheet> {
         // "Aucun" option
         ListTile(
           leading: Icon(Icons.block, color: colorScheme.outline),
-          title: const Text('Aucun produit'),
+          title: Text(context.l10n.actionFormProductNoneLabel),
           selected: widget.selectedId == null,
           onTap: () => widget.onSelected(null),
         ),
@@ -474,7 +478,7 @@ class _ProductSearchSheetState extends State<_ProductSearchSheet> {
                   overflow: TextOverflow.ellipsis,
                 ),
                 subtitle: Text(
-                  '${product.brand} • ${product.type.labelFr}',
+                  '${product.brand} • ${product.type.localizedLabel(locale)}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: colorScheme.onSurfaceVariant),

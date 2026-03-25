@@ -70,7 +70,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
   @override
   Widget build(BuildContext context) {
     final isEditing = widget.id != null;
-    final title = isEditing ? 'Éditer Routine' : 'Nouvelle Routine';
+    final title = isEditing ? context.l10n.routineEdit : context.l10n.routineNew;
     final locale = Localizations.localeOf(context);
 
     return Scaffold(
@@ -88,16 +88,16 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
                 controller: _nameController,
                 decoration: InputDecoration(
                   labelText: context.l10n.routineFormName,
-                  hintText: 'ex: Routine du matin',
-                  helperText: 'Maximum 100 caractères',
+                  hintText: context.l10n.routineFormNameHint,
+                  helperText: context.l10n.routineFormNameHelperText,
                 ),
                 maxLength: 100,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Le nom est requis';
+                    return context.l10n.routineFormNameRequired;
                   }
                   if (value.length > 100) {
-                    return 'Maximum 100 caractères';
+                    return context.l10n.routineFormNameMaxLength;
                   }
                   return null;
                 },
@@ -107,15 +107,15 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
                 controller: _descriptionController,
                 decoration: InputDecoration(
                   labelText: context.l10n.routineFormDescription,
-                  hintText: 'Décrivez votre routine...',
-                  helperText: 'Maximum 500 caractères',
+                  hintText: context.l10n.routineFormDescriptionHint,
+                  helperText: context.l10n.routineFormDescriptionHelperText,
                   alignLabelWithHint: true,
                 ),
                 maxLength: 500,
                 maxLines: 4,
                 validator: (value) {
                   if (value != null && value.length > 500) {
-                    return 'Maximum 500 caractères';
+                    return context.l10n.routineFormDescriptionMaxLength;
                   }
                   return null;
                 },
@@ -171,7 +171,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
                 title: Text(context.l10n.routineFormReminder),
                 subtitle: _selectedReminderTime != null
                     ? Text(_selectedReminderTime!.format(context))
-                    : const Text('Non défini'),
+                    : Text(context.l10n.routineFormReminderNotSet),
                 trailing: IconButton(
                   icon: const Icon(Icons.schedule),
                   onPressed: () => _pickReminderTime(context),
@@ -181,7 +181,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 title: Text(context.l10n.routineFormActive),
-                subtitle: const Text('Inclure dans les routines actives'),
+                subtitle: Text(context.l10n.routineFormActiveSubtitle),
                 value: _isActive,
                 onChanged: (value) {
                   setState(() {
@@ -205,7 +205,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
                             ),
                           ),
                         )
-                      : Text(isEditing ? 'Mettre à jour' : context.l10n.commonSave),
+                      : Text(isEditing ? context.l10n.routineFormUpdate : context.l10n.commonSave),
                 ),
               ),
               const SizedBox(height: 16),
@@ -306,7 +306,7 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur: $e')),
+          SnackBar(content: Text(context.l10n.commonErrorWithDetails(e.toString()))),
         );
       }
     } finally {

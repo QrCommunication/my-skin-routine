@@ -23,7 +23,10 @@ class NotificationService {
   Future<void> initialize() async {
     if (_initialized) return;
 
-    tz.initializeTimeZones();
+    try {
+      tz.initializeTimeZones();
+    } catch (_) {}
+
     try {
       final timeZoneInfo = await FlutterTimezone.getLocalTimezone();
       final timeZoneName = timeZoneInfo.toString().contains('(')
@@ -34,7 +37,7 @@ class NotificationService {
       try {
         tz.setLocalLocation(tz.getLocation('Europe/Paris'));
       } catch (_) {
-        // Last resort — use UTC offset approach
+        // Last resort — timezone will use device default
       }
     }
 

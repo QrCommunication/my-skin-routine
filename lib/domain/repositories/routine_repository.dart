@@ -32,6 +32,7 @@ abstract class RoutineRepository {
   Future<void> updateAction(RoutineAction action);
   Future<void> deleteAction(int id);
   Future<void> reorderActions(List<({int id, int sortOrder})> updates);
+  Future<void> reorderRoutines(List<({int id, int sortOrder})> updates);
 
   Future<void> markActionCompleted(int actionId, String date);
   Future<void> unmarkActionCompleted(int actionId, String date);

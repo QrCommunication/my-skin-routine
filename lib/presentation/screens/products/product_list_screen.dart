@@ -99,7 +99,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
         return AlertDialog(
           title: Text(context.l10n.productDelete),
           content: Text(
-            'Êtes-vous sûr de vouloir supprimer "${product.name}" ?',
+            context.l10n.productDeleteConfirm(product.name),
           ),
           actions: [
             TextButton(
@@ -115,7 +115,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('${product.name} a été supprimé'),
+                      content: Text(context.l10n.productNameDeleted(product.name)),
                       duration: const Duration(seconds: 2),
                     ),
                   );
@@ -140,20 +140,20 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
           steps: [
             SpotlightStep(
               targetKey: _searchBarKey,
-              title: 'Recherchez et filtrez',
-              description: 'Utilisez la barre de recherche ou les filtres par type pour retrouver un produit.',
+              title: context.l10n.tutorialProductsSearchTitle,
+              description: context.l10n.tutorialProductsSearchDescription,
               icon: Icons.search,
             ),
             SpotlightStep(
               targetKey: _filterChipsKey,
-              title: 'Filtres par catégorie',
-              description: 'Sélectionnez une catégorie pour afficher uniquement les produits correspondants.',
+              title: context.l10n.tutorialProductsFilterTitle,
+              description: context.l10n.tutorialProductsFilterDescription,
               icon: Icons.filter_list,
             ),
             SpotlightStep(
               targetKey: _fabKey,
-              title: 'Ajoutez les vôtres',
-              description: 'Appuyez sur le bouton + pour ajouter un nouveau produit avec photo.',
+              title: context.l10n.tutorialProductsAddTitle,
+              description: context.l10n.tutorialProductsAddDescription,
               icon: Icons.add_circle_outline,
             ),
           ],
@@ -179,7 +179,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                 onPressed: () {
                   ref.invalidate(productListProvider); // force refresh on error retry
                 },
-                child: const Text('Réessayer'),
+                child: Text(context.l10n.commonRetry),
               ),
             ],
           ),
@@ -187,6 +187,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
         data: (products) {
           final filteredProducts = _filterProducts(products);
           final allProductTypes = ProductType.values;
+          final locale = Localizations.localeOf(context).languageCode;
 
           return CustomScrollView(
             slivers: [
@@ -234,7 +235,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                       key: _filterChipsKey,
                       children: [
                         FilterChip(
-                          label: const Text('Tous'),
+                          label: Text(context.l10n.commonAll),
                           selected: _selectedFilter == null,
                           onSelected: (_) {
                             setState(() => _selectedFilter = null);
@@ -245,7 +246,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                           (type) => Padding(
                             padding: const EdgeInsets.only(right: 8),
                             child: FilterChip(
-                              label: Text(type.labelFr),
+                              label: Text(type.localizedLabel(locale)),
                               selected: _selectedFilter == type,
                               onSelected: (_) {
                                 setState(

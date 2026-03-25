@@ -17,15 +17,27 @@ class RoutineRepositoryImpl implements RoutineRepository {
 
   @override
   Stream<List<Routine>> watchAllRoutines() {
-    return _database.routineDao.watchAllRoutines().map(
-          (rows) => rows.map(_routineRowToRoutine).toList(),
+    return _database.routineDao.watchAllRoutines().asyncMap(
+          (rows) async {
+            final routines = <Routine>[];
+            for (final row in rows) {
+              final actions = await getActionsForRoutine(row.id);
+              routines.add(_routineRowToRoutine(row).copyWith(actions: actions));
+            }
+            return routines;
+          },
         );
   }
 
   @override
   Future<List<Routine>> getAllRoutines() async {
     final rows = await _database.routineDao.getAllRoutines();
-    return rows.map(_routineRowToRoutine).toList();
+    final routines = <Routine>[];
+    for (final row in rows) {
+      final actions = await getActionsForRoutine(row.id);
+      routines.add(_routineRowToRoutine(row).copyWith(actions: actions));
+    }
+    return routines;
   }
 
   @override
@@ -39,8 +51,15 @@ class RoutineRepositoryImpl implements RoutineRepository {
 
   @override
   Stream<List<Routine>> watchActiveRoutines() {
-    return _database.routineDao.watchActiveRoutines().map(
-          (rows) => rows.map(_routineRowToRoutine).toList(),
+    return _database.routineDao.watchActiveRoutines().asyncMap(
+          (rows) async {
+            final routines = <Routine>[];
+            for (final row in rows) {
+              final actions = await getActionsForRoutine(row.id);
+              routines.add(_routineRowToRoutine(row).copyWith(actions: actions));
+            }
+            return routines;
+          },
         );
   }
 
@@ -171,6 +190,11 @@ class RoutineRepositoryImpl implements RoutineRepository {
   @override
   Future<void> reorderActions(List<({int id, int sortOrder})> updates) {
     return _database.actionDao.updateSortOrders(updates);
+  }
+
+  @override
+  Future<void> reorderRoutines(List<({int id, int sortOrder})> updates) {
+    return _database.routineDao.updateSortOrders(updates);
   }
 
   @override

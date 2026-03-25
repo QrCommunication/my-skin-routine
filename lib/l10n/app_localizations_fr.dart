@@ -57,6 +57,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get onboardingDoneButton => 'Découvrir l\'app';
 
   @override
+  String get onboardingFirstNameRequired => 'Le prénom est requis';
+
+  @override
+  String get onboardingLastNameRequired => 'Le nom est requis';
+
+  @override
   String get profileTitle => 'Profil';
 
   @override
@@ -101,6 +107,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get productNew => 'Nouveau produit';
 
   @override
+  String get productEdit => 'Modifier le produit';
+
+  @override
   String get productFormName => 'Nom du produit';
 
   @override
@@ -119,14 +128,70 @@ class AppLocalizationsFr extends AppLocalizations {
   String get productFormNotes => 'Notes (optionnel)';
 
   @override
+  String get productFormNotesHint => 'Ajouter des notes sur ce produit...';
+
+  @override
   String get productFormPhoto => 'Ajouter une photo';
 
   @override
   String get productDelete => 'Supprimer le produit';
 
   @override
+  String productDeleteConfirm(String name) {
+    return 'Êtes-vous sûr de vouloir supprimer \"$name\" ?';
+  }
+
+  @override
   String productDeleteWarning(int count) {
     return 'Ce produit est utilisé dans $count action(s). Les actions seront conservées mais ne seront plus liées à un produit.';
+  }
+
+  @override
+  String productDeleteUsageWarning(int count) {
+    return 'Attention : Ce produit est utilisé dans $count action(s). Cela affectera les routines.';
+  }
+
+  @override
+  String productDeleted(String name) {
+    return 'Produit \"$name\" supprimé';
+  }
+
+  @override
+  String productNameDeleted(String name) {
+    return '$name a été supprimé';
+  }
+
+  @override
+  String get productUpdatedSuccess => 'Produit modifié avec succès';
+
+  @override
+  String get productCreatedSuccess => 'Produit créé avec succès';
+
+  @override
+  String get productNameRequired => 'Le nom du produit est requis';
+
+  @override
+  String get productNameMaxLength =>
+      'Le nom ne doit pas dépasser 100 caractères';
+
+  @override
+  String get productBrandRequired => 'La marque est requise';
+
+  @override
+  String get productBrandMaxLength =>
+      'La marque ne doit pas dépasser 100 caractères';
+
+  @override
+  String get productNotUsed => 'Non utilisé dans aucune routine';
+
+  @override
+  String productUsedInCount(int count) {
+    return 'Utilisé dans $count action(s)';
+  }
+
+  @override
+  String productDeleteError(String error) {
+    return 'Erreur lors de la suppression : $error';
   }
 
   @override
@@ -142,10 +207,34 @@ class AppLocalizationsFr extends AppLocalizations {
   String get routineNew => 'Nouvelle routine';
 
   @override
+  String get routineEdit => 'Éditer Routine';
+
+  @override
   String get routineFormName => 'Nom de la routine';
 
   @override
+  String get routineFormNameHint => 'ex: Routine du matin';
+
+  @override
+  String get routineFormNameHelperText => 'Maximum 100 caractères';
+
+  @override
+  String get routineFormNameRequired => 'Le nom est requis';
+
+  @override
+  String get routineFormNameMaxLength => 'Maximum 100 caractères';
+
+  @override
   String get routineFormDescription => 'Description (optionnel)';
+
+  @override
+  String get routineFormDescriptionHint => 'Décrivez votre routine...';
+
+  @override
+  String get routineFormDescriptionHelperText => 'Maximum 500 caractères';
+
+  @override
+  String get routineFormDescriptionMaxLength => 'Maximum 500 caractères';
 
   @override
   String get routineFormBodyZone => 'Zone du corps';
@@ -157,7 +246,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get routineFormReminder => 'Heure de rappel';
 
   @override
+  String get routineFormReminderNotSet => 'Non défini';
+
+  @override
   String get routineFormActive => 'Routine active';
+
+  @override
+  String get routineFormActiveSubtitle => 'Inclure dans les routines actives';
+
+  @override
+  String get routineFormUpdate => 'Mettre à jour';
 
   @override
   String get routineDelete => 'Supprimer la routine';
@@ -168,10 +266,24 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get routineNotFound => 'Routine non trouvée';
+
+  @override
+  String get routineNotFoundMessage => 'La routine n\'existe pas';
+
+  @override
+  String routineActionsCount(int count) {
+    return 'Actions ($count)';
+  }
+
+  @override
   String get actionsTitle => 'Actions';
 
   @override
   String get actionNew => 'Nouvelle action';
+
+  @override
+  String get actionEdit => 'Éditer Action';
 
   @override
   String get actionFormName => 'Nom de l\'action';
@@ -180,13 +292,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String get actionFormNameHint => 'Ex: Appliquer le sérum';
 
   @override
+  String get actionFormNameRequired => 'Le nom est requis';
+
+  @override
   String get actionFormDescription => 'Description (optionnel)';
+
+  @override
+  String get actionFormDescriptionHint => 'Ajoutez des détails optionnels';
 
   @override
   String get actionFormProduct => 'Produit associé';
 
   @override
   String get actionFormProductNone => 'Aucun';
+
+  @override
+  String get actionFormProductNoneLabel => 'Aucun produit';
+
+  @override
+  String get actionFormProductSearch => 'Rechercher un produit...';
 
   @override
   String get actionFormRecurrence => 'Récurrence';
@@ -209,7 +333,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get actionFormStartDate => 'Date de référence';
 
   @override
+  String get actionFormValidationNameRequired =>
+      'Veuillez entrer un nom pour l\'action';
+
+  @override
+  String actionFormSaveAndNew(String save) {
+    return '$save + Nouvelle action';
+  }
+
+  @override
   String get actionDelete => 'Supprimer l\'action';
+
+  @override
+  String get actionIrreversible => 'Cette action est irréversible.';
 
   @override
   String get progressTitle => 'Suivi';
@@ -224,6 +360,29 @@ class AppLocalizationsFr extends AppLocalizations {
   String get progressJournal => 'Journal';
 
   @override
+  String progressDayDetails(String date) {
+    return 'Détails du $date';
+  }
+
+  @override
+  String progressNotes(String notes) {
+    return 'Notes: $notes';
+  }
+
+  @override
+  String progressPhoto(String path) {
+    return 'Photo: $path';
+  }
+
+  @override
+  String progressFeeling(int feeling) {
+    return 'Feeling: $feeling/5';
+  }
+
+  @override
+  String get progressNoEntry => 'Aucune entrée journal pour ce jour.';
+
+  @override
   String get streakCurrent => 'Streak actuel';
 
   @override
@@ -235,13 +394,30 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String streakCurrentDays(String label, int count) {
+    return '$label: $count jours';
+  }
+
+  @override
+  String get journalTitle => 'Journal';
+
+  @override
   String get journalNew => 'Nouvelle entrée';
+
+  @override
+  String get journalEditTitle => 'Éditer Entrée Journal';
+
+  @override
+  String get journalNewTitle => 'Nouvelle Entrée Journal';
 
   @override
   String get journalDate => 'Date';
 
   @override
   String get journalPhoto => 'Photo (optionnel)';
+
+  @override
+  String get journalAddPhoto => 'Ajouter une photo';
 
   @override
   String get journalFeeling => 'Comment va ta peau ?';
@@ -268,10 +444,23 @@ class AppLocalizationsFr extends AppLocalizations {
   String get journalNotesHint => 'Comment est votre peau aujourd\'hui ?';
 
   @override
+  String get journalValidationNotesRequired => 'Veuillez entrer des notes';
+
+  @override
+  String get journalValidationFeelingRequired =>
+      'Veuillez sélectionner votre ressenti';
+
+  @override
   String get settingsTitle => 'Paramètres';
 
   @override
   String get settingsLanguage => 'Langue';
+
+  @override
+  String get settingsLanguageFrench => 'Français';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
 
   @override
   String get settingsTheme => 'Thème';
@@ -309,6 +498,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsVersion => 'Version';
 
   @override
+  String get settingsOpenSourceLicenses => 'Licences open source';
+
+  @override
   String get commonSave => 'Enregistrer';
 
   @override
@@ -336,7 +528,30 @@ class AppLocalizationsFr extends AppLocalizations {
   String get commonError => 'Une erreur est survenue';
 
   @override
+  String commonErrorWithDetails(String error) {
+    return 'Erreur: $error';
+  }
+
+  @override
   String get commonSuccess => 'Opération réussie';
+
+  @override
+  String get commonRetry => 'Réessayer';
+
+  @override
+  String get commonAll => 'Tous';
+
+  @override
+  String get commonNext => 'Suivant';
+
+  @override
+  String get commonGotIt => 'Compris !';
+
+  @override
+  String get commonEditTooltip => 'Éditer';
+
+  @override
+  String get commonDeleteTooltip => 'Supprimer';
 
   @override
   String get exportSuccess => 'Export réussi ✓';
@@ -353,4 +568,65 @@ class AppLocalizationsFr extends AppLocalizations {
   String todayDate(String date) {
     return '$date';
   }
+
+  @override
+  String get navHome => 'Accueil';
+
+  @override
+  String get navProducts => 'Produits';
+
+  @override
+  String get navRoutines => 'Routines';
+
+  @override
+  String get navProgress => 'Suivi';
+
+  @override
+  String get tutorialHomeSkinJournalTitle => 'Journal de peau';
+
+  @override
+  String get tutorialHomeSkinJournalDescription =>
+      'Notez l\'état de votre peau chaque jour.';
+
+  @override
+  String get tutorialProductsSearchTitle => 'Recherchez et filtrez';
+
+  @override
+  String get tutorialProductsSearchDescription =>
+      'Utilisez la barre de recherche ou les filtres par type pour retrouver un produit.';
+
+  @override
+  String get tutorialProductsFilterTitle => 'Filtres par catégorie';
+
+  @override
+  String get tutorialProductsFilterDescription =>
+      'Sélectionnez une catégorie pour afficher uniquement les produits correspondants.';
+
+  @override
+  String get tutorialProductsAddTitle => 'Ajoutez les vôtres';
+
+  @override
+  String get tutorialProductsAddDescription =>
+      'Appuyez sur le bouton + pour ajouter un nouveau produit avec photo.';
+
+  @override
+  String get tutorialRoutinesFilterTitle => 'Filtrez vos routines';
+
+  @override
+  String get tutorialRoutinesFilterDescription =>
+      'Sélectionnez un objectif cutané pour afficher uniquement les routines correspondantes.';
+
+  @override
+  String get tutorialRoutinesListTitle => 'Vos routines';
+
+  @override
+  String get tutorialRoutinesListDescription =>
+      'Chaque routine contient des actions : appliquer un sérum, nettoyer, etc. Activez ou désactivez une routine avec le switch.';
+
+  @override
+  String get tutorialRoutinesCreateTitle => 'Créer une nouvelle routine';
+
+  @override
+  String get tutorialRoutinesCreateDescription =>
+      'Appuyez sur le bouton + pour créer une nouvelle routine personnalisée.';
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/constants/enums.dart';
 import '../../../core/extensions/context_extensions.dart';
@@ -32,15 +33,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     if (!_tutorialShown) {
       _tutorialShown = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Delay to let FAB animation finish before spotlight finds its position
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        if (!mounted) return;
         SpotlightTutorial.showIfFirstTime(
           context: context,
           tutorialKey: 'home_v2',
           steps: [
             SpotlightStep(
               targetKey: _fabKey,
-              title: 'Journal de peau',
-              description: 'Notez l\'état de votre peau chaque jour.',
+              title: context.l10n.tutorialHomeSkinJournalTitle,
+              description: context.l10n.tutorialHomeSkinJournalDescription,
               icon: Icons.edit_note,
             ),
           ],
@@ -95,7 +98,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
-                _formatDateForDisplay(DateTime.now()),
+                _formatDateForDisplay(context, DateTime.now()),
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: context.colorScheme.onSurfaceVariant,
                 ),
@@ -124,6 +127,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       today: today,
                       ref: ref,
                       index: index,
+                      hideWhenComplete: true,
                     );
                   },
                   childCount: routines.length,
@@ -135,7 +139,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             error: (error, st) => SliverFillRemaining(
               child: Center(
-                child: Text('Erreur: $error'),
+                child: Text(context.l10n.commonErrorWithDetails(error.toString())),
               ),
             ),
           ),
@@ -150,31 +154,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  String _formatDateForDisplay(DateTime date) {
-    final monthFr = [
-      'janvier',
-      'février',
-      'mars',
-      'avril',
-      'mai',
-      'juin',
-      'juillet',
-      'août',
-      'septembre',
-      'octobre',
-      'novembre',
-      'décembre'
-    ];
-    final dayFr = [
-      'dimanche',
-      'lundi',
-      'mardi',
-      'mercredi',
-      'jeudi',
-      'vendredi',
-      'samedi'
-    ];
-    return '${dayFr[date.weekday % 7]} ${date.day} ${monthFr[date.month - 1]}';
+  String _formatDateForDisplay(BuildContext context, DateTime date) {
+    final locale = Localizations.localeOf(context).languageCode;
+    final formatter = DateFormat.MMMMEEEEd(locale);
+    return formatter.format(date);
   }
 }
 
@@ -183,12 +166,14 @@ class _RoutineSection extends ConsumerWidget {
   final String today;
   final WidgetRef ref;
   final int index;
+  final bool hideWhenComplete;
 
   const _RoutineSection({
     required this.routine,
     required this.today,
     required this.ref,
     required this.index,
+    this.hideWhenComplete = false,
   });
 
   @override
@@ -211,6 +196,11 @@ class _RoutineSection extends ConsumerWidget {
                 completions.any((c) => c.actionId == action.id))
             .length;
         final allCompleted = completedCount == todayActions.length && todayActions.isNotEmpty;
+
+        // Hide completed routines from dashboard
+        if (allCompleted && hideWhenComplete) {
+          return const SizedBox.shrink();
+        }
 
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -367,7 +357,7 @@ class _RoutineSection extends ConsumerWidget {
       ),
       error: (error, st) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Text('Erreur: $error'),
+        child: Text(context.l10n.commonErrorWithDetails(error.toString())),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SpotlightStep {
@@ -89,6 +90,11 @@ class _SpotlightOverlayState extends State<_SpotlightOverlay>
           renderBox.size.height + 16,
         );
       });
+    } else {
+      // Widget not rendered yet — retry after next frame
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _updateTarget();
+      });
     }
   }
 
@@ -137,15 +143,14 @@ class _SpotlightOverlayState extends State<_SpotlightOverlay>
                   opacity: _animation.value * 0.7,
                 ),
               ),
-              // Tooltip card
-              if (_targetRect != null)
-                Positioned(
+              // Tooltip card (centered if no target found)
+              Positioned(
                   left: 24,
                   right: 24,
-                  top: showAbove ? null : (_targetRect!.bottom + 16),
-                  bottom: showAbove
+                  top: _targetRect != null && !showAbove ? (_targetRect!.bottom + 16) : null,
+                  bottom: _targetRect != null && showAbove
                       ? (screenSize.height - _targetRect!.top + 16)
-                      : null,
+                      : _targetRect == null ? screenSize.height * 0.3 : null,
                   child: Opacity(
                     opacity: _animation.value,
                     child: Material(
@@ -202,7 +207,7 @@ class _SpotlightOverlayState extends State<_SpotlightOverlay>
                               alignment: Alignment.centerRight,
                               child: FilledButton.tonal(
                                 onPressed: _next,
-                                child: Text(isLast ? 'Compris !' : 'Suivant'),
+                                child: Text(isLast ? context.l10n.commonGotIt : context.l10n.commonNext),
                               ),
                             ),
                           ],

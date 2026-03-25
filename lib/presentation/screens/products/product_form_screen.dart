@@ -123,8 +123,8 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
           SnackBar(
             content: Text(
               isEditing
-                  ? 'Produit modifié avec succès'
-                  : 'Produit créé avec succès',
+                  ? context.l10n.productUpdatedSuccess
+                  : context.l10n.productCreatedSuccess,
             ),
           ),
         );
@@ -134,7 +134,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Erreur: $e'),
+            content: Text(context.l10n.commonErrorWithDetails(e.toString())),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
@@ -148,20 +148,20 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
 
   String? _validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Le nom du produit est requis';
+      return context.l10n.productNameRequired;
     }
     if (value.trim().length > 100) {
-      return 'Le nom ne doit pas dépasser 100 caractères';
+      return context.l10n.productNameMaxLength;
     }
     return null;
   }
 
   String? _validateBrand(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'La marque est requise';
+      return context.l10n.productBrandRequired;
     }
     if (value.trim().length > 100) {
-      return 'La marque ne doit pas dépasser 100 caractères';
+      return context.l10n.productBrandMaxLength;
     }
     return null;
   }
@@ -177,7 +177,8 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
   @override
   Widget build(BuildContext context) {
     final isEditing = widget.id != null;
-    final title = isEditing ? 'Modifier le produit' : 'Nouveau produit';
+    final title = isEditing ? context.l10n.productEdit : context.l10n.productNew;
+    final locale = Localizations.localeOf(context).languageCode;
 
     return Scaffold(
       appBar: AppBar(
@@ -195,7 +196,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
               const SizedBox(height: 16),
               _buildBrandField(),
               const SizedBox(height: 16),
-              _buildTypeDropdown(),
+              _buildTypeDropdown(locale),
               const SizedBox(height: 16),
               _buildNotesField(),
               const SizedBox(height: 32),
@@ -294,7 +295,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
     );
   }
 
-  Widget _buildTypeDropdown() {
+  Widget _buildTypeDropdown(String locale) {
     return DropdownButtonFormField<ProductType>(
       value: _selectedType,
       onChanged: (value) {
@@ -306,7 +307,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
           .map(
             (type) => DropdownMenuItem(
               value: type,
-              child: Text(type.labelFr),
+              child: Text(type.localizedLabel(locale)),
             ),
           )
           .toList(),
@@ -324,7 +325,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
       maxLines: 4,
       decoration: InputDecoration(
         labelText: context.l10n.productFormNotes,
-        hintText: 'Ajouter des notes sur ce produit...',
+        hintText: context.l10n.productFormNotesHint,
         border: const OutlineInputBorder(),
         alignLabelWithHint: true,
       ),

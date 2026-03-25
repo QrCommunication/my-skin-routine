@@ -598,6 +598,18 @@ class $RoutinesTable extends Routines
     ),
     defaultValue: const Constant(true),
   );
+  static const VerificationMeta _sortOrderMeta = const VerificationMeta(
+    'sortOrder',
+  );
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+    'sort_order',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -629,6 +641,7 @@ class $RoutinesTable extends Routines
     skinGoal,
     reminderTime,
     isActive,
+    sortOrder,
     createdAt,
     updatedAt,
   ];
@@ -695,6 +708,12 @@ class $RoutinesTable extends Routines
         isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
       );
     }
+    if (data.containsKey('sort_order')) {
+      context.handle(
+        _sortOrderMeta,
+        sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta),
+      );
+    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -748,6 +767,10 @@ class $RoutinesTable extends Routines
         DriftSqlType.bool,
         data['${effectivePrefix}is_active'],
       )!,
+      sortOrder: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sort_order'],
+      )!,
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}created_at'],
@@ -773,6 +796,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
   final String skinGoal;
   final String? reminderTime;
   final bool isActive;
+  final int sortOrder;
   final int createdAt;
   final int updatedAt;
   const RoutineRow({
@@ -783,6 +807,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
     required this.skinGoal,
     this.reminderTime,
     required this.isActive,
+    required this.sortOrder,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -800,6 +825,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
       map['reminder_time'] = Variable<String>(reminderTime);
     }
     map['is_active'] = Variable<bool>(isActive);
+    map['sort_order'] = Variable<int>(sortOrder);
     map['created_at'] = Variable<int>(createdAt);
     map['updated_at'] = Variable<int>(updatedAt);
     return map;
@@ -818,6 +844,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
           ? const Value.absent()
           : Value(reminderTime),
       isActive: Value(isActive),
+      sortOrder: Value(sortOrder),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
@@ -836,6 +863,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
       skinGoal: serializer.fromJson<String>(json['skinGoal']),
       reminderTime: serializer.fromJson<String?>(json['reminderTime']),
       isActive: serializer.fromJson<bool>(json['isActive']),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
       createdAt: serializer.fromJson<int>(json['createdAt']),
       updatedAt: serializer.fromJson<int>(json['updatedAt']),
     );
@@ -851,6 +879,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
       'skinGoal': serializer.toJson<String>(skinGoal),
       'reminderTime': serializer.toJson<String?>(reminderTime),
       'isActive': serializer.toJson<bool>(isActive),
+      'sortOrder': serializer.toJson<int>(sortOrder),
       'createdAt': serializer.toJson<int>(createdAt),
       'updatedAt': serializer.toJson<int>(updatedAt),
     };
@@ -864,6 +893,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
     String? skinGoal,
     Value<String?> reminderTime = const Value.absent(),
     bool? isActive,
+    int? sortOrder,
     int? createdAt,
     int? updatedAt,
   }) => RoutineRow(
@@ -874,6 +904,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
     skinGoal: skinGoal ?? this.skinGoal,
     reminderTime: reminderTime.present ? reminderTime.value : this.reminderTime,
     isActive: isActive ?? this.isActive,
+    sortOrder: sortOrder ?? this.sortOrder,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
   );
@@ -890,6 +921,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
           ? data.reminderTime.value
           : this.reminderTime,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -905,6 +937,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
           ..write('skinGoal: $skinGoal, ')
           ..write('reminderTime: $reminderTime, ')
           ..write('isActive: $isActive, ')
+          ..write('sortOrder: $sortOrder, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -920,6 +953,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
     skinGoal,
     reminderTime,
     isActive,
+    sortOrder,
     createdAt,
     updatedAt,
   );
@@ -934,6 +968,7 @@ class RoutineRow extends DataClass implements Insertable<RoutineRow> {
           other.skinGoal == this.skinGoal &&
           other.reminderTime == this.reminderTime &&
           other.isActive == this.isActive &&
+          other.sortOrder == this.sortOrder &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
@@ -946,6 +981,7 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
   final Value<String> skinGoal;
   final Value<String?> reminderTime;
   final Value<bool> isActive;
+  final Value<int> sortOrder;
   final Value<int> createdAt;
   final Value<int> updatedAt;
   const RoutinesCompanion({
@@ -956,6 +992,7 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
     this.skinGoal = const Value.absent(),
     this.reminderTime = const Value.absent(),
     this.isActive = const Value.absent(),
+    this.sortOrder = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -967,6 +1004,7 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
     required String skinGoal,
     this.reminderTime = const Value.absent(),
     this.isActive = const Value.absent(),
+    this.sortOrder = const Value.absent(),
     required int createdAt,
     required int updatedAt,
   }) : name = Value(name),
@@ -982,6 +1020,7 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
     Expression<String>? skinGoal,
     Expression<String>? reminderTime,
     Expression<bool>? isActive,
+    Expression<int>? sortOrder,
     Expression<int>? createdAt,
     Expression<int>? updatedAt,
   }) {
@@ -993,6 +1032,7 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
       if (skinGoal != null) 'skin_goal': skinGoal,
       if (reminderTime != null) 'reminder_time': reminderTime,
       if (isActive != null) 'is_active': isActive,
+      if (sortOrder != null) 'sort_order': sortOrder,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
@@ -1006,6 +1046,7 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
     Value<String>? skinGoal,
     Value<String?>? reminderTime,
     Value<bool>? isActive,
+    Value<int>? sortOrder,
     Value<int>? createdAt,
     Value<int>? updatedAt,
   }) {
@@ -1017,6 +1058,7 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
       skinGoal: skinGoal ?? this.skinGoal,
       reminderTime: reminderTime ?? this.reminderTime,
       isActive: isActive ?? this.isActive,
+      sortOrder: sortOrder ?? this.sortOrder,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -1046,6 +1088,9 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
     if (isActive.present) {
       map['is_active'] = Variable<bool>(isActive.value);
     }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<int>(createdAt.value);
     }
@@ -1065,6 +1110,7 @@ class RoutinesCompanion extends UpdateCompanion<RoutineRow> {
           ..write('skinGoal: $skinGoal, ')
           ..write('reminderTime: $reminderTime, ')
           ..write('isActive: $isActive, ')
+          ..write('sortOrder: $sortOrder, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -2795,6 +2841,7 @@ typedef $$RoutinesTableCreateCompanionBuilder =
       required String skinGoal,
       Value<String?> reminderTime,
       Value<bool> isActive,
+      Value<int> sortOrder,
       required int createdAt,
       required int updatedAt,
     });
@@ -2807,6 +2854,7 @@ typedef $$RoutinesTableUpdateCompanionBuilder =
       Value<String> skinGoal,
       Value<String?> reminderTime,
       Value<bool> isActive,
+      Value<int> sortOrder,
       Value<int> createdAt,
       Value<int> updatedAt,
     });
@@ -2876,6 +2924,11 @@ class $$RoutinesTableFilterComposer
 
   ColumnFilters<bool> get isActive => $composableBuilder(
     column: $table.isActive,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get sortOrder => $composableBuilder(
+    column: $table.sortOrder,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2959,6 +3012,11 @@ class $$RoutinesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get sortOrder => $composableBuilder(
+    column: $table.sortOrder,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -3003,6 +3061,9 @@ class $$RoutinesTableAnnotationComposer
 
   GeneratedColumn<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<int> get sortOrder =>
+      $composableBuilder(column: $table.sortOrder, builder: (column) => column);
 
   GeneratedColumn<int> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
@@ -3071,6 +3132,7 @@ class $$RoutinesTableTableManager
                 Value<String> skinGoal = const Value.absent(),
                 Value<String?> reminderTime = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
+                Value<int> sortOrder = const Value.absent(),
                 Value<int> createdAt = const Value.absent(),
                 Value<int> updatedAt = const Value.absent(),
               }) => RoutinesCompanion(
@@ -3081,6 +3143,7 @@ class $$RoutinesTableTableManager
                 skinGoal: skinGoal,
                 reminderTime: reminderTime,
                 isActive: isActive,
+                sortOrder: sortOrder,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -3093,6 +3156,7 @@ class $$RoutinesTableTableManager
                 required String skinGoal,
                 Value<String?> reminderTime = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
+                Value<int> sortOrder = const Value.absent(),
                 required int createdAt,
                 required int updatedAt,
               }) => RoutinesCompanion.insert(
@@ -3103,6 +3167,7 @@ class $$RoutinesTableTableManager
                 skinGoal: skinGoal,
                 reminderTime: reminderTime,
                 isActive: isActive,
+                sortOrder: sortOrder,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),

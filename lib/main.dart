@@ -7,16 +7,17 @@ import 'package:my_skin_routine/presentation/router/app_router.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize notifications
+  // Initialize notifications — always register callback even if init fails
   try {
     await NotificationService().initialize();
-    // When user taps a notification, navigate to the routine
-    NotificationService().onNotificationTap = (routineId) {
-      appRouter.go('/routines/$routineId');
-    };
   } catch (e) {
     debugPrint('Notification init failed: $e');
   }
+
+  // Always register tap handler
+  NotificationService().onNotificationTap = (routineId) {
+    appRouter.go('/routines/$routineId');
+  };
 
   runApp(
     const ProviderScope(

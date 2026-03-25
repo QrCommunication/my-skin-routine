@@ -9,10 +9,10 @@ class RoutineDao extends DatabaseAccessor<AppDatabase> with _$RoutineDaoMixin {
   RoutineDao(super.db);
 
   Stream<List<RoutineRow>> watchAllRoutines() =>
-      (select(routines)..orderBy([(t) => OrderingTerm.asc(t.name)])).watch();
+      (select(routines)..orderBy([(t) => OrderingTerm.asc(t.sortOrder), (t) => OrderingTerm.asc(t.name)])).watch();
 
   Future<List<RoutineRow>> getAllRoutines() =>
-      (select(routines)..orderBy([(t) => OrderingTerm.asc(t.name)])).get();
+      (select(routines)..orderBy([(t) => OrderingTerm.asc(t.sortOrder), (t) => OrderingTerm.asc(t.name)])).get();
 
   Future<RoutineRow?> getRoutineById(int id) =>
       (select(routines)..where((t) => t.id.equals(id))).getSingleOrNull();
@@ -20,7 +20,7 @@ class RoutineDao extends DatabaseAccessor<AppDatabase> with _$RoutineDaoMixin {
   Stream<List<RoutineRow>> watchActiveRoutines() =>
       (select(routines)
             ..where((t) => t.isActive.equals(true))
-            ..orderBy([(t) => OrderingTerm.asc(t.name)]))
+            ..orderBy([(t) => OrderingTerm.asc(t.sortOrder), (t) => OrderingTerm.asc(t.name)]))
           .watch();
 
   Future<int> insertRoutine(RoutinesCompanion entry) =>
@@ -31,4 +31,13 @@ class RoutineDao extends DatabaseAccessor<AppDatabase> with _$RoutineDaoMixin {
 
   Future<int> deleteRoutineById(int id) =>
       (delete(routines)..where((t) => t.id.equals(id))).go();
+
+  Future<void> updateSortOrders(List<({int id, int sortOrder})> updates) {
+    return transaction(() async {
+      for (final item in updates) {
+        await (update(routines)..where((t) => t.id.equals(item.id)))
+            .write(RoutinesCompanion(sortOrder: Value(item.sortOrder)));
+      }
+    });
+  }
 }

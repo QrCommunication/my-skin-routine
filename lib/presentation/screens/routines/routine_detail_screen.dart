@@ -3,13 +3,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_skin_routine/core/constants/enums.dart';
 import 'package:my_skin_routine/core/extensions/context_extensions.dart';
+import 'package:my_skin_routine/domain/models/routine_action.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
 
 class RoutineDetailScreen extends ConsumerWidget {
   final int id;
 
   const RoutineDetailScreen({super.key, required this.id});
+
+  String _recurrenceLabel(BuildContext context, RoutineAction action) {
+    if (action.recurrenceType == RecurrenceType.daily) {
+      return context.l10n.actionFormRecurrenceDaily;
+    }
+    if (action.recurrenceInterval == 7) {
+      return context.l10n.actionFormRecurrenceWeekly;
+    }
+    return context.l10n.actionFormRecurrenceEveryN(action.recurrenceInterval);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,12 +34,12 @@ class RoutineDetailScreen extends ConsumerWidget {
           if (routine == null) {
             return CustomScrollView(
               slivers: [
-                const SliverAppBar.large(
-                  title: Text('Routine non trouvée'),
+                SliverAppBar.large(
+                  title: Text(context.l10n.routineNotFound),
                 ),
                 SliverFillRemaining(
                   child: Center(
-                    child: Text('La routine n\'existe pas'),
+                    child: Text(context.l10n.routineNotFoundMessage),
                   ),
                 ),
               ],
@@ -122,7 +134,7 @@ class RoutineDetailScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'Actions (${routine.actions.length})',
+                        context.l10n.routineActionsCount(routine.actions.length),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
@@ -220,7 +232,7 @@ class RoutineDetailScreen extends ConsumerWidget {
                                                   ),
                                                 const SizedBox(width: 8),
                                                 Chip(
-                                                  label: Text('${action.recurrenceType} x${action.recurrenceInterval}'),
+                                                  label: Text(_recurrenceLabel(context, action)),
                                                   side: BorderSide(
                                                     color: Theme.of(context).colorScheme.outline,
                                                   ),
@@ -261,7 +273,7 @@ class RoutineDetailScreen extends ConsumerWidget {
                 error: (error, stack) => SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Text('Erreur: $error'),
+                    child: Text(context.l10n.commonErrorWithDetails(error.toString())),
                   ),
                 ),
               ),
@@ -277,7 +289,7 @@ class RoutineDetailScreen extends ConsumerWidget {
         ),
         error: (error, stack) => Scaffold(
           appBar: AppBar(),
-          body: Center(child: Text('Erreur: $error')),
+          body: Center(child: Text(context.l10n.commonErrorWithDetails(error.toString()))),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -312,7 +324,7 @@ class RoutineDetailScreen extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(context.l10n.routineDelete),
-        content: const Text('Cette action est irréversible.'),
+        content: Text(context.l10n.actionIrreversible),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

@@ -59,7 +59,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
       loading: () {},
       error: (error, stack) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur: $error')),
+          SnackBar(content: Text(context.l10n.commonErrorWithDetails(error.toString()))),
         );
       },
     );
@@ -101,14 +101,14 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
   Future<void> _saveEntry() async {
     if (_notesController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Veuillez entrer des notes')),
+        SnackBar(content: Text(context.l10n.journalValidationNotesRequired)),
       );
       return;
     }
 
     if (_selectedFeeling == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Veuillez sélectionner votre ressenti')),
+        SnackBar(content: Text(context.l10n.journalValidationFeelingRequired)),
       );
       return;
     }
@@ -150,7 +150,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur: $e')),
+          SnackBar(content: Text(context.l10n.commonErrorWithDetails(e.toString()))),
         );
       }
     } finally {
@@ -166,7 +166,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
   Widget build(BuildContext context) {
     final isEditing = widget.id != null;
     final title =
-        isEditing ? 'Éditer Entrée Journal' : 'Nouvelle Entrée Journal';
+        isEditing ? context.l10n.journalEditTitle : context.l10n.journalNewTitle;
 
     return Scaffold(
       appBar: AppBar(
@@ -224,7 +224,7 @@ class _JournalEntryFormScreenState extends ConsumerState<JournalEntryFormScreen>
               OutlinedButton.icon(
                 onPressed: _pickPhoto,
                 icon: const Icon(Icons.image),
-                label: const Text('Ajouter une photo'),
+                label: Text(context.l10n.journalAddPhoto),
               ),
             ],
             const SizedBox(height: 24),

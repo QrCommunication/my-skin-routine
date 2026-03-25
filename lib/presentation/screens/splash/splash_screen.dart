@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/core/utils/seed_utils.dart';
 import 'package:my_skin_routine/presentation/providers/database_provider.dart';
 import 'package:my_skin_routine/presentation/providers/profile_provider.dart';
@@ -81,7 +82,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 ),
             const SizedBox(height: 32),
             Text(
-              'My Skin Routine',
+              context.l10n.onboardingWelcomeTitle,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -98,7 +99,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 ),
             const SizedBox(height: 8),
             Text(
-              'Your skincare companion',
+              context.l10n.onboardingWelcomeSubtitle,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Colors.white.withValues(alpha: 0.7),
                   ),
