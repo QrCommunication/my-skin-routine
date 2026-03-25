@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/constants/enums.dart';
 import 'package:my_skin_routine/core/extensions/context_extensions.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
-import 'package:my_skin_routine/presentation/widgets/guided_tooltip.dart';
+import 'package:my_skin_routine/presentation/widgets/spotlight_tutorial.dart';
 
 class RoutineListScreen extends ConsumerStatefulWidget {
   const RoutineListScreen({super.key});
@@ -17,30 +17,36 @@ class RoutineListScreen extends ConsumerStatefulWidget {
 class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
   SkinGoal? _selectedGoal;
   bool _tutorialShown = false;
+  final GlobalKey _filterChipsKey = GlobalKey();
+  final GlobalKey _firstRoutineKey = GlobalKey();
+  final GlobalKey _fabKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     if (!_tutorialShown) {
       _tutorialShown = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        GuidedTutorial.showIfFirstTime(
+        SpotlightTutorial.showIfFirstTime(
           context: context,
           tutorialKey: 'routines',
           steps: [
-            TutorialStep(
-              icon: Icons.favorite_rounded,
+            SpotlightStep(
+              targetKey: _filterChipsKey,
+              title: 'Filtrez vos routines',
+              description: 'Sélectionnez un objectif cutané pour afficher uniquement les routines correspondantes.',
+              icon: Icons.filter_list,
+            ),
+            SpotlightStep(
+              targetKey: _firstRoutineKey,
               title: 'Vos routines',
-              description: 'Créez des routines pour organiser vos soins. Routine du matin, du soir, hebdomadaire...',
+              description: 'Chaque routine contient des actions : appliquer un sérum, nettoyer, etc. Activez ou désactivez une routine avec le switch.',
+              icon: Icons.favorite_rounded,
             ),
-            TutorialStep(
-              icon: Icons.playlist_add,
-              title: 'Ajoutez des actions',
-              description: 'Chaque routine contient des actions : appliquer un sérum, nettoyer, etc. Liez-les à vos produits.',
-            ),
-            TutorialStep(
-              icon: Icons.drag_handle,
-              title: 'Réordonnez',
-              description: 'Maintenez et glissez pour réorganiser l\'ordre de vos actions.',
+            SpotlightStep(
+              targetKey: _fabKey,
+              title: 'Créer une nouvelle routine',
+              description: 'Appuyez sur le bouton + pour créer une nouvelle routine personnalisée.',
+              icon: Icons.add_circle_outline,
             ),
           ],
         );
@@ -63,6 +69,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
+                  key: _filterChipsKey,
                   children: [
                     FilterChip(
                       label: const Text('Tous'),
@@ -134,6 +141,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
                   (context, index) {
                     final routine = filtered[index];
                     return Padding(
+                      key: index == 0 ? _firstRoutineKey : null,
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Card(
                         child: InkWell(
@@ -225,6 +233,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        key: _fabKey,
         onPressed: () => context.push('/routines/new'),
         icon: const Icon(Icons.add),
         label: Text(context.l10n.routineNew),

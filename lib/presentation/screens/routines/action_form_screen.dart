@@ -131,7 +131,17 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
     }
   }
 
-  Future<void> _handleSave() async {
+  void _resetForm() {
+    _nameController.clear();
+    _descriptionController.clear();
+    _selectedProductId = null;
+    _recurrenceType = RecurrenceType.daily;
+    _recurrenceInterval = 2;
+    _recurrenceStartDate = DateTime.now();
+    setState(() {});
+  }
+
+  Future<void> _handleSave({bool stayAndCreate = false}) async {
     if (_nameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Veuillez entrer un nom pour l\'action')),
@@ -177,7 +187,11 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
       ref.invalidate(routineActionsProvider(widget.routineId));
 
       if (mounted) {
-        context.pop();
+        if (stayAndCreate) {
+          _resetForm();
+        } else {
+          context.pop();
+        }
       }
     } catch (e) {
       if (mounted) {
@@ -333,7 +347,7 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
             ],
             const SizedBox(height: 32),
             FilledButton(
-              onPressed: _isLoading ? null : _handleSave,
+              onPressed: _isLoading ? null : () => _handleSave(stayAndCreate: false),
               child: _isLoading
                   ? const SizedBox(
                       height: 20,
@@ -342,6 +356,12 @@ class _ActionFormScreenState extends ConsumerState<ActionFormScreen> {
                     )
                   : Text(context.l10n.commonSave),
             ),
+            const SizedBox(height: 12),
+            if (widget.actionId == null)
+              OutlinedButton(
+                onPressed: _isLoading ? null : () => _handleSave(stayAndCreate: true),
+                child: Text('${context.l10n.commonSave} + Nouvelle action'),
+              ),
           ],
         ),
       ),

@@ -9,7 +9,7 @@ import 'package:my_skin_routine/presentation/providers/product_providers.dart';
 import 'package:my_skin_routine/presentation/theme/app_motion.dart';
 import 'package:my_skin_routine/presentation/widgets/empty_state.dart';
 import 'package:my_skin_routine/presentation/widgets/product_card.dart';
-import 'package:my_skin_routine/presentation/widgets/guided_tooltip.dart';
+import 'package:my_skin_routine/presentation/widgets/spotlight_tutorial.dart';
 
 class ProductListScreen extends ConsumerStatefulWidget {
   const ProductListScreen({super.key});
@@ -24,6 +24,9 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
   String _searchQuery = '';
   ProductType? _selectedFilter;
   bool _tutorialShown = false;
+  final GlobalKey _searchBarKey = GlobalKey();
+  final GlobalKey _filterChipsKey = GlobalKey();
+  final GlobalKey _fabKey = GlobalKey();
 
   @override
   void initState() {
@@ -131,24 +134,27 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
     if (!_tutorialShown) {
       _tutorialShown = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        GuidedTutorial.showIfFirstTime(
+        SpotlightTutorial.showIfFirstTime(
           context: context,
           tutorialKey: 'products',
           steps: [
-            TutorialStep(
-              icon: Icons.inventory_2_rounded,
-              title: 'Vos produits',
-              description: 'Tous vos produits de soin sont ici. Plus de 130 produits populaires sont déjà ajoutés !',
-            ),
-            TutorialStep(
-              icon: Icons.search,
+            SpotlightStep(
+              targetKey: _searchBarKey,
               title: 'Recherchez et filtrez',
               description: 'Utilisez la barre de recherche ou les filtres par type pour retrouver un produit.',
+              icon: Icons.search,
             ),
-            TutorialStep(
-              icon: Icons.add_circle_outline,
+            SpotlightStep(
+              targetKey: _filterChipsKey,
+              title: 'Filtres par catégorie',
+              description: 'Sélectionnez une catégorie pour afficher uniquement les produits correspondants.',
+              icon: Icons.filter_list,
+            ),
+            SpotlightStep(
+              targetKey: _fabKey,
               title: 'Ajoutez les vôtres',
               description: 'Appuyez sur le bouton + pour ajouter un nouveau produit avec photo.',
+              icon: Icons.add_circle_outline,
             ),
           ],
         );
@@ -194,6 +200,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                     vertical: 12,
                   ),
                   child: SearchBar(
+                    key: _searchBarKey,
                     controller: _searchController,
                     focusNode: _searchFocusNode,
                     hintText: context.l10n.productsSearch,
@@ -224,6 +231,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
+                      key: _filterChipsKey,
                       children: [
                         FilterChip(
                           label: const Text('Tous'),
@@ -296,6 +304,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
+        key: _fabKey,
         onPressed: () => context.push('/products/new'),
         icon: const Icon(Icons.add),
         label: Text(context.l10n.productNew),

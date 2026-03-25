@@ -15,7 +15,7 @@ import '../../providers/routine_providers.dart';
 import '../../providers/streak_providers.dart';
 import '../../theme/app_motion.dart';
 import '../../widgets/empty_state.dart';
-import '../../widgets/guided_tooltip.dart';
+import '../../widgets/spotlight_tutorial.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -26,30 +26,22 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   bool _tutorialShown = false;
+  final _fabKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     if (!_tutorialShown) {
       _tutorialShown = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        GuidedTutorial.showIfFirstTime(
+        SpotlightTutorial.showIfFirstTime(
           context: context,
-          tutorialKey: 'home',
+          tutorialKey: 'home_v2',
           steps: [
-            TutorialStep(
-              icon: Icons.home_rounded,
-              title: 'Votre tableau de bord',
-              description: 'Retrouvez ici vos routines du jour avec les actions à compléter.',
-            ),
-            TutorialStep(
-              icon: Icons.check_circle_outline,
-              title: 'Cochez vos actions',
-              description: 'Appuyez sur chaque action pour la marquer comme faite. La barre de progression se remplit !',
-            ),
-            TutorialStep(
-              icon: Icons.local_fire_department,
-              title: 'Construisez votre streak',
-              description: 'Complétez toutes vos actions chaque jour pour maintenir votre série de jours consécutifs.',
+            SpotlightStep(
+              targetKey: _fabKey,
+              title: 'Journal de peau',
+              description: 'Notez l\'état de votre peau chaque jour.',
+              icon: Icons.edit_note,
             ),
           ],
         );
@@ -63,7 +55,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // Large AppBar with greeting and controls
           SliverAppBar.large(
             title: profileAsync.when(
               data: (profile) {
@@ -76,7 +67,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               error: (_, __) => Text(context.l10n.greetingDefault),
             ),
             actions: [
-              // Streak badge
               ref.watch(streakForRoutineProvider(0)).when(
                 data: (streak) {
                   final days = streak?.currentStreak ?? 0;
@@ -112,7 +102,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
           ),
-          // Routines list or empty state
           activeRoutinesAsync.when(
             data: (routines) {
               if (routines.isEmpty) {
@@ -130,7 +119,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final routine = routines[index];
-                    return _RoutineCard(
+                    return _RoutineSection(
                       routine: routine,
                       today: today,
                       ref: ref,
@@ -153,6 +142,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        key: _fabKey,
         onPressed: () => context.push('/progress/journal/new'),
         icon: const Icon(Icons.edit_note_rounded),
         label: Text(context.l10n.progressTitle),
@@ -188,13 +178,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 }
 
-class _RoutineCard extends ConsumerWidget {
+class _RoutineSection extends ConsumerWidget {
   final Routine routine;
   final String today;
   final WidgetRef ref;
   final int index;
 
-  const _RoutineCard({
+  const _RoutineSection({
     required this.routine,
     required this.today,
     required this.ref,
@@ -223,142 +213,161 @@ class _RoutineCard extends ConsumerWidget {
         final allCompleted = completedCount == todayActions.length && todayActions.isNotEmpty;
 
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Card(
-            color: allCompleted
-                ? context.colorScheme.primaryContainer.withAlpha(40)
-                : context.colorScheme.surfaceContainerLow,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Routine header
+              Row(
                 children: [
-                  // Routine name
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          routine.name,
-                          style: context.textTheme.titleLarge,
-                          overflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                routine.name,
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              routine.skinGoal.emoji,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ],
                         ),
-                      ),
-                      if (allCompleted)
-                        Icon(Icons.check_circle,
-                            color: context.colorScheme.primary)
-                            .animate()
-                            .fadeIn(duration: AppMotion.durationMedium)
-                            .scale(begin: const Offset(0.5, 0.5), curve: AppMotion.expressiveCurve),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  // Filter chips for body zone and skin goal
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      FilterChip(
-                        label: Text(routine.bodyZone.labelFr),
-                        onSelected: (_) {},
-                      ),
-                      FilterChip(
-                        label: Text(
-                          '${routine.skinGoal.emoji} ${routine.skinGoal.labelFr}',
+                        const SizedBox(height: 4),
+                        Text(
+                          context.l10n.completedOf(completedCount, todayActions.length),
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: context.colorScheme.onSurfaceVariant,
+                          ),
                         ),
-                        onSelected: (_) {},
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  // Progress bar
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: LinearProgressIndicator(
-                      value: todayActions.isEmpty
-                          ? 0
-                          : completedCount / todayActions.length,
-                      minHeight: 8,
-                    ).animate()
-                      .scaleX(
-                        begin: 0,
-                        duration: AppMotion.durationMedium,
-                        delay: (index * 50).ms,
-                        curve: AppMotion.standardCurve,
-                      ),
+                  if (allCompleted)
+                    Icon(Icons.check_circle,
+                        color: context.colorScheme.primary)
+                        .animate()
+                        .fadeIn(duration: AppMotion.durationMedium)
+                        .scale(begin: const Offset(0.5, 0.5), curve: AppMotion.expressiveCurve),
+                ],
+              ),
+              const SizedBox(height: 8),
+
+              // Progress bar
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: LinearProgressIndicator(
+                  value: todayActions.isEmpty
+                      ? 0
+                      : completedCount / todayActions.length,
+                  minHeight: 6,
+                  backgroundColor: context.colorScheme.surfaceContainerHighest,
+                  valueColor: AlwaysStoppedAnimation(
+                    allCompleted
+                        ? context.colorScheme.primary
+                        : context.colorScheme.primary,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    context.l10n.completedOf(completedCount, todayActions.length),
-                    style: context.textTheme.bodySmall?.copyWith(
+                ).animate()
+                  .scaleX(
+                    begin: 0,
+                    duration: AppMotion.durationMedium,
+                    delay: (index * 50).ms,
+                    curve: AppMotion.standardCurve,
+                  ),
+              ),
+              const SizedBox(height: 12),
+
+              // Actions list (directly visible, no collapse)
+              if (todayActions.isEmpty)
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.surfaceContainerLow,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    context.l10n.homeToday,
+                    style: context.textTheme.bodyMedium?.copyWith(
                       color: context.colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  // Actions list
-                  if (todayActions.isEmpty)
-                    Text(
-                      context.l10n.homeToday,
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: context.colorScheme.onSurfaceVariant,
-                      ),
-                    )
-                  else
-                    Column(
-                      children: List.generate(
-                        todayActions.length,
-                        (actionIndex) {
-                          final action = todayActions[actionIndex];
-                          final isCompleted = completions
-                              .any((c) => c.actionId == action.id);
-                          return _ActionItem(
-                            action: action,
-                            isCompleted: isCompleted,
-                            onToggle: (completed) {
-                              _toggleActionCompletion(
-                                ref,
-                                action.id,
-                                today,
-                                completed,
-                              );
-                            },
-                            index: actionIndex,
-                          );
-                        },
-                      ),
+                )
+              else
+                Container(
+                  decoration: BoxDecoration(
+                    color: allCompleted
+                        ? context.colorScheme.primaryContainer.withAlpha(40)
+                        : context.colorScheme.surfaceContainerLow,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    children: List.generate(
+                      todayActions.length,
+                      (actionIndex) {
+                        final action = todayActions[actionIndex];
+                        final isCompleted = completions
+                            .any((c) => c.actionId == action.id);
+                        return Column(
+                          children: [
+                            _ActionCheckItem(
+                              action: action,
+                              isCompleted: isCompleted,
+                              onToggle: (completed) {
+                                _toggleActionCompletion(
+                                  ref,
+                                  action.id,
+                                  today,
+                                  completed,
+                                );
+                              },
+                            ),
+                            if (actionIndex < todayActions.length - 1)
+                              Divider(
+                                height: 1,
+                                indent: 48,
+                                endIndent: 12,
+                                color: context.colorScheme.outlineVariant,
+                              ),
+                          ],
+                        );
+                      },
                     ),
-                ],
+                  ),
+                ),
+              const SizedBox(height: 12),
+              Divider(
+                color: context.colorScheme.outlineVariant,
               ),
-            ),
+            ],
           ),
         ).animate()
           .fadeIn(duration: AppMotion.durationMedium, delay: (index * 100).ms)
           .slideX(begin: 0.1, duration: AppMotion.durationMedium, delay: (index * 100).ms, curve: AppMotion.standardCurve);
       },
       loading: () => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(routine.name,
-                    style: context.textTheme.titleLarge),
-                const SizedBox(height: 12),
-                const CircularProgressIndicator(),
-              ],
-            ),
-          ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(routine.name, style: context.textTheme.titleMedium),
+            const SizedBox(height: 12),
+            const LinearProgressIndicator(),
+            const SizedBox(height: 12),
+          ],
         ),
       ),
       error: (error, st) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text('Erreur: $error'),
-          ),
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Text('Erreur: $error'),
       ),
     );
   }
@@ -376,32 +385,29 @@ class _RoutineCard extends ConsumerWidget {
       } else {
         await repository.unmarkActionCompleted(actionId, date);
       }
-      // Invalidate the completions provider to refresh the UI
       ref.invalidate(completionsForDateProvider(date));
     } catch (e) {
-      // Handle error silently for now
+      // Handle error silently
     }
   }
 }
 
-class _ActionItem extends StatefulWidget {
+class _ActionCheckItem extends StatefulWidget {
   final RoutineAction action;
   final bool isCompleted;
   final Function(bool) onToggle;
-  final int index;
 
-  const _ActionItem({
+  const _ActionCheckItem({
     required this.action,
     required this.isCompleted,
     required this.onToggle,
-    required this.index,
   });
 
   @override
-  State<_ActionItem> createState() => _ActionItemState();
+  State<_ActionCheckItem> createState() => _ActionCheckItemState();
 }
 
-class _ActionItemState extends State<_ActionItem>
+class _ActionCheckItemState extends State<_ActionCheckItem>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
@@ -418,7 +424,7 @@ class _ActionItemState extends State<_ActionItem>
   }
 
   @override
-  void didUpdateWidget(_ActionItem oldWidget) {
+  void didUpdateWidget(_ActionCheckItem oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isCompleted != oldWidget.isCompleted) {
       if (widget.isCompleted) {
@@ -438,13 +444,12 @@ class _ActionItemState extends State<_ActionItem>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Row(
         children: [
           GestureDetector(
             onTap: () {
               widget.onToggle(!widget.isCompleted);
-              _animationController.forward();
             },
             child: Checkbox(
               value: widget.isCompleted,
@@ -466,33 +471,37 @@ class _ActionItemState extends State<_ActionItem>
               ),
           ),
           Expanded(
-            child: Text(
-              widget.action.name,
-              style: context.textTheme.bodyMedium?.copyWith(
-                decoration: widget.isCompleted
-                    ? TextDecoration.lineThrough
-                    : null,
-                color: widget.isCompleted
-                    ? context.colorScheme.onSurfaceVariant
-                    : context.colorScheme.onSurface,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.action.name,
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    decoration: widget.isCompleted
+                        ? TextDecoration.lineThrough
+                        : null,
+                    color: widget.isCompleted
+                        ? context.colorScheme.onSurfaceVariant
+                        : context.colorScheme.onSurface,
+                  ),
+                ),
+                if (widget.action.product != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text(
+                      widget.action.product!.name,
+                      style: context.textTheme.bodySmall?.copyWith(
+                        color: context.colorScheme.onSurfaceVariant,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+              ],
             ),
           ),
-          if (widget.action.product != null)
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Chip(
-                label: Text(
-                  widget.action.product!.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-            ),
         ],
       ),
     );
   }
 }
-

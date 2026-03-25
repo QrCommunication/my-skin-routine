@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_skin_routine/core/constants/enums.dart';
 import 'package:my_skin_routine/core/extensions/context_extensions.dart';
+import 'package:my_skin_routine/core/utils/notification_utils.dart';
 import 'package:my_skin_routine/presentation/providers/routine_providers.dart';
 
 class RoutineFormScreen extends ConsumerStatefulWidget {
@@ -252,9 +253,22 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
             isActive: _isActive,
           );
           await repository.updateRoutine(updated);
+
+          // Schedule or cancel notification
+          if (_selectedReminderTime != null && _isActive) {
+            await NotificationService().scheduleRoutineReminder(
+              routineId: widget.id!,
+              routineName: _nameController.text,
+              hour: _selectedReminderTime!.hour,
+              minute: _selectedReminderTime!.minute,
+              actionCount: updated.actions.length,
+            );
+          } else {
+            await NotificationService().cancelRoutineReminder(widget.id!);
+          }
         }
       } else {
-        await repository.createRoutine(
+        final newId = await repository.createRoutine(
           name: _nameController.text,
           description: _descriptionController.text.isEmpty ? null : _descriptionController.text,
           bodyZone: _selectedBodyZone.name,
@@ -262,6 +276,25 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
           reminderTime: reminderTimeStr,
           isActive: _isActive,
         );
+
+        // Schedule notification for new routine
+        if (_selectedReminderTime != null && _isActive) {
+          await NotificationService().scheduleRoutineReminder(
+            routineId: newId,
+            routineName: _nameController.text,
+            hour: _selectedReminderTime!.hour,
+            minute: _selectedReminderTime!.minute,
+            actionCount: 0,
+          );
+        }
+
+        ref.invalidate(routineListProvider);
+        ref.invalidate(routineByIdProvider);
+
+        if (mounted) {
+          context.go('/routines/$newId');
+        }
+        return;
       }
 
       ref.invalidate(routineListProvider);
