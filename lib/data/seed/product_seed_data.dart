@@ -162,5 +162,176 @@ class ProductSeedData {
     (name: 'Primer Hydratant', brand: 'Embryolisse', type: 'other'),
     (name: 'Concentré Hydratant SOS', brand: 'Caudalie', type: 'other'),
     (name: 'Essence Booster Hydratation', brand: 'Filorga', type: 'other'),
+
+    // ============================================================
+    // === 100 NEW PRODUCTS =======================================
+    // ============================================================
+
+    // === KOREAN BEAUTY — Cleansers ===
+    (name: 'Time Revolution Clear Toner', brand: 'Missha', type: 'cleanser'),
+    (name: 'SoonJung pH 6.5 Whip Cleanser', brand: 'Etude House', type: 'cleanser'),
+    (name: 'Chok Chok Green Tea Cleansing Water', brand: 'TonyMoly', type: 'cleanser'),
+    (name: 'Clean It Zero Cleansing Balm', brand: 'Banila Co', type: 'cleanser'),
+    (name: 'All Clean Green Foam', brand: 'Heimish', type: 'cleanser'),
+
+    // === KOREAN BEAUTY — Toners ===
+    (name: 'Supple Preparation Unscented Toner', brand: 'Klairs', type: 'toner'),
+    (name: 'AHA BHA PHA 30 Days Miracle Toner', brand: 'Some By Mi', type: 'toner'),
+    (name: 'Centella Unscented Toner', brand: 'Purito', type: 'toner'),
+    (name: 'Madagascar Centella Toning Toner', brand: 'Skin1004', type: 'toner'),
+
+    // === KOREAN BEAUTY — Serums ===
+    (name: 'Time Revolution Night Repair Ampoule', brand: 'Missha', type: 'serum'),
+    (name: 'Madagascar Centella Ampoule', brand: 'Skin1004', type: 'serum'),
+    (name: 'AHA BHA PHA 30 Days Miracle Serum', brand: 'Some By Mi', type: 'serum'),
+    (name: 'Freshly Juiced Vitamin E Mask', brand: 'Klairs', type: 'serum'),
+    (name: 'Centella Green Level Buffet Serum', brand: 'Purito', type: 'serum'),
+
+    // === KOREAN BEAUTY — Moisturizers ===
+    (name: 'The Chok Chok Green Tea Watery Cream', brand: 'TonyMoly', type: 'moisturizer'),
+    (name: 'SoonJung 2x Barrier Intensive Cream', brand: 'Etude House', type: 'moisturizer'),
+    (name: 'Midnight Blue Calming Cream', brand: 'Klairs', type: 'moisturizer'),
+
+    // === KOREAN BEAUTY — Sunscreens ===
+    (name: 'All Around Safe Block Essence Sun SPF45', brand: 'Missha', type: 'sunscreen'),
+    (name: 'Centella Green Level Unscented Sun SPF50', brand: 'Purito', type: 'sunscreen'),
+    (name: 'Madagascar Centella Air-Fit Sun SPF50', brand: 'Skin1004', type: 'sunscreen'),
+    (name: 'AHA BHA PHA Truecica Clear Sun SPF50', brand: 'Some By Mi', type: 'sunscreen'),
+
+    // === FRENCH PHARMACY — Cleansers ===
+    (name: 'Ictyane Eau Micellaire', brand: 'Ducray', type: 'cleanser'),
+    (name: 'Eau Micellaire Thermale', brand: 'Uriage', type: 'cleanser'),
+    (name: 'Physiopure Eau Micellaire', brand: 'SVR', type: 'cleanser'),
+
+    // === FRENCH PHARMACY — Toners ===
+    (name: 'Lotion Tonique Hydra-Essentiel', brand: 'Lierac', type: 'toner'),
+    (name: 'Lotion Tonique Galénic Aqua Infini', brand: 'Galénic', type: 'toner'),
+
+    // === FRENCH PHARMACY — Moisturizers ===
+    (name: 'Ictyane Crème Hydratante', brand: 'Ducray', type: 'moisturizer'),
+    (name: 'Bariéderm Cica-Crème', brand: 'Uriage', type: 'moisturizer'),
+    (name: 'Cicavit+ Crème Apaisante', brand: 'SVR', type: 'moisturizer'),
+    (name: 'Hydra-Chrono+ Crème Riche', brand: 'Lierac', type: 'moisturizer'),
+
+    // === FRENCH PHARMACY — Serums ===
+    (name: 'Sérénage Sérum Revitalisant', brand: 'Uriage', type: 'serum'),
+    (name: 'Ampoule B3 Niacinamide', brand: 'SVR', type: 'serum'),
+
+    // === FRENCH PHARMACY — Sunscreens ===
+    (name: 'Melascreen UV Crème Riche SPF50', brand: 'Ducray', type: 'sunscreen'),
+    (name: 'Bariésun Crème Minérale SPF50', brand: 'Uriage', type: 'sunscreen'),
+    (name: 'Sun Secure Blur SPF50', brand: 'SVR', type: 'sunscreen'),
+
+    // === FRENCH PHARMACY — Mists ===
+    (name: 'Eau Thermale Spray', brand: 'Uriage', type: 'mist'),
+    (name: 'Eau Florale Rose', brand: 'Roger & Gallet', type: 'mist'),
+
+    // === US DRUGSTORE — Cleansers ===
+    (name: 'Gentle Facial Cleanser', brand: 'Vanicream', type: 'cleanser'),
+    (name: 'Face Wash Pure Sensitive', brand: 'First Aid Beauty', type: 'cleanser'),
+    (name: 'Pore Normalizing Cleanser', brand: 'Paula\'s Choice', type: 'cleanser'),
+
+    // === US DRUGSTORE — Moisturizers ===
+    (name: 'Daily Moisturizing Lotion', brand: 'Vanicream', type: 'moisturizer'),
+    (name: 'Ultra Repair Cream', brand: 'First Aid Beauty', type: 'moisturizer'),
+    (name: 'Regenerist Micro-Sculpting Cream', brand: 'Olay', type: 'moisturizer'),
+
+    // === US DRUGSTORE — Serums ===
+    (name: 'Clinical Niacinamide 20% Treatment', brand: 'Paula\'s Choice', type: 'serum'),
+    (name: 'Retinol 24 Night Serum', brand: 'Olay', type: 'serum'),
+
+    // === US DRUGSTORE — Sunscreens ===
+    (name: 'UV Clear Broad-Spectrum SPF46', brand: 'EltaMD', type: 'sunscreen'),
+    (name: 'UV Daily Broad-Spectrum SPF40', brand: 'EltaMD', type: 'sunscreen'),
+    (name: 'Healing Ointment', brand: 'Aquaphor', type: 'sunscreen'),
+
+    // === US DRUGSTORE — Exfoliants ===
+    (name: 'Skin Perfecting 2% BHA Liquid Exfoliant', brand: 'Paula\'s Choice', type: 'exfoliant'),
+    (name: 'Facial Radiance Pads', brand: 'First Aid Beauty', type: 'exfoliant'),
+
+    // === LUXURY — Cleansers ===
+    (name: 'Perfectly Clean Multi-Action Foam Cleanser', brand: 'Estée Lauder', type: 'cleanser'),
+    (name: 'Extra Gentle Cleansing Foam', brand: 'Clinique', type: 'cleanser'),
+    (name: 'Ultimate Purifying Foam', brand: 'Shiseido', type: 'cleanser'),
+
+    // === LUXURY — Serums ===
+    (name: 'Advanced Night Repair Serum', brand: 'Estée Lauder', type: 'serum'),
+    (name: 'Facial Treatment Essence', brand: 'SK-II', type: 'serum'),
+    (name: 'The Concentrate', brand: 'La Mer', type: 'serum'),
+    (name: 'Advanced Génifique Serum', brand: 'Lancôme', type: 'serum'),
+    (name: 'Capture Totale Super Potent Serum', brand: 'Dior', type: 'serum'),
+    (name: 'Smart Clinical Repair Wrinkle Correcting Serum', brand: 'Clinique', type: 'serum'),
+    (name: 'Ultimune Power Infusing Concentrate', brand: 'Shiseido', type: 'serum'),
+
+    // === LUXURY — Moisturizers ===
+    (name: 'Crème de la Mer Moisturizing Cream', brand: 'La Mer', type: 'moisturizer'),
+    (name: 'Rénergie Multi-Lift Crème', brand: 'Lancôme', type: 'moisturizer'),
+    (name: 'Moisture Surge 100H Auto-Replenishing Hydrator', brand: 'Clinique', type: 'moisturizer'),
+    (name: 'Essential Energy Moisturizing Cream', brand: 'Shiseido', type: 'moisturizer'),
+    (name: 'Prestige La Crème', brand: 'Dior', type: 'moisturizer'),
+
+    // === LUXURY — Eye Creams ===
+    (name: 'Advanced Night Repair Eye', brand: 'Estée Lauder', type: 'eyeCream'),
+    (name: 'The Eye Concentrate', brand: 'La Mer', type: 'eyeCream'),
+    (name: 'All About Eyes', brand: 'Clinique', type: 'eyeCream'),
+    (name: 'Génifique Yeux Light-Pearl', brand: 'Lancôme', type: 'eyeCream'),
+    (name: 'RNA Power Eye Cream', brand: 'SK-II', type: 'eyeCream'),
+
+    // === NATURAL/ORGANIC — Cleansers ===
+    (name: 'Lait Démaquillant Douceur aux Amandes', brand: 'Weleda', type: 'cleanser'),
+    (name: 'Lait Démaquillant Bio', brand: 'Cattier', type: 'cleanser'),
+    (name: 'Cleansing Milk', brand: 'Dr. Hauschka', type: 'cleanser'),
+
+    // === NATURAL/ORGANIC — Moisturizers ===
+    (name: 'Skin Food Original', brand: 'Weleda', type: 'moisturizer'),
+    (name: 'Crème de Jour Nectar de Roses', brand: 'Melvita', type: 'moisturizer'),
+    (name: 'Rose Day Cream Light', brand: 'Dr. Hauschka', type: 'moisturizer'),
+    (name: 'Chamomile & Rosehip Calming Day Cream', brand: 'Pai Skincare', type: 'moisturizer'),
+
+    // === NATURAL/ORGANIC — Serums ===
+    (name: 'Rosapène Huile de Beauté', brand: 'Melvita', type: 'serum'),
+    (name: 'Brightening Serum', brand: 'Dr. Hauschka', type: 'serum'),
+    (name: 'Back to Life Hydration Serum', brand: 'Pai Skincare', type: 'serum'),
+
+    // === NATURAL/ORGANIC — Oils ===
+    (name: 'Huile d\'Argan Bio', brand: 'Melvita', type: 'oil'),
+    (name: 'Rosehip BioRegenerate Oil', brand: 'Pai Skincare', type: 'oil'),
+    (name: 'Nourishing Body Oil Lavender', brand: 'Weleda', type: 'oil'),
+
+    // === MEN'S SKINCARE ===
+    (name: 'Original Face Wash', brand: 'Bulldog', type: 'cleanser'),
+    (name: 'Original Moisturiser', brand: 'Bulldog', type: 'moisturizer'),
+    (name: 'Pure Clean Daily Facial Cleanser', brand: 'Jack Black', type: 'cleanser'),
+    (name: 'Double-Duty Face Moisturizer SPF20', brand: 'Jack Black', type: 'moisturizer'),
+    (name: 'Facial Fuel Energizing Moisture Treatment', brand: 'Kiehl\'s', type: 'moisturizer'),
+    (name: 'Age Rescue Water-Charged Gel Cream', brand: 'Lab Series', type: 'moisturizer'),
+    (name: 'Daily Anti-Aging Moisturizer SPF15', brand: 'Lab Series', type: 'sunscreen'),
+    (name: 'Age Defence Eye Cream', brand: 'Bulldog', type: 'eyeCream'),
+
+    // === UNDER-REPRESENTED TYPES — Lip Care ===
+    (name: 'Lip Glow Oil', brand: 'Dior', type: 'lipCare'),
+    (name: 'Eight Hour Cream Lip Protectant', brand: 'Elizabeth Arden', type: 'lipCare'),
+    (name: 'Butterstick Lip Treatment SPF25', brand: 'Kiehl\'s', type: 'lipCare'),
+
+    // === UNDER-REPRESENTED TYPES — Mists ===
+    (name: 'All Skin Types Centella Mist', brand: 'Skin1004', type: 'mist'),
+    (name: 'Supple Preparation All-Over Lotion Mist', brand: 'Klairs', type: 'mist'),
+    (name: 'Cica Calming Mist', brand: 'Some By Mi', type: 'mist'),
+    (name: 'Green Tea Seed Mist', brand: 'Innisfree', type: 'mist'),
+
+    // === UNDER-REPRESENTED TYPES — Spot Treatments ===
+    (name: 'AHA BHA PHA 30 Days Miracle Patch', brand: 'Some By Mi', type: 'spotTreatment'),
+    (name: 'AC Collection Blemish Spot Clearing Serum', brand: 'COSRX', type: 'spotTreatment'),
+    (name: 'Bye Bye Blemish Vita Tox Spot', brand: 'Some By Mi', type: 'spotTreatment'),
+
+    // === UNDER-REPRESENTED TYPES — Masks ===
+    (name: 'Dermask Water Jet Vital Hydra Solution', brand: 'Dr. Jart+', type: 'mask'),
+    (name: 'Overnight Sleeping Mask Cica', brand: 'Laneige', type: 'mask'),
+    (name: 'Calming Moisture Barrier Pack', brand: 'Etude House', type: 'mask'),
+
+    // === UNDER-REPRESENTED TYPES — Other ===
+    (name: 'Ceramide Capsules Daily Youth Restoring Serum', brand: 'Elizabeth Arden', type: 'other'),
+    (name: 'Sensitive Age Defence Eye Cream', brand: 'Bulldog', type: 'other'),
+    (name: 'Eau de Parfum Fleur de Figuier', brand: 'Roger & Gallet', type: 'other'),
   ];
 }
