@@ -243,3 +243,14 @@ footer{border-top:1px solid var(--line);background:var(--bg2)}
   .fstep .node{left:1px}
   .fstep:nth-child(even) .phone-col{order:-1}
 }
+
+/* ─── v3 — density fixes + GSAP-ready ─────────────────────────── */
+.wrap.hero-grid{width:min(1240px,100% - 48px)}
+.hero h1{font-size:clamp(48px,7.4vw,104px)}
+.shot-frame.back{right:auto;left:-13%;top:1%;transform:rotate(6deg);opacity:.92}
+@media(max-width:960px){.shot-frame.back{display:none}}
+.fstep{padding:44px 0 44px 74px}
+.fstep .shot-frame{width:min(336px,94%)}
+.flow-line{height:100%;transform:scaleY(0);transform-origin:top}
+.hero-grid{gap:clamp(18px,2.6vw,40px)}
+@media(min-width:961px){.hero{padding-bottom:0}}

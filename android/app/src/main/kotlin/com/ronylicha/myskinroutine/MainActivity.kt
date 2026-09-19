@@ -1,4 +1,4 @@
-package com.qrcommunication.my_skin_routine
+package com.ronylicha.myskinroutine
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -313,7 +313,7 @@ test/
 
 | Field | Value |
 |-------|-------|
-| Package name | `com.qrcommunication.my_skin_routine` |
+| Package name | `com.ronylicha.myskinroutine` |
 | Category | Health & Wellness > Beauty |
 | Content rating | PEGI 3 |
 | Data safety | "No data collected", "No data shared" |

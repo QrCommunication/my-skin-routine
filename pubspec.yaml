@@ -1,7 +1,7 @@
 name: my_skin_routine
 description: "Your skincare companion — track products, routines & skin health."
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.1+101
 
 environment:
   sdk: ^3.11.3
