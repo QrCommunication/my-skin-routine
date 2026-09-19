@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Skin Routine — Your skincare companion</title>
+<meta name="description" content="Organize your skincare products, build routines and track your skin health. 100% offline, no account, no ads. Free on Android.">
+<meta property="og:title" content="My Skin Routine — Your skincare companion">
+<meta property="og:description" content="Track products, routines & skin health. 100% offline, no account, no ads.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#131118">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#131118; --bg2:#191622; --card:#1e1a29; --card2:#241f31;
+  --text:#f2eefa; --muted:#a89fc0; --line:rgba(185,165,227,.14);
+  --accent:#b9a5e3; --accent2:#8f74c9; --glow:rgba(143,116,201,.35);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(19,17,24,.75);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:14px}
+nav img{height:30px}
+.nav-links{display:flex;gap:28px;font-size:15px;color:var(--muted)}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:12px;margin-left:auto}
+.lang-switch{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang-switch button{background:none;border:none;color:var(--muted);font-family:inherit;font-size:13px;font-weight:600;padding:7px 13px;cursor:pointer;transition:.2s}
+.lang-switch button.on{background:rgba(185,165,227,.16);color:var(--accent)}
+.gh-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px;transition:.2s}
+.gh-btn:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:760px){.nav-links{display:none}}
+
+/* HERO */
+.hero{position:relative;padding:90px 0 40px;text-align:center}
+.hero::before{content:"";position:absolute;inset:-200px 0 auto;height:600px;background:
+  radial-gradient(600px 300px at 30% 20%, rgba(143,116,201,.22), transparent 70%),
+  radial-gradient(500px 260px at 72% 10%, rgba(185,165,227,.14), transparent 70%);
+  pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--accent);border:1px solid var(--line);background:rgba(185,165,227,.07);border-radius:999px;padding:8px 18px;margin-bottom:26px}
+.hero h1{font-size:clamp(40px,6.5vw,68px);font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.hero h1 .grad{background:linear-gradient(100deg,var(--accent),#e4d9ff 60%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{max-width:620px;margin:22px auto 0;font-size:clamp(17px,2.2vw,20px);color:var(--muted);font-weight:300}
+.cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:14px;padding:15px 26px;font-weight:600;font-size:16px;transition:.2s}
+.btn-primary{background:linear-gradient(135deg,var(--accent2),#6d55a8);color:#fff;box-shadow:0 8px 32px var(--glow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px var(--glow)}
+.btn-ghost{border:1px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn small{display:block;font-weight:400;font-size:11px;opacity:.75;line-height:1.2;text-align:left}
+
+/* PHONES */
+.phones{position:relative;display:flex;justify-content:center;gap:0;margin-top:70px;perspective:1400px}
+.phone{width:250px;flex-shrink:0;border-radius:38px;border:1px solid rgba(255,255,255,.12);background:#000;padding:10px;box-shadow:0 40px 90px rgba(0,0,0,.6);position:relative}
+.phone img{border-radius:30px}
+.phone.p1{transform:rotateY(10deg) translateZ(40px);z-index:2}
+.phone.p2{transform:rotateY(-8deg) translateX(-24px);opacity:.94;filter:brightness(.92)}
+@media(max-width:640px){.phone.p2{display:none}.phone{width:262px}}
+
+/* TRUST STRIP */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:80px;background:var(--bg2)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:26px 24px;text-align:center}
+.trust b{display:block;font-size:clamp(18px,2.6vw,26px);font-weight:700;color:var(--accent)}
+.trust span{font-size:13px;color:var(--muted)}
+@media(max-width:760px){.trust .wrap{grid-template-columns:repeat(2,1fr)}}
+
+/* SECTIONS */
+section{padding:100px 0}
+.kicker{color:var(--accent);font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+h2{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;margin:12px 0 14px}
+.lead{color:var(--muted);max-width:640px;font-size:18px;font-weight:300}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;transition:.25s}
+.feat:hover{transform:translateY(-4px);border-color:rgba(185,165,227,.4);background:var(--card2)}
+.feat .ic{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:23px;background:linear-gradient(135deg,rgba(143,116,201,.28),rgba(185,165,227,.14));margin-bottom:18px}
+.feat h3{font-size:19px;font-weight:600;margin-bottom:8px}
+.feat p{font-size:14.5px;color:var(--muted)}
+@media(max-width:960px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.feat-grid{grid-template-columns:1fr}}
+
+/* SCREENSHOTS */
+.gallery{display:flex;gap:22px;overflow-x:auto;padding:52px 24px 26px;scroll-snap-type:x mandatory;justify-content:flex-start}
+.gallery::-webkit-scrollbar{height:8px}
+.gallery::-webkit-scrollbar-thumb{background:rgba(185,165,227,.25);border-radius:99px}
+.shot{scroll-snap-align:center;flex:0 0 auto;text-align:center}
+.shot .phone{width:216px;transition:.25s;margin:0 auto}
+.shot:hover .phone{transform:translateY(-8px);border-color:rgba(185,165,227,.45)}
+.shot span{display:block;margin-top:16px;font-size:14px;color:var(--muted)}
+
+/* PRIVACY */
+.privacy{background:linear-gradient(180deg,var(--bg2),var(--bg));border-top:1px solid var(--line)}
+.priv-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.shield{width:120px;height:120px;border-radius:32px;background:linear-gradient(135deg,rgba(143,116,201,.3),rgba(185,165,227,.12));border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:54px;margin-bottom:28px}
+.plain li{list-style:none;display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:15.5px}
+.plain li b{color:var(--text);font-weight:600}
+.plain .dot{color:var(--accent);font-size:18px}
+@media(max-width:860px){.priv-grid{grid-template-columns:1fr}}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:44px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+footer a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#"><img src="assets/logo.svg" alt="My Skin Routine"></a>
+    <div class="nav-links">
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#screenshots" data-i18n="nav.screenshots">Screenshots</a>
+      <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button id="lang-en" onclick="setLang('en')">EN</button>
+        <button id="lang-fr" onclick="setLang('fr')">FR</button>
+      </div>
+      <a class="gh-btn" href="https://github.com/QrCommunication/my-skin-routine">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow" data-i18n="hero.eyebrow">🔒 100% offline · No account · No ads</span>
+    <h1 data-i18n-html="hero.title">Your skincare<br><span class="grad">companion</span></h1>
+    <p class="sub" data-i18n="hero.sub">Organize your products, build routines that stick, and keep track of your skin's health — all on your phone, all private.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.qrcommunication.my_skin_routine">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.8 13.7 12 3.6 22.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2Zm11.5 8.8 2.6-2.6 3.4 2c1.1.6 1.1 2.2 0 2.8l-3.4 2-2.6-2.6-1.4-1.6 1.4-2ZM5.3 1.1l9.1 9.1-2 2-7.1-8.9c-.2-.5-.2-1.5 0-2.2Zm0 21.8c-.2-.7-.2-1.7 0-2.2l7.1-8.9 2 2-9.1 9.1Z"/></svg>
+        <span><span data-i18n="cta.play">Get it on Google Play</span><small data-i18n="cta.playSub">Free · Android 6.0+</small></span>
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/QrCommunication/my-skin-routine/releases/latest">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg>
+        <span><span data-i18n="cta.apk">Download APK</span><small data-i18n="cta.apkSub">Preview build · GitHub</small></span>
+      </a>
+    </div>
+    <div class="phones">
+      <div class="phone p2"><img src="assets/screenshots/10-home-dark.png" alt="Dashboard in dark mode" loading="lazy"></div>
+      <div class="phone p1"><img src="assets/screenshots/03-home-dashboard.png" alt="Daily dashboard with routine progress" loading="lazy"></div>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="wrap">
+    <div><b>237</b><span data-i18n="trust.products">products pre-loaded</span></div>
+    <div><b>50+</b><span data-i18n="trust.brands">popular brands</span></div>
+    <div><b>EN / FR</b><span data-i18n="trust.bilingual">bilingual interface</span></div>
+    <div><b>0</b><span data-i18n="trust.data">data collected</span></div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <span class="kicker" data-i18n="features.kicker">Features</span>
+    <h2 data-i18n="features.title">Everything your skin needs.<br>Nothing it doesn't.</h2>
+    <p class="lead" data-i18n="features.lead">Built around one idea: a skincare tracker you'll actually keep using. Simple daily checklists, gentle reminders, zero clutter.</p>
+    <div class="feat-grid">
+      <div class="feat"><div class="ic">🧴</div><h3 data-i18n="features.f1t">Product library</h3><p data-i18n="features.f1p">237 products from 50+ brands pre-loaded with images — or add your own in seconds and organize by type.</p></div>
+      <div class="feat"><div class="ic">📅</div><h3 data-i18n="features.f2t">Custom routines</h3><p data-i18n="features.f2p">Morning, evening, weekly masks… flexible recurrence from daily to every N days, per body zone and skin goal.</p></div>
+      <div class="feat"><div class="ic">✅</div><h3 data-i18n="features.f3t">Daily dashboard</h3><p data-i18n="features.f3p">One simple checklist per day. Tick off your steps and watch the progress bar fill up.</p></div>
+      <div class="feat"><div class="ic">🔥</div><h3 data-i18n="features.f4t">Streaks & progress</h3><p data-i18n="features.f4p">Keep your momentum with streak tracking, a monthly calendar and at-a-glance consistency stats.</p></div>
+      <div class="feat"><div class="ic">📖</div><h3 data-i18n="features.f5t">Skin journal</h3><p data-i18n="features.f5p">Log how your skin feels each day, attach photos, and look back to see what's really working.</p></div>
+      <div class="feat"><div class="ic">🔔</div><h3 data-i18n="features.f6t">Gentle reminders</h3><p data-i18n="features.f6p">Scheduled notifications for every routine, restored automatically after a reboot. Never miss a step.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots" style="padding-top:20px">
+  <div class="wrap">
+    <span class="kicker" data-i18n="shots.kicker">Screenshots</span>
+    <h2 data-i18n="shots.title">Designed to feel calm</h2>
+    <p class="lead" data-i18n="shots.lead">Material Design 3, soft lavender palette, full dark mode and Dynamic Color that adapts to your wallpaper.</p>
+  </div>
+  <div class="gallery">
+    <div class="shot"><div class="phone"><img src="assets/screenshots/03-home-dashboard.png" alt="Daily dashboard" loading="lazy"></div><span data-i18n="shots.s1">Daily dashboard</span></div>
+    <div class="shot"><div class="phone"><img src="assets/screenshots/04-products-library.png" alt="Product library" loading="lazy"></div><span data-i18n="shots.s2">Product library</span></div>
+    <div class="shot"><div class="phone"><img src="assets/screenshots/05-product-detail.png" alt="Product detail" loading="lazy"></div><span data-i18n="shots.s3">Product detail</span></div>
+    <div class="shot"><div class="phone"><img src="assets/screenshots/06-routine-detail.png" alt="Routine detail" loading="lazy"></div><span data-i18n="shots.s4">Routine builder</span></div>
+    <div class="shot"><div class="phone"><img src="assets/screenshots/07-progress.png" alt="Progress calendar" loading="lazy"></div><span data-i18n="shots.s5">Progress & streaks</span></div>
+    <div class="shot"><div class="phone"><img src="assets/screenshots/10-home-dark.png" alt="Dark mode" loading="lazy"></div><span data-i18n="shots.s6">Dark mode</span></div>
+    <div class="shot"><div class="phone"><img src="assets/screenshots/09-settings.png" alt="Settings" loading="lazy"></div><span data-i18n="shots.s7">Settings & backup</span></div>
+    <div class="shot"><div class="phone"><img src="assets/screenshots/01-onboarding-welcome.png" alt="Welcome" loading="lazy"></div><span data-i18n="shots.s8">Welcome</span></div>
+  </div>
+</section>
+
+<section id="privacy" class="privacy">
+  <div class="wrap priv-grid">
+    <div>
+      <div class="shield">🛡️</div>
+      <span class="kicker" data-i18n="privacy.kicker">Privacy first</span>
+      <h2 data-i18n="privacy.title">Your skin data<br>stays yours.</h2>
+      <p class="lead" data-i18n="privacy.lead">The app has no Internet permission at all. Technically unable to phone home — not just promised to.</p>
+    </div>
+    <ul class="plain">
+      <li><span class="dot">●</span><span data-i18n="privacy.p1"><b>No Internet permission</b> — data physically cannot leave your device.</span></li>
+      <li><span class="dot">●</span><span data-i18n="privacy.p2"><b>No account, no sign-up</b> — open the app and start.</span></li>
+      <li><span class="dot">●</span><span data-i18n="privacy.p3"><b>No tracking, no ads</b> — nothing analytics, nothing third-party.</span></li>
+      <li><span class="dot">●</span><span data-i18n="privacy.p4"><b>ZIP backup export</b> — your data and photos, in your hands.</span></li>
+      <li><span class="dot">●</span><span data-i18n="privacy.p5"><b>Local database</b> — everything stored in an on-device SQLite database.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="footer.copy">© 2026 QR Communication · My Skin Routine v1.0.0</span>
+    <span><a href="https://github.com/QrCommunication/my-skin-routine">GitHub</a> &nbsp;·&nbsp; <a href="https://play.google.com/store/apps/details?id=com.qrcommunication.my_skin_routine">Google Play</a></span>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+en: {
+  "meta.title": "My Skin Routine — Your skincare companion",
+  "meta.desc": "Organize your skincare products, build routines and track your skin health. 100% offline, no account, no ads. Free on Android.",
+  "nav.features": "Features", "nav.screenshots": "Screenshots", "nav.privacy": "Privacy",
+  "hero.eyebrow": "🔒 100% offline · No account · No ads",
+  "hero.title": 'Your skincare<br><span class="grad">companion</span>',
+  "hero.sub": "Organize your products, build routines that stick, and keep track of your skin's health — all on your phone, all private.",
+  "cta.play": "Get it on Google Play", "cta.playSub": "Free · Android 6.0+",
+  "cta.apk": "Download APK", "cta.apkSub": "Preview build · GitHub",
+  "trust.products": "products pre-loaded", "trust.brands": "popular brands",
+  "trust.bilingual": "bilingual interface", "trust.data": "data collected",
+  "features.kicker": "Features",
+  "features.title": "Everything your skin needs.<br>Nothing it doesn't.",
+  "features.lead": "Built around one idea: a skincare tracker you'll actually keep using. Simple daily checklists, gentle reminders, zero clutter.",
+  "features.f1t": "Product library", "features.f1p": "237 products from 50+ brands pre-loaded with images — or add your own in seconds and organize by type.",
+  "features.f2t": "Custom routines", "features.f2p": "Morning, evening, weekly masks… flexible recurrence from daily to every N days, per body zone and skin goal.",
+  "features.f3t": "Daily dashboard", "features.f3p": "One simple checklist per day. Tick off your steps and watch the progress bar fill up.",
+  "features.f4t": "Streaks & progress", "features.f4p": "Keep your momentum with streak tracking, a monthly calendar and at-a-glance consistency stats.",
+  "features.f5t": "Skin journal", "features.f5p": "Log how your skin feels each day, attach photos, and look back to see what's really working.",
+  "features.f6t": "Gentle reminders", "features.f6p": "Scheduled notifications for every routine, restored automatically after a reboot. Never miss a step.",
+  "shots.kicker": "Screenshots", "shots.title": "Designed to feel calm",
+  "shots.lead": "Material Design 3, soft lavender palette, full dark mode and Dynamic Color that adapts to your wallpaper.",
+  "shots.s1": "Daily dashboard", "shots.s2": "Product library", "shots.s3": "Product detail",
+  "shots.s4": "Routine builder", "shots.s5": "Progress & streaks", "shots.s6": "Dark mode",
+  "shots.s7": "Settings & backup", "shots.s8": "Welcome",
+  "privacy.kicker": "Privacy first", "privacy.title": "Your skin data<br>stays yours.",
+  "privacy.lead": "The app has no Internet permission at all. Technically unable to phone home — not just promised to.",
+  "privacy.p1": "<b>No Internet permission</b> — data physically cannot leave your device.",
+  "privacy.p2": "<b>No account, no sign-up</b> — open the app and start.",
+  "privacy.p3": "<b>No tracking, no ads</b> — nothing analytics, nothing third-party.",
+  "privacy.p4": "<b>ZIP backup export</b> — your data and photos, in your hands.",
+  "privacy.p5": "<b>Local database</b> — everything stored in an on-device SQLite database.",
+  "footer.copy": "© 2026 QR Communication · My Skin Routine v1.0.0"
+},
+fr: {
+  "meta.title": "My Skin Routine — Votre compagnon skincare",
+  "meta.desc": "Organisez vos produits, construisez vos routines et suivez la santé de votre peau. 100% hors-ligne, sans compte, sans pub. Gratuit sur Android.",
+  "nav.features": "Fonctionnalités", "nav.screenshots": "Captures", "nav.privacy": "Confidentialité",
+  "hero.eyebrow": "🔒 100% hors-ligne · Sans compte · Sans pub",
+  "hero.title": 'Votre <span class="grad">compagnon</span><br>skincare',
+  "hero.sub": "Organisez vos produits, construisez des routines qui tiennent et suivez la santé de votre peau — sur votre téléphone, en toute confidentialité.",
+  "cta.play": "Disponible sur Google Play", "cta.playSub": "Gratuit · Android 6.0+",
+  "cta.apk": "Télécharger l'APK", "cta.apkSub": "Build de prévisualisation · GitHub",
+  "trust.products": "produits pré-chargés", "trust.brands": "marques populaires",
+  "trust.bilingual": "interface bilingue", "trust.data": "donnée collectée",
+  "features.kicker": "Fonctionnalités",
+  "features.title": "Tout ce dont votre peau a besoin.<br>Rien de superflu.",
+  "features.lead": "Conçu autour d'une idée : un tracker skincare que vous utiliserez vraiment. Checklists quotidiennes simples, rappels doux, zéro encombrement.",
+  "features.f1t": "Bibliothèque de produits", "features.f1p": "237 produits de plus de 50 marques pré-chargés avec images — ou ajoutez les vôtres en quelques secondes.",
+  "features.f2t": "Routines personnalisées", "features.f2p": "Matin, soir, masques hebdomadaires… récurrence flexible du quotidien à tous les N jours, par zone et objectif.",
+  "features.f3t": "Tableau de bord quotidien", "features.f3p": "Une checklist simple par jour. Cochez vos étapes et regardez la barre de progression se remplir.",
+  "features.f4t": "Séries & progression", "features.f4p": "Gardez la motivation avec les séries, un calendrier mensuel et des statistiques de régularité.",
+  "features.f5t": "Journal de peau", "features.f5p": "Notez l'état de votre peau chaque jour, ajoutez des photos et mesurez ce qui fonctionne vraiment.",
+  "features.f6t": "Rappels doux", "features.f6p": "Notifications planifiées pour chaque routine, restaurées automatiquement après redémarrage.",
+  "shots.kicker": "Captures d'écran", "shots.title": "Pensé pour apaiser",
+  "shots.lead": "Material Design 3, palette lavande douce, mode sombre complet et couleurs dynamiques adaptées à votre fond d'écran.",
+  "shots.s1": "Tableau de bord", "shots.s2": "Bibliothèque produits", "shots.s3": "Fiche produit",
+  "shots.s4": "Création de routine", "shots.s5": "Progression & séries", "shots.s6": "Mode sombre",
+  "shots.s7": "Réglages & sauvegarde", "shots.s8": "Bienvenue",
+  "privacy.kicker": "Confidentialité", "privacy.title": "Vos données<br>restent les vôtres.",
+  "privacy.lead": "L'application n'a aucune permission Internet. Techniquement incapable de communiquer — pas seulement une promesse.",
+  "privacy.p1": "<b>Aucune permission Internet</b> — les données ne peuvent physiquement pas quitter votre appareil.",
+  "privacy.p2": "<b>Sans compte ni inscription</b> — ouvrez l'app et commencez.",
+  "privacy.p3": "<b>Ni traqueurs, ni publicité</b> — rien d'analytique, rien de tiers.",
+  "privacy.p4": "<b>Export ZIP de sauvegarde</b> — vos données et photos, entre vos mains.",
+  "privacy.p5": "<b>Base de données locale</b> — tout est stocké dans une base SQLite sur l'appareil.",
+  "footer.copy": "© 2026 QR Communication · My Skin Routine v1.0.0"
+}};
+
+function applyLang(lang){
+  const dict = I18N[lang] || I18N.en;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k = el.getAttribute("data-i18n");
+    if(dict[k] !== undefined) el.innerHTML = dict[k];
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{
+    const k = el.getAttribute("data-i18n-html");
+    if(dict[k] !== undefined) el.innerHTML = dict[k];
+  });
+  document.documentElement.lang = lang;
+  document.title = dict["meta.title"];
+  const meta = document.querySelector('meta[name="description"]');
+  if(meta) meta.setAttribute("content", dict["meta.desc"]);
+  document.getElementById("lang-en").classList.toggle("on", lang==="en");
+  document.getElementById("lang-fr").classList.toggle("on", lang==="fr");
+}
+function setLang(lang){
+  localStorage.setItem("msr-lang", lang);
+  applyLang(lang);
+}
+(function(){
+  const saved = localStorage.getItem("msr-lang");
+  const browser = (navigator.language || "en").toLowerCase();
+  applyLang(saved || (browser.startsWith("fr") ? "fr" : "en"));
+})();
+</script>
+
+</body>
+</html>
