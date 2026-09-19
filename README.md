@@ -313,16 +313,22 @@ test/
 
 | Field | Value |
 |-------|-------|
-| Package name | `com.qrcommunication.myskinroutine` |
+| Package name | `com.qrcommunication.my_skin_routine` |
 | Category | Health & Wellness > Beauty |
 | Content rating | PEGI 3 |
 | Data safety | "No data collected", "No data shared" |
+
+Release signing uses the `key.properties` pattern: generate a keystore once
+(see [Flutter docs](https://docs.flutter.dev/deployment/android#create-a-keystore)),
+then fill `android/key.properties` with `storePassword`, `keyPassword`,
+`keyAlias` and `storeFile`. The file is gitignored and the keystore must be
+backed up outside the repository — losing it prevents publishing updates.
 
 ### Apple App Store
 
 | Field | Value |
 |-------|-------|
-| Bundle ID | `com.qrcommunication.myskinroutine` |
+| Bundle ID | `com.qrcommunication.mySkinRoutine` |
 | Category | Health & Fitness > Skincare |
 | Age rating | 4+ |
 | Privacy | "Data Not Collected" for all categories |
