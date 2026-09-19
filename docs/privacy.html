@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politique de confidentialité — My Skin Routine</title>
+<meta name="description" content="Politique de confidentialité de l'application My Skin Routine — aucune donnée collectée, tout reste sur votre appareil.">
+<meta name="theme-color" content="#121016">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script>
+window.PAGE_DICT = {
+en: {
+  "meta.title": "Privacy policy — My Skin Routine",
+  "doc.kicker": "( Privacy policy )",
+  "doc.h1": "Privacy policy",
+  "doc.updated": "Effective as of 19 September 2026",
+  "doc.intro": "This policy explains how the My Skin Routine mobile application handles data. The short version: it collects nothing, transmits nothing, and everything stays on your device.",
+  "notice.lang": "This document is provided in French and English. The French version prevails in case of discrepancy.",
+  "toc.1": "In one sentence", "toc.2": "Data we collect", "toc.3": "Local storage",
+  "toc.4": "Permissions", "toc.5": "Backups", "toc.6": "Third parties",
+  "toc.7": "Children", "toc.8": "Your rights", "toc.9": "Changes & contact",
+  "s0.h": "0. In one sentence",
+  "s0.p": "<b>We do not collect, process, transmit or sell any personal data. Ever.</b> The application has no Internet permission: it is technically incapable of sending anything anywhere.",
+  "s1.h": "1. Data we collect",
+  "s1.p": "None. The application does not collect any personal data within the meaning of the GDPR and applicable data protection laws: no name, no email, no identifier, no location, no usage statistics, no advertising data.",
+  "s2.h": "2. Local storage",
+  "s2.p": "The data you enter in the application — products, routines, actions, completions, journal entries, photos, and your profile first/last name — is stored <b>exclusively on your device</b>, in a local SQLite database and in the application's preferences.",
+  "s2.p2": "This data never leaves your device unless you personally export a backup. The publisher has no access to it, at any time.",
+  "s3.h": "3. Permissions used",
+  "s3.p": "The application requests only the following Android permissions, strictly necessary for its reminders:",
+  "s3.l1": "<b>Notifications (POST_NOTIFICATIONS)</b> — to display your routine reminders.",
+  "s3.l2": "<b>Exact alarms (SCHEDULE_EXACT_ALARM)</b> — to trigger reminders at the exact time you set.",
+  "s3.l3": "<b>Run at startup (RECEIVE_BOOT_COMPLETED)</b> — to reschedule your reminders after a device restart.",
+  "s3.p2": "No camera, location, contacts, microphone or storage permission is requested. Photos attached to journal entries are taken via your own camera application and stored in the application's private folder.",
+  "s4.h": "4. Backups",
+  "s4.p": "The application offers an export feature producing a single ZIP file (database + photos). This file is created on your device and saved to a location of your choosing. You remain solely responsible for backing it up. Importing a backup replaces the application's current local data on that device only.",
+  "s5.h": "5. Third parties",
+  "s5.p": "The application embeds <b>no third-party SDK</b>: no analytics, no crash reporting, no advertising network, no social login. The list of services with which your data is shared is empty.",
+  "s6.h": "6. Children",
+  "s6.p": "The application is not directed at children under 13. In any case, since no data is collected, no child's data can be processed.",
+  "s7.h": "7. Your rights",
+  "s7.p": "Under the GDPR, you have rights of access, rectification, erasure, restriction and portability regarding your personal data. Since the application holds no data about you outside your own device, exercising these rights is in your hands:",
+  "s7.l1": "<b>Access & portability</b> — use Settings → Export to obtain all your data in a ZIP file;",
+  "s7.l2": "<b>Erasure</b> — uninstall the application, or clear its storage in your device settings; all data is permanently destroyed with it.",
+  "s7.p2": "If you nevertheless wish to contact us about data protection, write to contact@qrcommunication.com.",
+  "s8.h": "8. Changes and contact",
+  "s8.p": "This policy may be updated to reflect changes in the application. The date of the last revision appears at the top of this page. If a future version of the application were to start collecting data, this policy would be updated and required consent would be requested beforehand.",
+  "s8.p2": "Publisher: QR Communication — 23 rue de Richelieu, 75001 Paris, France — contact@qrcommunication.com — +33 1 88 83 34 51.",
+  "footer.contact": "Contact: contact@qrcommunication.com · +33 1 88 83 34 51"
+},
+fr: {
+  "meta.title": "Politique de confidentialité — My Skin Routine",
+  "doc.kicker": "( Politique de confidentialité )",
+  "doc.h1": "Politique de confidentialité",
+  "doc.updated": "En vigueur à compter du 19 septembre 2026",
+  "doc.intro": "Cette politique explique comment l'application mobile My Skin Routine traite les données. La version courte : elle ne collecte rien, ne transmet rien, et tout reste sur votre appareil.",
+  "notice.lang": "Ce document est fourni en français et en anglais. En cas de divergence, la version française prévaut.",
+  "toc.1": "En une phrase", "toc.2": "Données collectées", "toc.3": "Stockage local",
+  "toc.4": "Permissions", "toc.5": "Sauvegardes", "toc.6": "Tiers",
+  "toc.7": "Enfants", "toc.8": "Vos droits", "toc.9": "Évolutions & contact",
+  "s0.h": "0. En une phrase",
+  "s0.p": "<b>Nous ne collectons, ne traitons, ne transmettons et ne vendons aucune donnée personnelle. Jamais.</b> L'application n'a pas de permission Internet : elle est techniquement incapable d'envoyer quoi que ce soit, où que ce soit.",
+  "s1.h": "1. Données collectées",
+  "s1.p": "Aucune. L'application ne collecte aucune donnée personnelle au sens du RGPD et des lois applicables en matière de protection des données : ni nom, ni email, ni identifiant, ni localisation, ni statistiques d'usage, ni données publicitaires.",
+  "s2.h": "2. Stockage local",
+  "s2.p": "Les données que vous saisissez dans l'application — produits, routines, actions, complétions, entrées de journal, photos, ainsi que votre prénom et nom de profil — sont stockées <b>exclusivement sur votre appareil</b>, dans une base SQLite locale et dans les préférences de l'application.",
+  "s2.p2": "Ces données ne quittent jamais votre appareil, sauf si vous exportez vous-même une sauvegarde. L'Éditeur n'y a accès, à aucun moment.",
+  "s3.h": "3. Permissions utilisées",
+  "s3.p": "L'application ne demande que les permissions Android suivantes, strictement nécessaires à ses rappels :",
+  "s3.l1": "<b>Notifications (POST_NOTIFICATIONS)</b> — pour afficher les rappels de vos routines.",
+  "s3.l2": "<b>Alarmes exactes (SCHEDULE_EXACT_ALARM)</b> — pour déclencher les rappels à l'heure précise que vous avez définie.",
+  "s3.l3": "<b>Démarrage automatique (RECEIVE_BOOT_COMPLETED)</b> — pour reprogrammer vos rappels après un redémarrage de l'appareil.",
+  "s3.p2": "Aucune permission caméra, localisation, contacts, microphone ou stockage n'est demandée. Les photos jointes aux entrées de journal sont prises via votre propre application appareil photo et stockées dans le dossier privé de l'application.",
+  "s4.h": "4. Sauvegardes",
+  "s4.p": "L'application propose un export produisant un unique fichier ZIP (base de données + photos). Ce fichier est créé sur votre appareil et enregistré à l'emplacement de votre choix. Vous restez seul responsable de sa sauvegarde. L'import d'une sauvegarde remplace les données locales actuelles de l'application sur ce seul appareil.",
+  "s5.h": "5. Tiers",
+  "s5.p": "L'application n'intègre <b>aucun SDK tiers</b> : pas d'analytique, pas de rapport de plantage, pas de régie publicitaire, pas de connexion sociale. La liste des services avec lesquels vos données sont partagées est vide.",
+  "s6.h": "6. Enfants",
+  "s6.p": "L'application ne s'adresse pas aux enfants de moins de 13 ans. En tout état de cause, aucune donnée n'étant collectée, aucune donnée d'enfant ne peut être traitée.",
+  "s7.h": "7. Vos droits",
+  "s7.p": "Au titre du RGPD, vous disposez de droits d'accès, de rectification, d'effacement, de limitation et de portabilité sur vos données personnelles. L'application ne détenant aucune donnée vous concernant en dehors de votre appareil, l'exercice de ces droits est entre vos mains :",
+  "s7.l1": "<b>Accès & portabilité</b> — Réglages → Exporter permet d'obtenir toutes vos données dans un fichier ZIP ;",
+  "s7.l2": "<b>Effacement</b> — désinstallez l'application, ou effacez son stockage dans les réglages de votre appareil ; toutes les données sont définitivement détruites avec elle.",
+  "s7.p2": "Si vous souhaitez néanmoins nous contacter au sujet de la protection des données, écrivez à contact@qrcommunication.com.",
+  "s8.h": "8. Évolutions et contact",
+  "s8.p": "Cette politique peut être mise à jour pour refléter l'évolution de l'application. La date de dernière révision figure en haut de cette page. Si une future version de l'application venait à collecter des données, cette politique serait actualisée et le consentement requis serait demandé au préalable.",
+  "s8.p2": "Éditeur : QR Communication — 23 rue de Richelieu, 75001 Paris, France — contact@qrcommunication.com — +33 1 88 83 34 51.",
+  "footer.contact": "Contact : contact@qrcommunication.com · +33 1 88 83 34 51"
+}
+};
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="nav-logo" href="index.html"><img src="assets/logo.svg" alt="My Skin Routine"></a>
+    <div class="nav-links">
+      <a href="terms.html" data-i18n="nav.terms">Terms</a>
+      <a href="privacy.html" data-i18n="nav.privacyPage">Privacy policy</a>
+      <a href="legal.html" data-i18n="nav.legalPage">Legal notice</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switch"><button id="lang-en">EN</button><button id="lang-fr">FR</button></div>
+    </div>
+  </div>
+</nav>
+
+<main class="doc">
+  <div class="wrap">
+    <div class="doc-head">
+      <span class="mono" data-i18n="doc.kicker">( Politique de confidentialité )</span>
+      <h1 data-i18n="doc.h1">Politique de confidentialité</h1>
+      <div class="doc-meta">
+        <span class="mono" data-i18n="doc.updated">En vigueur à compter du 19 septembre 2026</span>
+      </div>
+      <p class="lead" data-i18n="doc.intro">Cette politique explique comment l'application mobile My Skin Routine traite les données. La version courte : elle ne collecte rien, ne transmet rien, et tout reste sur votre appareil.</p>
+      <div class="notice"><p data-i18n="notice.lang">Ce document est fourni en français et en anglais. En cas de divergence, la version française prévaut.</p></div>
+    </div>
+
+    <div class="doc-body">
+      <aside class="doc-toc">
+        <a href="#s0" data-i18n="toc.1">En une phrase</a>
+        <a href="#s1" data-i18n="toc.2">Données collectées</a>
+        <a href="#s2" data-i18n="toc.3">Stockage local</a>
+        <a href="#s3" data-i18n="toc.4">Permissions</a>
+        <a href="#s4" data-i18n="toc.5">Sauvegardes</a>
+        <a href="#s5" data-i18n="toc.6">Tiers</a>
+        <a href="#s6" data-i18n="toc.7">Enfants</a>
+        <a href="#s7" data-i18n="toc.8">Vos droits</a>
+        <a href="#s8" data-i18n="toc.9">Évolutions & contact</a>
+      </aside>
+
+      <article class="doc-article">
+        <h2 id="s0" data-i18n="s0.h">0. En une phrase</h2>
+        <p data-i18n="s0.p"><b>Nous ne collectons, ne traitons, ne transmettons et ne vendons aucune donnée personnelle. Jamais.</b> L'application n'a pas de permission Internet : elle est techniquement incapable d'envoyer quoi que ce soit, où que ce soit.</p>
+
+        <h2 id="s1" data-i18n="s1.h">1. Données collectées</h2>
+        <p data-i18n="s1.p">Aucune. L'application ne collecte aucune donnée personnelle au sens du RGPD et des lois applicables en matière de protection des données : ni nom, ni email, ni identifiant, ni localisation, ni statistiques d'usage, ni données publicitaires.</p>
+
+        <h2 id="s2" data-i18n="s2.h">2. Stockage local</h2>
+        <p data-i18n="s2.p">Les données que vous saisissez dans l'application — produits, routines, actions, complétions, entrées de journal, photos, ainsi que votre prénom et nom de profil — sont stockées <b>exclusivement sur votre appareil</b>, dans une base SQLite locale et dans les préférences de l'application.</p>
+        <p data-i18n="s2.p2">Ces données ne quittent jamais votre appareil, sauf si vous exportez vous-même une sauvegarde. L'Éditeur n'y a accès, à aucun moment.</p>
+
+        <h2 id="s3" data-i18n="s3.h">3. Permissions utilisées</h2>
+        <p data-i18n="s3.p">L'application ne demande que les permissions Android suivantes, strictement nécessaires à ses rappels :</p>
+        <ul>
+          <li data-i18n="s3.l1"><b>Notifications (POST_NOTIFICATIONS)</b> — pour afficher les rappels de vos routines.</li>
+          <li data-i18n="s3.l2"><b>Alarmes exactes (SCHEDULE_EXACT_ALARM)</b> — pour déclencher les rappels à l'heure précise que vous avez définie.</li>
+          <li data-i18n="s3.l3"><b>Démarrage automatique (RECEIVE_BOOT_COMPLETED)</b> — pour reprogrammer vos rappels après un redémarrage de l'appareil.</li>
+        </ul>
+        <p data-i18n="s3.p2">Aucune permission caméra, localisation, contacts, microphone ou stockage n'est demandée. Les photos jointes aux entrées de journal sont prises via votre propre application appareil photo et stockées dans le dossier privé de l'application.</p>
+
+        <h2 id="s4" data-i18n="s4.h">4. Sauvegardes</h2>
+        <p data-i18n="s4.p">L'application propose un export produisant un unique fichier ZIP (base de données + photos). Ce fichier est créé sur votre appareil et enregistré à l'emplacement de votre choix. Vous restez seul responsable de sa sauvegarde. L'import d'une sauvegarde remplace les données locales actuelles de l'application sur ce seul appareil.</p>
+
+        <h2 id="s5" data-i18n="s5.h">5. Tiers</h2>
+        <p data-i18n="s5.p">L'application n'intègre <b>aucun SDK tiers</b> : pas d'analytique, pas de rapport de plantage, pas de régie publicitaire, pas de connexion sociale. La liste des services avec lesquels vos données sont partagées est vide.</p>
+
+        <h2 id="s6" data-i18n="s6.h">6. Enfants</h2>
+        <p data-i18n="s6.p">L'application ne s'adresse pas aux enfants de moins de 13 ans. En tout état de cause, aucune donnée n'étant collectée, aucune donnée d'enfant ne peut être traitée.</p>
+
+        <h2 id="s7" data-i18n="s7.h">7. Vos droits</h2>
+        <p data-i18n="s7.p">Au titre du RGPD, vous disposez de droits d'accès, de rectification, d'effacement, de limitation et de portabilité sur vos données personnelles. L'application ne détenant aucune donnée vous concernant en dehors de votre appareil, l'exercice de ces droits est entre vos mains :</p>
+        <ul>
+          <li data-i18n="s7.l1"><b>Accès & portabilité</b> — Réglages → Exporter permet d'obtenir toutes vos données dans un fichier ZIP ;</li>
+          <li data-i18n="s7.l2"><b>Effacement</b> — désinstallez l'application, ou effacez son stockage dans les réglages de votre appareil ; toutes les données sont définitivement détruites avec elle.</li>
+        </ul>
+        <p data-i18n="s7.p2">Si vous souhaitez néanmoins nous contacter au sujet de la protection des données, écrivez à contact@qrcommunication.com.</p>
+
+        <h2 id="s8" data-i18n="s8.h">8. Évolutions et contact</h2>
+        <p data-i18n="s8.p">Cette politique peut être mise à jour pour refléter l'évolution de l'application. La date de dernière révision figure en haut de cette page. Si une future version de l'application venait à collecter des données, cette politique serait actualisée et le consentement requis serait demandé au préalable.</p>
+        <p data-i18n="s8.p2">Éditeur : QR Communication — 23 rue de Richelieu, 75001 Paris, France — contact@qrcommunication.com — +33 1 88 83 34 51.</p>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-base">
+      <span data-i18n="footer.contact">Contact : contact@qrcommunication.com · +33 1 88 83 34 51</span>
+      <span>© 2026 QR Communication SAS</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+</body>
+</html>
