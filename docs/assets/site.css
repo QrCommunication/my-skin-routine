@@ -185,3 +185,61 @@ footer{border-top:1px solid var(--line);background:var(--bg2)}
 [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 [data-reveal].in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+
+/* ─── v2 — scroll-driven & densified ──────────────────────────── */
+.scrollbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:90;background:linear-gradient(90deg,var(--accent-deep),var(--accent))}
+.shot-frame{overflow:hidden}
+
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(900px 460px at 66% 40%,rgba(143,116,201,.20),transparent 68%),
+  radial-gradient(520px 300px at 16% 80%,rgba(185,165,227,.10),transparent 70%)}
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(185,165,227,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(185,165,227,.05) 1px,transparent 1px);
+  background-size:54px 54px;
+  -webkit-mask-image:radial-gradient(760px 580px at 60% 44%,#000 32%,transparent 76%);
+  mask-image:radial-gradient(760px 580px at 60% 44%,#000 32%,transparent 76%)}
+
+.hero-grid{grid-template-columns:1.02fr .98fr;gap:clamp(20px,3vw,48px)}
+.shot-frame.front{width:min(368px,88%)}
+.shot-frame.back{right:-6%}
+
+.chip{position:absolute;display:flex;gap:13px;align-items:center;background:rgba(23,20,29,.88);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px;padding:13px 19px;box-shadow:0 26px 60px rgba(0,0,0,.5);z-index:3;animation:bob 6s ease-in-out infinite}
+.chip svg{width:25px;height:25px;color:var(--accent);flex-shrink:0;stroke-width:1.6}
+.chip b{display:block;font-size:19px;line-height:1.15;letter-spacing:-.01em}
+.chip span{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+.chip-a{left:-13%;top:32%}
+.chip-b{left:-5%;bottom:9%;animation-delay:-3s}
+@keyframes bob{50%{transform:translateY(-12px)}}
+@media(prefers-reduced-motion:reduce){.chip{animation:none}}
+
+.scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--faint)}
+.scroll-cue .mono{font-size:10px}
+.scroll-cue svg{width:15px;height:15px;stroke-width:1.6;animation:cue 1.9s ease-in-out infinite}
+@keyframes cue{50%{transform:translateY(7px);opacity:.35}}
+@media(prefers-reduced-motion:reduce){.scroll-cue svg{animation:none}}
+@media(max-width:960px){.scroll-cue{display:none}.chip-a{left:-4%}.chip-b{left:2%}}
+
+/* timeline flow */
+.flow{position:relative;max-width:1120px;margin:0 auto;padding:26px 0 8px}
+.flow::before{content:"";position:absolute;left:19px;top:0;bottom:0;width:1px;background:var(--line)}
+.flow-line{position:absolute;left:18.5px;top:0;width:2px;height:0;background:linear-gradient(180deg,var(--accent),var(--accent-deep));z-index:1;box-shadow:0 0 18px rgba(185,165,227,.45)}
+.fstep{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,80px);align-items:center;padding:58px 0 58px 74px}
+.fstep .node{position:absolute;left:12px;top:calc(50% - 8px);width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--accent-deep);transition:.45s;z-index:2}
+.fstep.lit .node{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 8px rgba(185,165,227,.13)}
+.fstep:nth-child(even) .phone-col{order:2}
+.fstep .phone-col{position:relative}
+.fstep .shot-frame{width:min(296px,86%);margin:0 auto}
+.fstep .txt .mono{display:block;margin-bottom:14px;color:var(--accent)}
+.fstep h3{font-size:clamp(26px,3vw,34px);font-weight:700;letter-spacing:-.02em;margin-bottom:12px;line-height:1.08}
+.fstep h3 em{font-style:normal;color:var(--accent)}
+.fstep p{color:var(--muted);font-size:16.5px;max-width:460px}
+.mini{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.mini li{list-style:none;display:flex;gap:12px;font-size:15px;color:var(--muted);align-items:flex-start}
+.mini .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:9px;flex-shrink:0}
+@media(max-width:760px){
+  .flow::before,.flow-line{left:8px}
+  .fstep{grid-template-columns:1fr;padding:50px 0 50px 42px;gap:26px}
+  .fstep .phone-col{order:-1 !important}
+  .fstep .node{left:1px}
+  .fstep:nth-child(even) .phone-col{order:-1}
+}
