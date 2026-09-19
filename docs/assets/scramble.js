@@ -89,6 +89,11 @@
     });
   }
 
+  function bindAll(list) {
+    list.forEach(function (o) { bind(o.sel, o); });
+    setup();
+  }
+
   function setup() {
     if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
@@ -115,7 +120,7 @@
     if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
   }
 
-  window.MSRScramble = { bind: bind, setup: setup, onLang: onLang, play: play, dissolve: dissolve };
+  window.MSRScramble = { bind: bind, bindAll: bindAll, setup: setup, onLang: onLang, play: play, dissolve: dissolve };
 
   document.addEventListener("msr:lang", onLang);
 
