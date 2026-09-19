@@ -568,6 +568,19 @@ fr: {
   });
 })();
 </script>
+<script src="assets/scramble.js"></script>
+<script>
+window.addEventListener("load", function () {
+  if (window.MSRScramble && typeof ScrollTrigger !== "undefined") {
+    MSRScramble.bind(".hero h1", { duration: 1.8, start: "top 92%" });
+    MSRScramble.bind(".sec-head h2.display", { duration: 1.5 });
+    MSRScramble.bind(".cta h2.display", { duration: 1.5 });
+    MSRScramble.bind(".fstep h3", { duration: 1.25 });
+    MSRScramble.bind(".frow h3", { duration: 1.1 });
+    MSRScramble.setup();
+  }
+});
+</script>
 <script src="assets/i18n.js"></script>
 </body>
 </html>

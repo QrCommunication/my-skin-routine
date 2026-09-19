@@ -254,3 +254,7 @@ footer{border-top:1px solid var(--line);background:var(--bg2)}
 .flow-line{height:100%;transform:scaleY(0);transform-origin:top}
 .hero-grid{gap:clamp(18px,2.6vw,40px)}
 @media(min-width:961px){.hero{padding-bottom:0}}
+
+/* ─── v4 — scramble letters ───────────────────────────────────── */
+.sc{white-space:pre}
+h1 .sc,h2 .sc,h3 .sc{will-change:opacity}

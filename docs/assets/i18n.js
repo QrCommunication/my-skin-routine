@@ -37,22 +37,25 @@
     current = lang;
     try { localStorage.setItem("msr-lang", lang); } catch (e) {}
     var d = dict();
-    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+    document.querySelectorAll("[data-i18n], [data-i18n-html]").forEach(function (el) {
+      var kHtml = el.getAttribute("data-i18n-html");
+      if (kHtml && d[kHtml] !== undefined) { el.innerHTML = d[kHtml]; return; }
       var k = el.getAttribute("data-i18n");
-      if (d[k] !== undefined) el.innerHTML = d[k];
+      if (k && d[k] !== undefined) el.innerHTML = d[k];
     });
     document.documentElement.lang = lang;
     if (d["meta.title"]) document.title = d["meta.title"];
     var on = document.getElementById("lang-en"), off = document.getElementById("lang-fr");
     if (on) on.classList.toggle("on", lang === "en");
     if (off) off.classList.toggle("on", lang === "fr");
+    try { document.dispatchEvent(new CustomEvent("msr:lang", { detail: lang })); } catch (e) {}
   }
 
   window.setLang = function (lang) { apply(lang); };
 
   var saved = null;
   try { saved = localStorage.getItem("msr-lang"); } catch (e) {}
-  current = saved || ((navigator.language || "en").toLowerCase().indexOf("fr") === 0 ? "fr" : "en");
+  var current = saved || ((navigator.language || "en").toLowerCase().indexOf("fr") === 0 ? "fr" : "en");
 
   function init() {
     apply(current);
