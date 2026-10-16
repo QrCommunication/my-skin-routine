@@ -301,20 +301,18 @@ class SettingsScreen extends ConsumerWidget {
     if (confirmed != true) return;
 
     try {
-      final result = await FilePicker.platform.pickFiles(
+      final pickedFile = await FilePicker.pickFile(
         type: FileType.custom,
         allowedExtensions: ['zip'],
       );
-      if (result != null && result.files.isNotEmpty) {
-        final filePath = result.files.first.path;
-        if (filePath != null) {
-          final repository = ref.read(exportImportRepositoryProvider);
-          await repository.importData(filePath);
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(context.l10n.importSuccess)),
-            );
-          }
+      final filePath = pickedFile?.path;
+      if (filePath != null) {
+        final repository = ref.read(exportImportRepositoryProvider);
+        await repository.importData(filePath);
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(context.l10n.importSuccess)),
+          );
         }
       }
     } catch (e) {
