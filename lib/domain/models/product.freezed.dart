@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'product.dart';
@@ -9,6 +9,7 @@ part of 'product.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $ProductCopyWith<Product> get copyWith => _$ProductCopyWithImpl<Product>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.brand, brand) || other.brand == brand)&&(identical(other.type, type) || other.type == type)&&(identical(other.photoPath, photoPath) || other.photoPath == photoPath)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  final _this = this as Product;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.brand, _this.brand) || other.brand == _this.brand)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.photoPath, _this.photoPath) || other.photoPath == _this.photoPath)&&(identical(other.notes, _this.notes) || other.notes == _this.notes)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,brand,type,photoPath,notes,createdAt,updatedAt);
+int get hashCode {
+  final _this = this as Product;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.brand,_this.type,_this.photoPath,_this.notes,_this.createdAt,_this.updatedAt);
+}
 
 @override
 String toString() {
-  return 'Product(id: $id, name: $name, brand: $brand, type: $type, photoPath: $photoPath, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+  final _this = this as Product;
+  return 'Product(id: ${_this.id}, name: ${_this.name}, brand: ${_this.brand}, type: ${_this.type}, photoPath: ${_this.photoPath}, notes: ${_this.notes}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt})';
 }
 
 
@@ -66,7 +72,7 @@ class _$ProductCopyWithImpl<$Res>
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? brand = null,Object? type = null,Object? photoPath = freezed,Object? notes = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(Product(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,brand: null == brand ? _self.brand : brand // ignore: cast_nullable_to_non_nullable
@@ -241,16 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.brand, brand) || other.brand == brand)&&(identical(other.type, type) || other.type == type)&&(identical(other.photoPath, photoPath) || other.photoPath == photoPath)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.brand, brand) || other.brand == brand)&&(identical(other.type, type) || other.type == type)&&(identical(other.photoPath, photoPath) || other.photoPath == photoPath)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,brand,type,photoPath,notes,createdAt,updatedAt);
+int get hashCode {
+    return Object.hash(runtimeType,id,name,brand,type,photoPath,notes,createdAt,updatedAt);
+}
 
 @override
 String toString() {
-  return 'Product(id: $id, name: $name, brand: $brand, type: $type, photoPath: $photoPath, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Product(id: $id, name: $name, brand: $brand, type: $type, photoPath: $photoPath, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 

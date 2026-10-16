@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'routine_action.dart';
@@ -9,6 +9,7 @@ part of 'routine_action.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $RoutineActionCopyWith<RoutineAction> get copyWith => _$RoutineActionCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RoutineAction&&(identical(other.id, id) || other.id == id)&&(identical(other.routineId, routineId) || other.routineId == routineId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.recurrenceType, recurrenceType) || other.recurrenceType == recurrenceType)&&(identical(other.recurrenceInterval, recurrenceInterval) || other.recurrenceInterval == recurrenceInterval)&&(identical(other.recurrenceStartDate, recurrenceStartDate) || other.recurrenceStartDate == recurrenceStartDate)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.product, product) || other.product == product));
+  final _this = this as RoutineAction;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RoutineAction&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.routineId, _this.routineId) || other.routineId == _this.routineId)&&(identical(other.productId, _this.productId) || other.productId == _this.productId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.sortOrder, _this.sortOrder) || other.sortOrder == _this.sortOrder)&&(identical(other.recurrenceType, _this.recurrenceType) || other.recurrenceType == _this.recurrenceType)&&(identical(other.recurrenceInterval, _this.recurrenceInterval) || other.recurrenceInterval == _this.recurrenceInterval)&&(identical(other.recurrenceStartDate, _this.recurrenceStartDate) || other.recurrenceStartDate == _this.recurrenceStartDate)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.product, _this.product) || other.product == _this.product));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,routineId,productId,name,description,sortOrder,recurrenceType,recurrenceInterval,recurrenceStartDate,createdAt,product);
+int get hashCode {
+  final _this = this as RoutineAction;
+  return Object.hash(runtimeType,_this.id,_this.routineId,_this.productId,_this.name,_this.description,_this.sortOrder,_this.recurrenceType,_this.recurrenceInterval,_this.recurrenceStartDate,_this.createdAt,_this.product);
+}
 
 @override
 String toString() {
-  return 'RoutineAction(id: $id, routineId: $routineId, productId: $productId, name: $name, description: $description, sortOrder: $sortOrder, recurrenceType: $recurrenceType, recurrenceInterval: $recurrenceInterval, recurrenceStartDate: $recurrenceStartDate, createdAt: $createdAt, product: $product)';
+  final _this = this as RoutineAction;
+  return 'RoutineAction(id: ${_this.id}, routineId: ${_this.routineId}, productId: ${_this.productId}, name: ${_this.name}, description: ${_this.description}, sortOrder: ${_this.sortOrder}, recurrenceType: ${_this.recurrenceType}, recurrenceInterval: ${_this.recurrenceInterval}, recurrenceStartDate: ${_this.recurrenceStartDate}, createdAt: ${_this.createdAt}, product: ${_this.product})';
 }
 
 
@@ -66,7 +72,7 @@ class _$RoutineActionCopyWithImpl<$Res>
 /// Create a copy of RoutineAction
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? routineId = null,Object? productId = freezed,Object? name = null,Object? description = freezed,Object? sortOrder = null,Object? recurrenceType = null,Object? recurrenceInterval = null,Object? recurrenceStartDate = null,Object? createdAt = null,Object? product = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(RoutineAction(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,routineId: null == routineId ? _self.routineId : routineId // ignore: cast_nullable_to_non_nullable
 as int,productId: freezed == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
@@ -259,16 +265,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RoutineAction&&(identical(other.id, id) || other.id == id)&&(identical(other.routineId, routineId) || other.routineId == routineId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.recurrenceType, recurrenceType) || other.recurrenceType == recurrenceType)&&(identical(other.recurrenceInterval, recurrenceInterval) || other.recurrenceInterval == recurrenceInterval)&&(identical(other.recurrenceStartDate, recurrenceStartDate) || other.recurrenceStartDate == recurrenceStartDate)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.product, product) || other.product == product));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RoutineAction&&(identical(other.id, id) || other.id == id)&&(identical(other.routineId, routineId) || other.routineId == routineId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.recurrenceType, recurrenceType) || other.recurrenceType == recurrenceType)&&(identical(other.recurrenceInterval, recurrenceInterval) || other.recurrenceInterval == recurrenceInterval)&&(identical(other.recurrenceStartDate, recurrenceStartDate) || other.recurrenceStartDate == recurrenceStartDate)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.product, product) || other.product == product));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,routineId,productId,name,description,sortOrder,recurrenceType,recurrenceInterval,recurrenceStartDate,createdAt,product);
+int get hashCode {
+    return Object.hash(runtimeType,id,routineId,productId,name,description,sortOrder,recurrenceType,recurrenceInterval,recurrenceStartDate,createdAt,product);
+}
 
 @override
 String toString() {
-  return 'RoutineAction(id: $id, routineId: $routineId, productId: $productId, name: $name, description: $description, sortOrder: $sortOrder, recurrenceType: $recurrenceType, recurrenceInterval: $recurrenceInterval, recurrenceStartDate: $recurrenceStartDate, createdAt: $createdAt, product: $product)';
+    return 'RoutineAction(id: $id, routineId: $routineId, productId: $productId, name: $name, description: $description, sortOrder: $sortOrder, recurrenceType: $recurrenceType, recurrenceInterval: $recurrenceInterval, recurrenceStartDate: $recurrenceStartDate, createdAt: $createdAt, product: $product)';
 }
 
 

@@ -87,7 +87,7 @@ abstract class _$JournalEntries extends $AsyncNotifier<List<SkinJournalEntry>> {
   FutureOr<List<SkinJournalEntry>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref
             as $Ref<AsyncValue<List<SkinJournalEntry>>, List<SkinJournalEntry>>;
@@ -102,7 +102,7 @@ abstract class _$JournalEntries extends $AsyncNotifier<List<SkinJournalEntry>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 

@@ -137,8 +137,7 @@ class _RoutineListScreenState extends ConsumerState<RoutineListScreen> {
               }
 
               return SliverReorderableList(
-                onReorder: (oldIndex, newIndex) {
-                  if (newIndex > oldIndex) newIndex--;
+                onReorderItem: (oldIndex, newIndex) {
                   final reordered = List<dynamic>.from(filtered);
                   final item = reordered.removeAt(oldIndex);
                   reordered.insert(newIndex, item);

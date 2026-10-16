@@ -2514,7 +2514,7 @@ final class $$ProductsTableReferences
     _$AppDatabase db,
   ) => MultiTypedResultKey.fromTable(
     db.actions,
-    aliasName: $_aliasNameGenerator(db.products.id, db.actions.productId),
+    aliasName: 'products__id__actions__product_id',
   );
 
   $$ActionsTableProcessedTableManager get actionsRefs {
@@ -2783,7 +2783,7 @@ class $$ProductsTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$ProductsTable, ProductRow>(table),
                   $$ProductsTableReferences(db, table, e),
                 ),
               )
@@ -2867,7 +2867,7 @@ final class $$RoutinesTableReferences
     _$AppDatabase db,
   ) => MultiTypedResultKey.fromTable(
     db.actions,
-    aliasName: $_aliasNameGenerator(db.routines.id, db.actions.routineId),
+    aliasName: 'routines__id__actions__routine_id',
   );
 
   $$ActionsTableProcessedTableManager get actionsRefs {
@@ -3174,7 +3174,7 @@ class $$RoutinesTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RoutinesTable, RoutineRow>(table),
                   $$RoutinesTableReferences(db, table, e),
                 ),
               )
@@ -3254,8 +3254,8 @@ final class $$ActionsTableReferences
     extends BaseReferences<_$AppDatabase, $ActionsTable, ActionRow> {
   $$ActionsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $RoutinesTable _routineIdTable(_$AppDatabase db) => db.routines
-      .createAlias($_aliasNameGenerator(db.actions.routineId, db.routines.id));
+  static $RoutinesTable _routineIdTable(_$AppDatabase db) =>
+      db.routines.createAlias('actions__routine_id__routines__id');
 
   $$RoutinesTableProcessedTableManager get routineId {
     final $_column = $_itemColumn<int>('routine_id')!;
@@ -3271,8 +3271,8 @@ final class $$ActionsTableReferences
     );
   }
 
-  static $ProductsTable _productIdTable(_$AppDatabase db) => db.products
-      .createAlias($_aliasNameGenerator(db.actions.productId, db.products.id));
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('actions__product_id__products__id');
 
   $$ProductsTableProcessedTableManager? get productId {
     final $_column = $_itemColumn<int>('product_id');
@@ -3295,10 +3295,7 @@ final class $$ActionsTableReferences
   _actionCompletionsRefsTable(_$AppDatabase db) =>
       MultiTypedResultKey.fromTable(
         db.actionCompletions,
-        aliasName: $_aliasNameGenerator(
-          db.actions.id,
-          db.actionCompletions.actionId,
-        ),
+        aliasName: 'actions__id__action_completions__action_id',
       );
 
   $$ActionCompletionsTableProcessedTableManager get actionCompletionsRefs {
@@ -3728,7 +3725,7 @@ class $$ActionsTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$ActionsTable, ActionRow>(table),
                   $$ActionsTableReferences(db, table, e),
                 ),
               )
@@ -3867,9 +3864,7 @@ final class $$ActionCompletionsTableReferences
   );
 
   static $ActionsTable _actionIdTable(_$AppDatabase db) =>
-      db.actions.createAlias(
-        $_aliasNameGenerator(db.actionCompletions.actionId, db.actions.id),
-      );
+      db.actions.createAlias('action_completions__action_id__actions__id');
 
   $$ActionsTableProcessedTableManager get actionId {
     final $_column = $_itemColumn<int>('action_id')!;
@@ -4073,7 +4068,9 @@ class $$ActionCompletionsTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$ActionCompletionsTable, ActionCompletionEntry>(
+                    table,
+                  ),
                   $$ActionCompletionsTableReferences(db, table, e),
                 ),
               )
@@ -4330,7 +4327,16 @@ class $$SkinJournalTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$SkinJournalTable, SkinJournalRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $SkinJournalTable,
+                    SkinJournalRow
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

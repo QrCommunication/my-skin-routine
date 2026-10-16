@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'streak_info.dart';
@@ -9,6 +9,7 @@ part of 'streak_info.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $StreakInfoCopyWith<StreakInfo> get copyWith => _$StreakInfoCopyWithImpl<StreakI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StreakInfo&&(identical(other.routineId, routineId) || other.routineId == routineId)&&(identical(other.routineName, routineName) || other.routineName == routineName)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak)&&(identical(other.bestStreak, bestStreak) || other.bestStreak == bestStreak));
+  final _this = this as StreakInfo;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StreakInfo&&(identical(other.routineId, _this.routineId) || other.routineId == _this.routineId)&&(identical(other.routineName, _this.routineName) || other.routineName == _this.routineName)&&(identical(other.currentStreak, _this.currentStreak) || other.currentStreak == _this.currentStreak)&&(identical(other.bestStreak, _this.bestStreak) || other.bestStreak == _this.bestStreak));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,routineId,routineName,currentStreak,bestStreak);
+int get hashCode {
+  final _this = this as StreakInfo;
+  return Object.hash(runtimeType,_this.routineId,_this.routineName,_this.currentStreak,_this.bestStreak);
+}
 
 @override
 String toString() {
-  return 'StreakInfo(routineId: $routineId, routineName: $routineName, currentStreak: $currentStreak, bestStreak: $bestStreak)';
+  final _this = this as StreakInfo;
+  return 'StreakInfo(routineId: ${_this.routineId}, routineName: ${_this.routineName}, currentStreak: ${_this.currentStreak}, bestStreak: ${_this.bestStreak})';
 }
 
 
@@ -63,7 +69,7 @@ class _$StreakInfoCopyWithImpl<$Res>
 /// Create a copy of StreakInfo
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? routineId = null,Object? routineName = null,Object? currentStreak = null,Object? bestStreak = null,}) {
-  return _then(_self.copyWith(
+  return _then(StreakInfo(
 routineId: null == routineId ? _self.routineId : routineId // ignore: cast_nullable_to_non_nullable
 as int,routineName: null == routineName ? _self.routineName : routineName // ignore: cast_nullable_to_non_nullable
 as String,currentStreak: null == currentStreak ? _self.currentStreak : currentStreak // ignore: cast_nullable_to_non_nullable
@@ -227,16 +233,18 @@ _$StreakInfoCopyWith<_StreakInfo> get copyWith => __$StreakInfoCopyWithImpl<_Str
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StreakInfo&&(identical(other.routineId, routineId) || other.routineId == routineId)&&(identical(other.routineName, routineName) || other.routineName == routineName)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak)&&(identical(other.bestStreak, bestStreak) || other.bestStreak == bestStreak));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StreakInfo&&(identical(other.routineId, routineId) || other.routineId == routineId)&&(identical(other.routineName, routineName) || other.routineName == routineName)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak)&&(identical(other.bestStreak, bestStreak) || other.bestStreak == bestStreak));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,routineId,routineName,currentStreak,bestStreak);
+int get hashCode {
+    return Object.hash(runtimeType,routineId,routineName,currentStreak,bestStreak);
+}
 
 @override
 String toString() {
-  return 'StreakInfo(routineId: $routineId, routineName: $routineName, currentStreak: $currentStreak, bestStreak: $bestStreak)';
+    return 'StreakInfo(routineId: $routineId, routineName: $routineName, currentStreak: $currentStreak, bestStreak: $bestStreak)';
 }
 
 

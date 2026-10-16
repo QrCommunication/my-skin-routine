@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'action_completion.dart';
@@ -9,6 +9,7 @@ part of 'action_completion.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $ActionCompletionCopyWith<ActionCompletion> get copyWith => _$ActionCompletionCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActionCompletion&&(identical(other.actionId, actionId) || other.actionId == actionId)&&(identical(other.completedDate, completedDate) || other.completedDate == completedDate)&&(identical(other.completedAt, completedAt) || other.completedAt == completedAt));
+  final _this = this as ActionCompletion;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActionCompletion&&(identical(other.actionId, _this.actionId) || other.actionId == _this.actionId)&&(identical(other.completedDate, _this.completedDate) || other.completedDate == _this.completedDate)&&(identical(other.completedAt, _this.completedAt) || other.completedAt == _this.completedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,actionId,completedDate,completedAt);
+int get hashCode {
+  final _this = this as ActionCompletion;
+  return Object.hash(runtimeType,_this.actionId,_this.completedDate,_this.completedAt);
+}
 
 @override
 String toString() {
-  return 'ActionCompletion(actionId: $actionId, completedDate: $completedDate, completedAt: $completedAt)';
+  final _this = this as ActionCompletion;
+  return 'ActionCompletion(actionId: ${_this.actionId}, completedDate: ${_this.completedDate}, completedAt: ${_this.completedAt})';
 }
 
 
@@ -66,7 +72,7 @@ class _$ActionCompletionCopyWithImpl<$Res>
 /// Create a copy of ActionCompletion
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? actionId = null,Object? completedDate = null,Object? completedAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(ActionCompletion(
 actionId: null == actionId ? _self.actionId : actionId // ignore: cast_nullable_to_non_nullable
 as int,completedDate: null == completedDate ? _self.completedDate : completedDate // ignore: cast_nullable_to_non_nullable
 as String,completedAt: null == completedAt ? _self.completedAt : completedAt // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActionCompletion&&(identical(other.actionId, actionId) || other.actionId == actionId)&&(identical(other.completedDate, completedDate) || other.completedDate == completedDate)&&(identical(other.completedAt, completedAt) || other.completedAt == completedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActionCompletion&&(identical(other.actionId, actionId) || other.actionId == actionId)&&(identical(other.completedDate, completedDate) || other.completedDate == completedDate)&&(identical(other.completedAt, completedAt) || other.completedAt == completedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,actionId,completedDate,completedAt);
+int get hashCode {
+    return Object.hash(runtimeType,actionId,completedDate,completedAt);
+}
 
 @override
 String toString() {
-  return 'ActionCompletion(actionId: $actionId, completedDate: $completedDate, completedAt: $completedAt)';
+    return 'ActionCompletion(actionId: $actionId, completedDate: $completedDate, completedAt: $completedAt)';
 }
 
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'routine.dart';
@@ -9,6 +9,7 @@ part of 'routine.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $RoutineCopyWith<Routine> get copyWith => _$RoutineCopyWithImpl<Routine>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Routine&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.bodyZone, bodyZone) || other.bodyZone == bodyZone)&&(identical(other.skinGoal, skinGoal) || other.skinGoal == skinGoal)&&(identical(other.reminderTime, reminderTime) || other.reminderTime == reminderTime)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.actions, actions));
+  final _this = this as Routine;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Routine&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.bodyZone, _this.bodyZone) || other.bodyZone == _this.bodyZone)&&(identical(other.skinGoal, _this.skinGoal) || other.skinGoal == _this.skinGoal)&&(identical(other.reminderTime, _this.reminderTime) || other.reminderTime == _this.reminderTime)&&(identical(other.isActive, _this.isActive) || other.isActive == _this.isActive)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&const DeepCollectionEquality().equals(other.actions, _this.actions));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,description,bodyZone,skinGoal,reminderTime,isActive,createdAt,updatedAt,const DeepCollectionEquality().hash(actions));
+int get hashCode {
+  final _this = this as Routine;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.description,_this.bodyZone,_this.skinGoal,_this.reminderTime,_this.isActive,_this.createdAt,_this.updatedAt,const DeepCollectionEquality().hash(_this.actions));
+}
 
 @override
 String toString() {
-  return 'Routine(id: $id, name: $name, description: $description, bodyZone: $bodyZone, skinGoal: $skinGoal, reminderTime: $reminderTime, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt, actions: $actions)';
+  final _this = this as Routine;
+  return 'Routine(id: ${_this.id}, name: ${_this.name}, description: ${_this.description}, bodyZone: ${_this.bodyZone}, skinGoal: ${_this.skinGoal}, reminderTime: ${_this.reminderTime}, isActive: ${_this.isActive}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, actions: ${_this.actions})';
 }
 
 
@@ -66,7 +72,7 @@ class _$RoutineCopyWithImpl<$Res>
 /// Create a copy of Routine
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? description = freezed,Object? bodyZone = null,Object? skinGoal = null,Object? reminderTime = freezed,Object? isActive = null,Object? createdAt = null,Object? updatedAt = null,Object? actions = null,}) {
-  return _then(_self.copyWith(
+  return _then(Routine(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -218,7 +224,7 @@ return $default(_that.id,_that.name,_that.description,_that.bodyZone,_that.skinG
 @JsonSerializable()
 
 class _Routine implements Routine {
-  const _Routine({required this.id, required this.name, this.description, required this.bodyZone, required this.skinGoal, this.reminderTime, this.isActive = true, required this.createdAt, required this.updatedAt, final  List<RoutineAction> actions = const []}): _actions = actions;
+  const _Routine({required this.id, required this.name, this.description, required this.bodyZone, required this.skinGoal, this.reminderTime, this.isActive = true, required this.createdAt, required this.updatedAt,  List<RoutineAction> actions = const []}): _actions = actions;
   factory _Routine.fromJson(Map<String, dynamic> json) => _$RoutineFromJson(json);
 
 @override final  int id;
@@ -251,16 +257,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Routine&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.bodyZone, bodyZone) || other.bodyZone == bodyZone)&&(identical(other.skinGoal, skinGoal) || other.skinGoal == skinGoal)&&(identical(other.reminderTime, reminderTime) || other.reminderTime == reminderTime)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other._actions, _actions));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Routine&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.bodyZone, bodyZone) || other.bodyZone == bodyZone)&&(identical(other.skinGoal, skinGoal) || other.skinGoal == skinGoal)&&(identical(other.reminderTime, reminderTime) || other.reminderTime == reminderTime)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.actions, _actions));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,description,bodyZone,skinGoal,reminderTime,isActive,createdAt,updatedAt,const DeepCollectionEquality().hash(_actions));
+int get hashCode {
+    return Object.hash(runtimeType,id,name,description,bodyZone,skinGoal,reminderTime,isActive,createdAt,updatedAt,const DeepCollectionEquality().hash(_actions));
+}
 
 @override
 String toString() {
-  return 'Routine(id: $id, name: $name, description: $description, bodyZone: $bodyZone, skinGoal: $skinGoal, reminderTime: $reminderTime, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt, actions: $actions)';
+    return 'Routine(id: $id, name: $name, description: $description, bodyZone: $bodyZone, skinGoal: $skinGoal, reminderTime: $reminderTime, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt, actions: $actions)';
 }
 
 
